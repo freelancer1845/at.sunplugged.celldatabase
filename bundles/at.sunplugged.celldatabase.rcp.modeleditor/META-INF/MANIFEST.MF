@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Modeleditor
+Bundle-SymbolicName: at.sunplugged.celldatabase.rcp.modeleditor;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.e4.ui.model.workbench;bundle-version="2.0.0.v20170228-1842",
+ org.eclipse.swt,
+ org.eclipse.emf.ecp.ui.view.swt;bundle-version="1.13.1",
+ org.eclipse.osgi,
+ org.eclipse.core.runtime
+Import-Package: javax.annotation;version="1.0.0";resolution:=optional,
+  javax.inject;version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

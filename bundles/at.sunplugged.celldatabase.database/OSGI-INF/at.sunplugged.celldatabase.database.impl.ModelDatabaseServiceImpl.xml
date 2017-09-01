@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="at.sunplugged.celldatabase.database.impl.ModelDatabaseServiceImpl">
+   <service>
+      <provide interface="at.sunplugged.celldatabase.database.api.ModelDatabaseService"/>
+   </service>
+   <implementation class="at.sunplugged.celldatabase.database.impl.ModelDatabaseServiceImpl"/>
+</scr:component>
