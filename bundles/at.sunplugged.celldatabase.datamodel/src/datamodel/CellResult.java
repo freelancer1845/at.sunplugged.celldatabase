@@ -403,26 +403,26 @@ public interface CellResult extends EObject {
 	void setFillFactor(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Cell Measurmenet Data Set</b></em>' reference.
+	 * Returns the value of the '<em><b>Cell Measurmenet Data Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Cell Measurmenet Data Set</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Cell Measurmenet Data Set</em>' reference.
+	 * @return the value of the '<em>Cell Measurmenet Data Set</em>' containment reference.
 	 * @see #setCellMeasurmenetDataSet(CellMeasurementDataSet)
 	 * @see datamodel.DatamodelPackage#getCellResult_CellMeasurmenetDataSet()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	CellMeasurementDataSet getCellMeasurmenetDataSet();
 
 	/**
-	 * Sets the value of the '{@link datamodel.CellResult#getCellMeasurmenetDataSet <em>Cell Measurmenet Data Set</em>}' reference.
+	 * Sets the value of the '{@link datamodel.CellResult#getCellMeasurmenetDataSet <em>Cell Measurmenet Data Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Cell Measurmenet Data Set</em>' reference.
+	 * @param value the new value of the '<em>Cell Measurmenet Data Set</em>' containment reference.
 	 * @see #getCellMeasurmenetDataSet()
 	 * @generated
 	 */

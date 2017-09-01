@@ -3,17 +3,12 @@
 package datamodel.provider;
 
 
-import datamodel.CellMeasurementDataSet;
-import datamodel.DatamodelPackage;
-
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -24,6 +19,9 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import datamodel.CellMeasurementDataSet;
+import datamodel.DatamodelPackage;
 
 /**
  * This is the item provider adapter for a {@link datamodel.CellMeasurementDataSet} object.
@@ -206,25 +204,25 @@ public class CellMeasurementDataSetItemProvider
 	 * This returns CellMeasurementDataSet.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/CellMeasurementDataSet"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/CellMeasurementDataSet.png"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CellMeasurementDataSet)object).getName();
+		String label = ((CellMeasurementDataSet)object).getName().replaceAll("\\.txt$", "");
 		return label == null || label.length() == 0 ?
 			getString("_UI_CellMeasurementDataSet_type") :
-			getString("_UI_CellMeasurementDataSet_type") + " " + label;
+			label;
 	}
 	
 

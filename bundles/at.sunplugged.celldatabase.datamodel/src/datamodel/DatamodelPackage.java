@@ -77,22 +77,13 @@ public interface DatamodelPackage extends EPackage {
 	int DATABASE__CELL_GROUPS = 0;
 
 	/**
-	 * The feature id for the '<em><b>Cell Measurement Data Sets</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATABASE__CELL_MEASUREMENT_DATA_SETS = 1;
-
-	/**
 	 * The feature id for the '<em><b>Evluation Methods</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATABASE__EVLUATION_METHODS = 2;
+	int DATABASE__EVLUATION_METHODS = 1;
 
 	/**
 	 * The number of structural features of the '<em>Database</em>' class.
@@ -101,7 +92,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATABASE_FEATURE_COUNT = 3;
+	int DATABASE_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Database</em>' class.
@@ -249,7 +240,7 @@ public interface DatamodelPackage extends EPackage {
 	int CELL_RESULT__FILL_FACTOR = 13;
 
 	/**
-	 * The feature id for the '<em><b>Cell Measurmenet Data Set</b></em>' reference.
+	 * The feature id for the '<em><b>Cell Measurmenet Data Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -490,17 +481,6 @@ public interface DatamodelPackage extends EPackage {
 	EReference getDatabase_CellGroups();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link datamodel.Database#getCellMeasurementDataSets <em>Cell Measurement Data Sets</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Cell Measurement Data Sets</em>'.
-	 * @see datamodel.Database#getCellMeasurementDataSets()
-	 * @see #getDatabase()
-	 * @generated
-	 */
-	EReference getDatabase_CellMeasurementDataSets();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link datamodel.Database#getEvluationMethods <em>Evluation Methods</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -676,10 +656,10 @@ public interface DatamodelPackage extends EPackage {
 	EAttribute getCellResult_FillFactor();
 
 	/**
-	 * Returns the meta object for the reference '{@link datamodel.CellResult#getCellMeasurmenetDataSet <em>Cell Measurmenet Data Set</em>}'.
+	 * Returns the meta object for the containment reference '{@link datamodel.CellResult#getCellMeasurmenetDataSet <em>Cell Measurmenet Data Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Cell Measurmenet Data Set</em>'.
+	 * @return the meta object for the containment reference '<em>Cell Measurmenet Data Set</em>'.
 	 * @see datamodel.CellResult#getCellMeasurmenetDataSet()
 	 * @see #getCellResult()
 	 * @generated
@@ -889,14 +869,6 @@ public interface DatamodelPackage extends EPackage {
 		EReference DATABASE__CELL_GROUPS = eINSTANCE.getDatabase_CellGroups();
 
 		/**
-		 * The meta object literal for the '<em><b>Cell Measurement Data Sets</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DATABASE__CELL_MEASUREMENT_DATA_SETS = eINSTANCE.getDatabase_CellMeasurementDataSets();
-
-		/**
 		 * The meta object literal for the '<em><b>Evluation Methods</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1027,7 +999,7 @@ public interface DatamodelPackage extends EPackage {
 		EAttribute CELL_RESULT__FILL_FACTOR = eINSTANCE.getCellResult_FillFactor();
 
 		/**
-		 * The meta object literal for the '<em><b>Cell Measurmenet Data Set</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Cell Measurmenet Data Set</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

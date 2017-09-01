@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,94 +34,101 @@ public class DataReaderHelper {
 
 	private static final String SETTING_PYTHON_SCRIPT = "pythonEvalScript";
 
-	public static DataEvaluationResult readAndCalculateFile(File file) {
+	public static List<CellResult> readAndCalculateFile(Collection<File> files) {
 		Preferences preferences = ConfigurationScope.INSTANCE.getNode("at.sunplugged.database.datareader");
 
 		String pythonLocation = preferences.get(SETTING_PYTHON_LOCATION, "D:\\Anaconda3\\python.exe");
 		String pythonScript = preferences.get(SETTING_PYTHON_SCRIPT,
-				"C:\\Users\\jasch\\SunpluggedJob\\at.sunplugged.celldatabase\\at.sunplugged.celldatabase\\bundles\\at.sunpugged.celldatabase.datareader\\pythonsrc\\main.py");
+				"C:\\Users\\jasch\\SunpluggedJob\\at.sunplugged.celldatabase.master\\at.sunplugged.celldatabase\\bundles\\at.sunplugged.celldatabase.datareader\\pythonsrc\\main.py");
 		String pluginLocation = Activator.getDefault().getStateLocation().toOSString();
+		
+		List<CellResult> resultList = new ArrayList<>();
+		
+		for (File file : files) {
+			CommandLine cmdLine = new CommandLine(pythonLocation);
 
-		System.out.println(pluginLocation);
-		CommandLine cmdLine = new CommandLine(pythonLocation);
+			cmdLine.addArgument(pythonScript);
 
-		cmdLine.addArgument(pythonScript);
+			HashMap<String, Object> map = new HashMap<>();
 
-		HashMap<String, Object> map = new HashMap<>();
+			map.put("file", file);
+			cmdLine.addArgument("${file}");
+			cmdLine.addArgument(pluginLocation);
+			cmdLine.setSubstitutionMap(map);
 
-		map.put("file", file);
-		cmdLine.addArgument("${file}");
-		cmdLine.addArgument(pluginLocation);
-		cmdLine.setSubstitutionMap(map);
+			// DefaultExecuteResultHandler resultHandler = new
+			// DefaultExecuteResultHandler();
 
-		// DefaultExecuteResultHandler resultHandler = new
-		// DefaultExecuteResultHandler();
-
-		ExecuteWatchdog watchdog = new ExecuteWatchdog(60 * 1000);
-		Executor executor = new DefaultExecutor();
-		executor.setExitValue(0);
-		executor.setWatchdog(watchdog);
-		try {
-			executor.execute(cmdLine);
-		} catch (ExecuteException e) {
-			Activator.log(e);
-		} catch (IOException e) {
-			Activator.log(e);
-		}
-
-		CellResult result = DatamodelFactory.eINSTANCE.createCellResult();
-		result.setName("Created From Button...");
-
-		CellMeasurementDataSet dataSet = DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
-		dataSet.setName("Create From Button!!:");
-		try (Reader reader = new InputStreamReader(new FileInputStream(pluginLocation + "/result.json"), "UTF-8")) {
-			Gson gson = new GsonBuilder().create();
-			ResultJsonClass p = gson.fromJson(reader, ResultJsonClass.class);
-			result.setName(p.getID());
-			result.setOpenCircuitVoltage(p.getVoc());
-			result.setShortCircuitCurrent(p.getIsc());
-			result.setFillFactor(p.getFF());
-			result.setEfficency(p.getEff());
-			result.setMaximumPower(p.getMaximumPower());
-			result.setMaximumPowerCurrent(p.getMaximumPowerI());
-			result.setMaximumPowerVoltage(p.getMaximumPowerV());
-			result.setDataEvaluated(new Date());
-			result.setParallelResistance(p.getRp());
-			result.setSeriesResistance(p.getRs());
-			dataSet.setPowerInput(p.getPowerInput());
-			dataSet.setArea(p.getArea());
-		} catch (UnsupportedEncodingException e) {
-			Activator.log(e);
-		} catch (FileNotFoundException e) {
-			Activator.log(e);
-		} catch (IOException e) {
-			Activator.log(e);
-		}
-
-		try (Reader reader = new InputStreamReader(new FileInputStream(pluginLocation + "/data.json"), "UTF-8")) {
-			Gson gson = new GsonBuilder().create();
-			DataJsonClass dataObject = gson.fromJson(reader, DataJsonClass.class);
-			List<List<Double>> data = dataObject.getData();
-			double[][] dataArray = new double[data.size()][2];
-			for (int i = 0; i < data.size(); i++) {
-				List<Double> pair = data.get(i);
-				dataArray[i][0] = pair.get(0);
-				dataArray[i][1] = pair.get(1);
+			ExecuteWatchdog watchdog = new ExecuteWatchdog(60 * 1000);
+			Executor executor = new DefaultExecutor();
+			executor.setExitValue(0);
+			executor.setWatchdog(watchdog);
+			try {
+				executor.execute(cmdLine);
+			} catch (ExecuteException e) {
+				Activator.log(e);
+			} catch (IOException e) {
+				Activator.log(e);
 			}
-			dataSet.setVoltageCurrentData(dataArray);
-		} catch (UnsupportedEncodingException e) {
-			Activator.log(e);
-		} catch (FileNotFoundException e) {
-			Activator.log(e);
-		} catch (IOException e) {
-			Activator.log(e);
-		}
-		File resultFile = new File(pluginLocation + "/result.json");
-		resultFile.delete();
-		File dataFile = new File(pluginLocation + "/data.json");
-		dataFile.delete();
 
-		return new DataEvaluationResult(result, dataSet);
+			CellResult result = DatamodelFactory.eINSTANCE.createCellResult();
+			result.setName("Created From Button...");
+
+			CellMeasurementDataSet dataSet = DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
+			dataSet.setName("Create From Button!!:");
+			try (Reader reader = new InputStreamReader(new FileInputStream(pluginLocation + "/result.json"), "UTF-8")) {
+				Gson gson = new GsonBuilder().create();
+				ResultJsonClass p = gson.fromJson(reader, ResultJsonClass.class);
+				result.setName(p.getID());
+				result.setOpenCircuitVoltage(p.getVoc());
+				result.setShortCircuitCurrent(p.getIsc());
+				result.setFillFactor(p.getFF());
+				result.setEfficency(p.getEff());
+				result.setMaximumPower(p.getMaximumPower());
+				result.setMaximumPowerCurrent(p.getMaximumPowerI());
+				result.setMaximumPowerVoltage(p.getMaximumPowerV());
+				result.setDataEvaluated(new Date());
+				result.setParallelResistance(p.getRp());
+				result.setSeriesResistance(p.getRs());
+				dataSet.setName(p.getID());
+				dataSet.setPowerInput(p.getPowerInput());
+				dataSet.setArea(p.getArea());
+			} catch (UnsupportedEncodingException e) {
+				Activator.log(e);
+			} catch (FileNotFoundException e) {
+				Activator.log(e);
+			} catch (IOException e) {
+				Activator.log(e);
+			}
+
+			try (Reader reader = new InputStreamReader(new FileInputStream(pluginLocation + "/data.json"), "UTF-8")) {
+				Gson gson = new GsonBuilder().create();
+				DataJsonClass dataObject = gson.fromJson(reader, DataJsonClass.class);
+				List<List<Double>> data = dataObject.getData();
+				double[][] dataArray = new double[data.size()][2];
+				for (int i = 0; i < data.size(); i++) {
+					List<Double> pair = data.get(i);
+					dataArray[i][0] = pair.get(0);
+					dataArray[i][1] = pair.get(1);
+				}
+				dataSet.setVoltageCurrentData(dataArray);
+			} catch (UnsupportedEncodingException e) {
+				Activator.log(e);
+			} catch (FileNotFoundException e) {
+				Activator.log(e);
+			} catch (IOException e) {
+				Activator.log(e);
+			}
+			File resultFile = new File(pluginLocation + "/result.json");
+			resultFile.delete();
+			File dataFile = new File(pluginLocation + "/data.json");
+			dataFile.delete();
+			result.setCellMeasurmenetDataSet(dataSet);
+			resultList.add(result);
+		}
+		
+
+		return resultList;
 	}
 
 	private final static class ResultJsonClass {

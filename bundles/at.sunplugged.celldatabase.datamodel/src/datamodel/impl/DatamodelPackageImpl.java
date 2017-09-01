@@ -151,17 +151,8 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDatabase_CellMeasurementDataSets() {
-		return (EReference)databaseEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getDatabase_EvluationMethods() {
-		return (EReference)databaseEClass.getEStructuralFeatures().get(2);
+		return (EReference)databaseEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -473,7 +464,6 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 		// Create classes and their features
 		databaseEClass = createEClass(DATABASE);
 		createEReference(databaseEClass, DATABASE__CELL_GROUPS);
-		createEReference(databaseEClass, DATABASE__CELL_MEASUREMENT_DATA_SETS);
 		createEReference(databaseEClass, DATABASE__EVLUATION_METHODS);
 
 		cellResultEClass = createEClass(CELL_RESULT);
@@ -546,7 +536,6 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 		// Initialize classes, features, and operations; add parameters
 		initEClass(databaseEClass, Database.class, "Database", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDatabase_CellGroups(), this.getCellGroup(), null, "cellGroups", null, 0, -1, Database.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDatabase_CellMeasurementDataSets(), this.getCellMeasurementDataSet(), null, "cellMeasurementDataSets", null, 0, -1, Database.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDatabase_EvluationMethods(), this.getEvaluationMethod(), null, "evluationMethods", null, 0, -1, Database.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cellResultEClass, CellResult.class, "CellResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -564,7 +553,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 		initEAttribute(getCellResult_MaximumPowerCurrent(), ecorePackage.getEDouble(), "maximumPowerCurrent", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_Efficency(), ecorePackage.getEDouble(), "efficency", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_FillFactor(), ecorePackage.getEDouble(), "fillFactor", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCellResult_CellMeasurmenetDataSet(), this.getCellMeasurementDataSet(), null, "cellMeasurmenetDataSet", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCellResult_CellMeasurmenetDataSet(), this.getCellMeasurementDataSet(), null, "cellMeasurmenetDataSet", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cellGroupEClass, CellGroup.class, "CellGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCellGroup_Name(), ecorePackage.getEString(), "name", null, 0, 1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

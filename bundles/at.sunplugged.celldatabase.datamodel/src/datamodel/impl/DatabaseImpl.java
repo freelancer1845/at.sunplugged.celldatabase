@@ -3,7 +3,6 @@
 package datamodel.impl;
 
 import datamodel.CellGroup;
-import datamodel.CellMeasurementDataSet;
 import datamodel.Database;
 import datamodel.DatamodelPackage;
 import datamodel.EvaluationMethod;
@@ -31,7 +30,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link datamodel.impl.DatabaseImpl#getCellGroups <em>Cell Groups</em>}</li>
- *   <li>{@link datamodel.impl.DatabaseImpl#getCellMeasurementDataSets <em>Cell Measurement Data Sets</em>}</li>
  *   <li>{@link datamodel.impl.DatabaseImpl#getEvluationMethods <em>Evluation Methods</em>}</li>
  * </ul>
  *
@@ -47,16 +45,6 @@ public class DatabaseImpl extends MinimalEObjectImpl.Container implements Databa
 	 * @ordered
 	 */
 	protected EList<CellGroup> cellGroups;
-
-	/**
-	 * The cached value of the '{@link #getCellMeasurementDataSets() <em>Cell Measurement Data Sets</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCellMeasurementDataSets()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<CellMeasurementDataSet> cellMeasurementDataSets;
 
 	/**
 	 * The cached value of the '{@link #getEvluationMethods() <em>Evluation Methods</em>}' containment reference list.
@@ -104,18 +92,6 @@ public class DatabaseImpl extends MinimalEObjectImpl.Container implements Databa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<CellMeasurementDataSet> getCellMeasurementDataSets() {
-		if (cellMeasurementDataSets == null) {
-			cellMeasurementDataSets = new EObjectContainmentEList<CellMeasurementDataSet>(CellMeasurementDataSet.class, this, DatamodelPackage.DATABASE__CELL_MEASUREMENT_DATA_SETS);
-		}
-		return cellMeasurementDataSets;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<EvaluationMethod> getEvluationMethods() {
 		if (evluationMethods == null) {
 			evluationMethods = new EObjectContainmentEList<EvaluationMethod>(EvaluationMethod.class, this, DatamodelPackage.DATABASE__EVLUATION_METHODS);
@@ -133,8 +109,6 @@ public class DatabaseImpl extends MinimalEObjectImpl.Container implements Databa
 		switch (featureID) {
 			case DatamodelPackage.DATABASE__CELL_GROUPS:
 				return ((InternalEList<?>)getCellGroups()).basicRemove(otherEnd, msgs);
-			case DatamodelPackage.DATABASE__CELL_MEASUREMENT_DATA_SETS:
-				return ((InternalEList<?>)getCellMeasurementDataSets()).basicRemove(otherEnd, msgs);
 			case DatamodelPackage.DATABASE__EVLUATION_METHODS:
 				return ((InternalEList<?>)getEvluationMethods()).basicRemove(otherEnd, msgs);
 		}
@@ -151,8 +125,6 @@ public class DatabaseImpl extends MinimalEObjectImpl.Container implements Databa
 		switch (featureID) {
 			case DatamodelPackage.DATABASE__CELL_GROUPS:
 				return getCellGroups();
-			case DatamodelPackage.DATABASE__CELL_MEASUREMENT_DATA_SETS:
-				return getCellMeasurementDataSets();
 			case DatamodelPackage.DATABASE__EVLUATION_METHODS:
 				return getEvluationMethods();
 		}
@@ -171,10 +143,6 @@ public class DatabaseImpl extends MinimalEObjectImpl.Container implements Databa
 			case DatamodelPackage.DATABASE__CELL_GROUPS:
 				getCellGroups().clear();
 				getCellGroups().addAll((Collection<? extends CellGroup>)newValue);
-				return;
-			case DatamodelPackage.DATABASE__CELL_MEASUREMENT_DATA_SETS:
-				getCellMeasurementDataSets().clear();
-				getCellMeasurementDataSets().addAll((Collection<? extends CellMeasurementDataSet>)newValue);
 				return;
 			case DatamodelPackage.DATABASE__EVLUATION_METHODS:
 				getEvluationMethods().clear();
@@ -195,9 +163,6 @@ public class DatabaseImpl extends MinimalEObjectImpl.Container implements Databa
 			case DatamodelPackage.DATABASE__CELL_GROUPS:
 				getCellGroups().clear();
 				return;
-			case DatamodelPackage.DATABASE__CELL_MEASUREMENT_DATA_SETS:
-				getCellMeasurementDataSets().clear();
-				return;
 			case DatamodelPackage.DATABASE__EVLUATION_METHODS:
 				getEvluationMethods().clear();
 				return;
@@ -215,8 +180,6 @@ public class DatabaseImpl extends MinimalEObjectImpl.Container implements Databa
 		switch (featureID) {
 			case DatamodelPackage.DATABASE__CELL_GROUPS:
 				return cellGroups != null && !cellGroups.isEmpty();
-			case DatamodelPackage.DATABASE__CELL_MEASUREMENT_DATA_SETS:
-				return cellMeasurementDataSets != null && !cellMeasurementDataSets.isEmpty();
 			case DatamodelPackage.DATABASE__EVLUATION_METHODS:
 				return evluationMethods != null && !evluationMethods.isEmpty();
 		}

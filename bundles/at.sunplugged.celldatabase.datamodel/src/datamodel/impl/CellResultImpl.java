@@ -307,7 +307,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	protected double fillFactor = FILL_FACTOR_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getCellMeasurmenetDataSet() <em>Cell Measurmenet Data Set</em>}' reference.
+	 * The cached value of the '{@link #getCellMeasurmenetDataSet() <em>Cell Measurmenet Data Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getCellMeasurmenetDataSet()
@@ -674,14 +674,6 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	 * @generated
 	 */
 	public CellMeasurementDataSet getCellMeasurmenetDataSet() {
-		if (cellMeasurmenetDataSet != null && cellMeasurmenetDataSet.eIsProxy()) {
-			InternalEObject oldCellMeasurmenetDataSet = (InternalEObject)cellMeasurmenetDataSet;
-			cellMeasurmenetDataSet = (CellMeasurementDataSet)eResolveProxy(oldCellMeasurmenetDataSet);
-			if (cellMeasurmenetDataSet != oldCellMeasurmenetDataSet) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET, oldCellMeasurmenetDataSet, cellMeasurmenetDataSet));
-			}
-		}
 		return cellMeasurmenetDataSet;
 	}
 
@@ -690,8 +682,14 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CellMeasurementDataSet basicGetCellMeasurmenetDataSet() {
-		return cellMeasurmenetDataSet;
+	public NotificationChain basicSetCellMeasurmenetDataSet(CellMeasurementDataSet newCellMeasurmenetDataSet, NotificationChain msgs) {
+		CellMeasurementDataSet oldCellMeasurmenetDataSet = cellMeasurmenetDataSet;
+		cellMeasurmenetDataSet = newCellMeasurmenetDataSet;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET, oldCellMeasurmenetDataSet, newCellMeasurmenetDataSet);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -700,10 +698,17 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	 * @generated
 	 */
 	public void setCellMeasurmenetDataSet(CellMeasurementDataSet newCellMeasurmenetDataSet) {
-		CellMeasurementDataSet oldCellMeasurmenetDataSet = cellMeasurmenetDataSet;
-		cellMeasurmenetDataSet = newCellMeasurmenetDataSet;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET, oldCellMeasurmenetDataSet, cellMeasurmenetDataSet));
+		if (newCellMeasurmenetDataSet != cellMeasurmenetDataSet) {
+			NotificationChain msgs = null;
+			if (cellMeasurmenetDataSet != null)
+				msgs = ((InternalEObject)cellMeasurmenetDataSet).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET, null, msgs);
+			if (newCellMeasurmenetDataSet != null)
+				msgs = ((InternalEObject)newCellMeasurmenetDataSet).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET, null, msgs);
+			msgs = basicSetCellMeasurmenetDataSet(newCellMeasurmenetDataSet, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET, newCellMeasurmenetDataSet, newCellMeasurmenetDataSet));
 	}
 
 	/**
@@ -716,6 +721,8 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 		switch (featureID) {
 			case DatamodelPackage.CELL_RESULT__RAW_DATA:
 				return basicSetRawData(null, msgs);
+			case DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET:
+				return basicSetCellMeasurmenetDataSet(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -758,8 +765,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 			case DatamodelPackage.CELL_RESULT__FILL_FACTOR:
 				return getFillFactor();
 			case DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET:
-				if (resolve) return getCellMeasurmenetDataSet();
-				return basicGetCellMeasurmenetDataSet();
+				return getCellMeasurmenetDataSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

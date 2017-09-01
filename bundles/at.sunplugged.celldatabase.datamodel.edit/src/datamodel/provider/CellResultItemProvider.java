@@ -3,20 +3,13 @@
 package datamodel.provider;
 
 
-import datamodel.CellResult;
-import datamodel.DatamodelFactory;
-import datamodel.DatamodelPackage;
-
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -27,6 +20,10 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import datamodel.CellResult;
+import datamodel.DatamodelFactory;
+import datamodel.DatamodelPackage;
 
 /**
  * This is the item provider adapter for a {@link datamodel.CellResult} object.
@@ -423,25 +420,25 @@ public class CellResultItemProvider
 	 * This returns CellResult.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/CellResult"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/CellResult.png"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CellResult)object).getName();
+		String label = ((CellResult)object).getName().replaceAll("\\.txt$", "");
 		return label == null || label.length() == 0 ?
 			getString("_UI_CellResult_type") :
-			getString("_UI_CellResult_type") + " " + label;
+			label;
 	}
 	
 

@@ -4,8 +4,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="Database">
     <eStructuralFeatures xsi:type="ecore:EReference" name="cellGroups" upperBound="-1"
         eType="#//CellGroup" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="cellMeasurementDataSets"
-        upperBound="-1" eType="#//CellMeasurementDataSet" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="evluationMethods" upperBound="-1"
         eType="#//EvaluationMethod" containment="true"/>
   </eClassifiers>
@@ -27,7 +25,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="efficency" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fillFactor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cellMeasurmenetDataSet"
-        eType="#//CellMeasurementDataSet"/>
+        eType="#//CellMeasurementDataSet" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CellGroup">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

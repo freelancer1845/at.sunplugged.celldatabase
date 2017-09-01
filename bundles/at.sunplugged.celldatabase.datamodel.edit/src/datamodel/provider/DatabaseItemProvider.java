@@ -102,7 +102,6 @@ public class DatabaseItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DatamodelPackage.Literals.DATABASE__CELL_GROUPS);
-			childrenFeatures.add(DatamodelPackage.Literals.DATABASE__CELL_MEASUREMENT_DATA_SETS);
 		}
 		return childrenFeatures;
 	}
@@ -159,7 +158,6 @@ public class DatabaseItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case DatamodelPackage.DATABASE__CELL_GROUPS:
-			case DatamodelPackage.DATABASE__CELL_MEASUREMENT_DATA_SETS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -181,11 +179,6 @@ public class DatabaseItemProvider
 			(createChildParameter
 				(DatamodelPackage.Literals.DATABASE__CELL_GROUPS,
 				 DatamodelFactory.eINSTANCE.createCellGroup()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DatamodelPackage.Literals.DATABASE__CELL_MEASUREMENT_DATA_SETS,
-				 DatamodelFactory.eINSTANCE.createCellMeasurementDataSet()));
 
 		newChildDescriptors.add
 			(createChildParameter

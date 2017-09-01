@@ -3,19 +3,35 @@
   <imports xsi:type="commands:Command" xmi:id="_TkOEwI78EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.command.creategroup"/>
   <imports xsi:type="commands:Command" xmi:id="_DuoIQI8AEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.command.deleteelement"/>
   <imports xsi:type="commands:Command" xmi:id="_TK4eEI8EEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.command.addrawcellresult"/>
+  <imports xsi:type="commands:Command" xmi:id="_pnSEwI8nEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.command.undo"/>
+  <imports xsi:type="commands:Command" xmi:id="_sTsnsI8nEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.command.redo"/>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_ifJ-kY7yEeelnoB5mxxecg" featurename="children" parentElementId="at.sunplugged.celldatabase.rcp.partstack.0">
-    <elements xsi:type="basic:Part" xmi:id="_ifJ-ko7yEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.part.modelviewer" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.ModelViewerPart" label="Model Viewer">
+    <elements xsi:type="basic:Part" xmi:id="_ifJ-ko7yEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.part.modelviewer" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.ModelViewerPart" label="Model Viewer" bindingContexts="_sxkaAI8oEee3m-gA9IKKWg">
       <handlers xmi:id="_-ZjkMI8DEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handler.0" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.handler.CreateGroupHandler" command="_TkOEwI78EeelnoB5mxxecg"/>
       <handlers xmi:id="_A22tEI8EEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handler.1" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.handler.DeleteElementHandler" command="_DuoIQI8AEeelnoB5mxxecg"/>
       <handlers xmi:id="_Wfg3kI8EEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handler.2" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.handler.AddRawCellResultHandler" command="_TK4eEI8EEeelnoB5mxxecg"/>
+      <handlers xmi:id="_tyHtgI8nEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handler.3" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.handler.UndoHandler" command="_pnSEwI8nEee3m-gA9IKKWg"/>
+      <handlers xmi:id="_4-hUgI8nEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handler.4" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.handler.RedoHandler" command="_sTsnsI8nEee3m-gA9IKKWg"/>
       <menus xsi:type="menu:PopupMenu" xmi:id="_kgcx0I77EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.popupmenu.treepopupmenu" label="Tree Popup Menu">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_nRyRAI77EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.addcellgroup" label="Add CellGroup" command="_TkOEwI78EeelnoB5mxxecg"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_K6jmoI8EEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.addrawcellresult" label="Add Raw Cell Result" command="_TK4eEI8EEeelnoB5mxxecg"/>
         <children xsi:type="menu:DirectMenuItem" xmi:id="_D-18QI8FEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.directmenuitem.calculatecellresultfrompython" label="Calculate Cell Result From Python" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.handler.CalculateCellResultFromPythonHandler"/>
         <children xsi:type="menu:MenuSeparator" xmi:id="_fW5hQI7_EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.menuseparator.0"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_fzbFMI7_EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.delete" label="Delete" command="_DuoIQI8AEeelnoB5mxxecg"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_q86wEI8pEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.menuseparator.1"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_r-YNEI8pEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.undo" label="Undo" command="_pnSEwI8nEee3m-gA9IKKWg"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_t5TBoI8pEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.redo" label="Redo" command="_sTsnsI8nEee3m-gA9IKKWg"/>
       </menus>
       <menus xmi:id="_D9eugI7-EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.menu.edit" label="Edit"/>
     </elements>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="__iv2gI8nEee3m-gA9IKKWg" featurename="bindingTables" parentElementId="org.eclipse.e4.application">
+    <elements xsi:type="commands:BindingTable" xmi:id="_CAxYII8oEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.bindingtable.0" bindingContext="_sxkaAI8oEee3m-gA9IKKWg">
+      <bindings xmi:id="_NuKzYI8oEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.keybinding.0" keySequence="M1+Z" command="_pnSEwI8nEee3m-gA9IKKWg"/>
+      <bindings xmi:id="_UeepkI8oEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.keybinding.1" keySequence="M1+Y" command="_sTsnsI8nEee3m-gA9IKKWg"/>
+    </elements>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_rBTWQI8oEee3m-gA9IKKWg" featurename="rootContext" parentElementId="org.eclipse.e4.application">
+    <elements xsi:type="commands:BindingContext" xmi:id="_sxkaAI8oEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.bindingcontext.modelviewer" name="ModelViewer"/>
   </fragments>
 </fragment:ModelFragments>
