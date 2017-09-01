@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>at.sunplugged.celldatabase</groupId>
+    <artifactId>at.sunplugged.celldatabase.releng</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>at.sunplugged.celldatabase</groupId>
+        <artifactId>at.sunplugged.celldatabase</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <modules>
+        <module>at.sunplugged.celldatabase.product</module> 
+        <module>at.sunplugged.celldatabase.target</module>
+    </modules>
+</project>
