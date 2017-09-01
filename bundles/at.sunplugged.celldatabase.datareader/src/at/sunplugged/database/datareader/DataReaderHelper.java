@@ -27,6 +27,7 @@ import com.google.gson.GsonBuilder;
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
 import datamodel.DatamodelFactory;
+import datamodel.UIDataPoint;
 
 public class DataReaderHelper {
 
@@ -41,9 +42,9 @@ public class DataReaderHelper {
 		String pythonScript = preferences.get(SETTING_PYTHON_SCRIPT,
 				"C:\\Users\\jasch\\SunpluggedJob\\at.sunplugged.celldatabase.master\\at.sunplugged.celldatabase\\bundles\\at.sunplugged.celldatabase.datareader\\pythonsrc\\main.py");
 		String pluginLocation = Activator.getDefault().getStateLocation().toOSString();
-		
+
 		List<CellResult> resultList = new ArrayList<>();
-		
+
 		for (File file : files) {
 			CommandLine cmdLine = new CommandLine(pythonLocation);
 
@@ -105,13 +106,13 @@ public class DataReaderHelper {
 				Gson gson = new GsonBuilder().create();
 				DataJsonClass dataObject = gson.fromJson(reader, DataJsonClass.class);
 				List<List<Double>> data = dataObject.getData();
-				double[][] dataArray = new double[data.size()][2];
 				for (int i = 0; i < data.size(); i++) {
 					List<Double> pair = data.get(i);
-					dataArray[i][0] = pair.get(0);
-					dataArray[i][1] = pair.get(1);
+					UIDataPoint dataPoint = DatamodelFactory.eINSTANCE.createUIDataPoint();
+					dataPoint.setVoltage(pair.get(0));
+					dataPoint.setCurrent(pair.get(1));
+					dataSet.getData().add(dataPoint);
 				}
-				dataSet.setVoltageCurrentData(dataArray);
 			} catch (UnsupportedEncodingException e) {
 				Activator.log(e);
 			} catch (FileNotFoundException e) {
@@ -126,7 +127,6 @@ public class DataReaderHelper {
 			result.setCellMeasurmenetDataSet(dataSet);
 			resultList.add(result);
 		}
-		
 
 		return resultList;
 	}

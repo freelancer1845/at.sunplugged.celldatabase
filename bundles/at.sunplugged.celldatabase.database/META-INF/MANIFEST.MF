@@ -14,7 +14,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.osgi,
  org.eclipse.e4.core.services;bundle-version="2.1.0",
  org.eclipse.e4.core.contexts,
- org.eclipse.e4.ui.workbench
+ org.eclipse.e4.ui.workbench,
+ org.hibernate;bundle-version="4.3.7",
+ org.eclipse.emf.teneo;bundle-version="2.1.0",
+ org.eclipse.emf.teneo.hibernate;bundle-version="2.1.0",
+ org.hsqldb;bundle-version="2.3.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Service-Component: OSGI-INF/at.sunplugged.celldatabase.database.impl.ModelDatabaseServiceImpl.xml

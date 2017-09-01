@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="at.sunplugged.celldatabase" sequenceNumber="4">
+<?pde version="3.8"?><target name="at.sunplugged.celldatabase" sequenceNumber="6">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.equinox.sdk.feature.group" version="3.13.0.v20170531-1133"/>
@@ -23,6 +23,18 @@
 <unit id="org.mockito" version="1.9.5.v201605172210"/>
 <unit id="org.mockito.source" version="1.9.5.v201605172210"/>
 <repository location="http://download.eclipse.org/tools/orbit/R-builds/R20170516192513/repository/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.emf.teneo.hibernate.sdk.feature.group" version="2.1.0.v201702222200"/>
+<repository location="http://download.eclipse.org/modeling/emf/teneo/updates/2.1.0/interim/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="com.microsoft.sqlserver.jdbc.feature.group" version="4.0.2206.100"/>
+<unit id="javax.persistence.feature.group" version="2.1.0"/>
+<unit id="org.apache.log4j.feature.group" version="1.2.16"/>
+<unit id="org.hibernate.feature.group" version="4.3.7.1"/>
+<unit id="org.hsqldb.feature.group" version="2.3.2"/>
+<repository location="http://www.elver.org/eclipse/2.1.0/update"/>
 </location>
 </locations>
 </target>

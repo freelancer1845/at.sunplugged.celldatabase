@@ -67,6 +67,15 @@ public interface DatamodelFactory extends EFactory {
 	EvaluationMethod createEvaluationMethod();
 
 	/**
+	 * Returns a new object of class '<em>UI Data Point</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>UI Data Point</em>'.
+	 * @generated
+	 */
+	UIDataPoint createUIDataPoint();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

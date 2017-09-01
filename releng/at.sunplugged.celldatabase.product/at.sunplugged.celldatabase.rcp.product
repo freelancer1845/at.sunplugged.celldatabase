@@ -27,6 +27,7 @@
       <plugin id="com.ibm.icu"/>
       <plugin id="javax.annotation"/>
       <plugin id="javax.inject"/>
+      <plugin id="javax.persistence"/>
       <plugin id="org.apache.batik.css"/>
       <plugin id="org.apache.batik.util"/>
       <plugin id="org.apache.batik.util.gui"/>
@@ -111,6 +112,10 @@
       <plugin id="org.eclipse.emf.ecp.view.vertical.ui.swt"/>
       <plugin id="org.eclipse.emf.edit"/>
       <plugin id="org.eclipse.emf.edit.ui"/>
+      <plugin id="org.eclipse.emf.teneo"/>
+      <plugin id="org.eclipse.emf.teneo.annotations"/>
+      <plugin id="org.eclipse.emf.teneo.hibernate"/>
+      <plugin id="org.eclipse.emf.teneo.hibernate.mapper"/>
       <plugin id="org.eclipse.emfforms.common"/>
       <plugin id="org.eclipse.emfforms.common.validation"/>
       <plugin id="org.eclipse.emfforms.core.services"/>
@@ -167,6 +172,8 @@
       <plugin id="org.eclipse.ui"/>
       <plugin id="org.eclipse.ui.views"/>
       <plugin id="org.eclipse.ui.workbench"/>
+      <plugin id="org.hibernate"/>
+      <plugin id="org.hsqldb"/>
       <plugin id="org.w3c.css.sac"/>
       <plugin id="org.w3c.dom.events"/>
       <plugin id="org.w3c.dom.smil"/>

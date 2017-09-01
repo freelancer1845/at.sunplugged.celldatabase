@@ -5,14 +5,21 @@ package datamodel.impl;
 import datamodel.CellMeasurementDataSet;
 import datamodel.DatamodelPackage;
 
+import datamodel.UIDataPoint;
+import java.util.Collection;
 import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,9 +32,9 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link datamodel.impl.CellMeasurementDataSetImpl#getName <em>Name</em>}</li>
  *   <li>{@link datamodel.impl.CellMeasurementDataSetImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link datamodel.impl.CellMeasurementDataSetImpl#getDateMeasured <em>Date Measured</em>}</li>
- *   <li>{@link datamodel.impl.CellMeasurementDataSetImpl#getVoltageCurrentData <em>Voltage Current Data</em>}</li>
  *   <li>{@link datamodel.impl.CellMeasurementDataSetImpl#getArea <em>Area</em>}</li>
  *   <li>{@link datamodel.impl.CellMeasurementDataSetImpl#getPowerInput <em>Power Input</em>}</li>
+ *   <li>{@link datamodel.impl.CellMeasurementDataSetImpl#getData <em>Data</em>}</li>
  * </ul>
  *
  * @generated
@@ -94,26 +101,6 @@ public class CellMeasurementDataSetImpl extends MinimalEObjectImpl.Container imp
 	protected Date dateMeasured = DATE_MEASURED_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getVoltageCurrentData() <em>Voltage Current Data</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getVoltageCurrentData()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final double[][] VOLTAGE_CURRENT_DATA_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getVoltageCurrentData() <em>Voltage Current Data</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getVoltageCurrentData()
-	 * @generated
-	 * @ordered
-	 */
-	protected double[][] voltageCurrentData = VOLTAGE_CURRENT_DATA_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getArea() <em>Area</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -152,6 +139,16 @@ public class CellMeasurementDataSetImpl extends MinimalEObjectImpl.Container imp
 	 * @ordered
 	 */
 	protected double powerInput = POWER_INPUT_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getData() <em>Data</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getData()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<UIDataPoint> data;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -240,27 +237,6 @@ public class CellMeasurementDataSetImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double[][] getVoltageCurrentData() {
-		return voltageCurrentData;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setVoltageCurrentData(double[][] newVoltageCurrentData) {
-		double[][] oldVoltageCurrentData = voltageCurrentData;
-		voltageCurrentData = newVoltageCurrentData;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_MEASUREMENT_DATA_SET__VOLTAGE_CURRENT_DATA, oldVoltageCurrentData, voltageCurrentData));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public double getArea() {
 		return area;
 	}
@@ -303,6 +279,32 @@ public class CellMeasurementDataSetImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<UIDataPoint> getData() {
+		if (data == null) {
+			data = new EObjectContainmentEList<UIDataPoint>(UIDataPoint.class, this, DatamodelPackage.CELL_MEASUREMENT_DATA_SET__DATA);
+		}
+		return data;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__DATA:
+				return ((InternalEList<?>)getData()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -312,12 +314,12 @@ public class CellMeasurementDataSetImpl extends MinimalEObjectImpl.Container imp
 				return getDescription();
 			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__DATE_MEASURED:
 				return getDateMeasured();
-			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__VOLTAGE_CURRENT_DATA:
-				return getVoltageCurrentData();
 			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__AREA:
 				return getArea();
 			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__POWER_INPUT:
 				return getPowerInput();
+			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__DATA:
+				return getData();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -327,6 +329,7 @@ public class CellMeasurementDataSetImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -339,14 +342,15 @@ public class CellMeasurementDataSetImpl extends MinimalEObjectImpl.Container imp
 			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__DATE_MEASURED:
 				setDateMeasured((Date)newValue);
 				return;
-			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__VOLTAGE_CURRENT_DATA:
-				setVoltageCurrentData((double[][])newValue);
-				return;
 			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__AREA:
 				setArea((Double)newValue);
 				return;
 			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__POWER_INPUT:
 				setPowerInput((Double)newValue);
+				return;
+			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__DATA:
+				getData().clear();
+				getData().addAll((Collection<? extends UIDataPoint>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -369,14 +373,14 @@ public class CellMeasurementDataSetImpl extends MinimalEObjectImpl.Container imp
 			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__DATE_MEASURED:
 				setDateMeasured(DATE_MEASURED_EDEFAULT);
 				return;
-			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__VOLTAGE_CURRENT_DATA:
-				setVoltageCurrentData(VOLTAGE_CURRENT_DATA_EDEFAULT);
-				return;
 			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__AREA:
 				setArea(AREA_EDEFAULT);
 				return;
 			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__POWER_INPUT:
 				setPowerInput(POWER_INPUT_EDEFAULT);
+				return;
+			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__DATA:
+				getData().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -396,12 +400,12 @@ public class CellMeasurementDataSetImpl extends MinimalEObjectImpl.Container imp
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__DATE_MEASURED:
 				return DATE_MEASURED_EDEFAULT == null ? dateMeasured != null : !DATE_MEASURED_EDEFAULT.equals(dateMeasured);
-			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__VOLTAGE_CURRENT_DATA:
-				return VOLTAGE_CURRENT_DATA_EDEFAULT == null ? voltageCurrentData != null : !VOLTAGE_CURRENT_DATA_EDEFAULT.equals(voltageCurrentData);
 			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__AREA:
 				return area != AREA_EDEFAULT;
 			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__POWER_INPUT:
 				return powerInput != POWER_INPUT_EDEFAULT;
+			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__DATA:
+				return data != null && !data.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -422,8 +426,6 @@ public class CellMeasurementDataSetImpl extends MinimalEObjectImpl.Container imp
 		result.append(description);
 		result.append(", dateMeasured: ");
 		result.append(dateMeasured);
-		result.append(", voltageCurrentData: ");
-		result.append(voltageCurrentData);
 		result.append(", area: ");
 		result.append(area);
 		result.append(", powerInput: ");

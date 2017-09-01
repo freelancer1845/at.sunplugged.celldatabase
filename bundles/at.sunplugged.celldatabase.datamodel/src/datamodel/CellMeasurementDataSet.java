@@ -4,6 +4,7 @@ package datamodel;
 
 import java.util.Date;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -18,9 +19,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link datamodel.CellMeasurementDataSet#getName <em>Name</em>}</li>
  *   <li>{@link datamodel.CellMeasurementDataSet#getDescription <em>Description</em>}</li>
  *   <li>{@link datamodel.CellMeasurementDataSet#getDateMeasured <em>Date Measured</em>}</li>
- *   <li>{@link datamodel.CellMeasurementDataSet#getVoltageCurrentData <em>Voltage Current Data</em>}</li>
  *   <li>{@link datamodel.CellMeasurementDataSet#getArea <em>Area</em>}</li>
  *   <li>{@link datamodel.CellMeasurementDataSet#getPowerInput <em>Power Input</em>}</li>
+ *   <li>{@link datamodel.CellMeasurementDataSet#getData <em>Data</em>}</li>
  * </ul>
  *
  * @see datamodel.DatamodelPackage#getCellMeasurementDataSet()
@@ -107,32 +108,6 @@ public interface CellMeasurementDataSet extends EObject {
 	void setDateMeasured(Date value);
 
 	/**
-	 * Returns the value of the '<em><b>Voltage Current Data</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Voltage Current Data</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Voltage Current Data</em>' attribute.
-	 * @see #setVoltageCurrentData(double[][])
-	 * @see datamodel.DatamodelPackage#getCellMeasurementDataSet_VoltageCurrentData()
-	 * @model dataType="datamodel.VoltageCurrentData"
-	 * @generated
-	 */
-	double[][] getVoltageCurrentData();
-
-	/**
-	 * Sets the value of the '{@link datamodel.CellMeasurementDataSet#getVoltageCurrentData <em>Voltage Current Data</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Voltage Current Data</em>' attribute.
-	 * @see #getVoltageCurrentData()
-	 * @generated
-	 */
-	void setVoltageCurrentData(double[][] value);
-
-	/**
 	 * Returns the value of the '<em><b>Area</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -183,5 +158,21 @@ public interface CellMeasurementDataSet extends EObject {
 	 * @generated
 	 */
 	void setPowerInput(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Data</b></em>' containment reference list.
+	 * The list contents are of type {@link datamodel.UIDataPoint}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Data</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data</em>' containment reference list.
+	 * @see datamodel.DatamodelPackage#getCellMeasurementDataSet_Data()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<UIDataPoint> getData();
 
 } // CellMeasurementDataSet

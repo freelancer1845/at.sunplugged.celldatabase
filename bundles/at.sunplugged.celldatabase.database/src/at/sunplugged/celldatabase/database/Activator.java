@@ -5,6 +5,8 @@ import org.osgi.framework.BundleContext;
 
 public class Activator implements BundleActivator {
 
+	public static final String PLUGIN_ID = "at.sunplugged.celldatabase.database";
+	
 	private static BundleContext context;
 
 	public static BundleContext getContext() {

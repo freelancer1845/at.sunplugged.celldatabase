@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link datamodel.CellResult#getDescription <em>Description</em>}</li>
  *   <li>{@link datamodel.CellResult#getEvaluationMethod <em>Evaluation Method</em>}</li>
  *   <li>{@link datamodel.CellResult#getDataEvaluated <em>Data Evaluated</em>}</li>
- *   <li>{@link datamodel.CellResult#getRawData <em>Raw Data</em>}</li>
  *   <li>{@link datamodel.CellResult#getOpenCircuitVoltage <em>Open Circuit Voltage</em>}</li>
  *   <li>{@link datamodel.CellResult#getShortCircuitCurrent <em>Short Circuit Current</em>}</li>
  *   <li>{@link datamodel.CellResult#getParallelResistance <em>Parallel Resistance</em>}</li>
@@ -91,26 +90,26 @@ public interface CellResult extends EObject {
 	void setDescription(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Evaluation Method</b></em>' reference.
+	 * Returns the value of the '<em><b>Evaluation Method</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Evaluation Method</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Evaluation Method</em>' reference.
+	 * @return the value of the '<em>Evaluation Method</em>' containment reference.
 	 * @see #setEvaluationMethod(EvaluationMethod)
 	 * @see datamodel.DatamodelPackage#getCellResult_EvaluationMethod()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EvaluationMethod getEvaluationMethod();
 
 	/**
-	 * Sets the value of the '{@link datamodel.CellResult#getEvaluationMethod <em>Evaluation Method</em>}' reference.
+	 * Sets the value of the '{@link datamodel.CellResult#getEvaluationMethod <em>Evaluation Method</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Evaluation Method</em>' reference.
+	 * @param value the new value of the '<em>Evaluation Method</em>' containment reference.
 	 * @see #getEvaluationMethod()
 	 * @generated
 	 */
@@ -141,32 +140,6 @@ public interface CellResult extends EObject {
 	 * @generated
 	 */
 	void setDataEvaluated(Date value);
-
-	/**
-	 * Returns the value of the '<em><b>Raw Data</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Raw Data</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Raw Data</em>' containment reference.
-	 * @see #setRawData(CellMeasurementDataSet)
-	 * @see datamodel.DatamodelPackage#getCellResult_RawData()
-	 * @model containment="true"
-	 * @generated
-	 */
-	CellMeasurementDataSet getRawData();
-
-	/**
-	 * Sets the value of the '{@link datamodel.CellResult#getRawData <em>Raw Data</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Raw Data</em>' containment reference.
-	 * @see #getRawData()
-	 * @generated
-	 */
-	void setRawData(CellMeasurementDataSet value);
 
 	/**
 	 * Returns the value of the '<em><b>Open Circuit Voltage</b></em>' attribute.

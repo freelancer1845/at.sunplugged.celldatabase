@@ -187,6 +187,29 @@ public class DatamodelItemProviderAdapterFactory extends DatamodelAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link datamodel.UIDataPoint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected UIDataPointItemProvider uiDataPointItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link datamodel.UIDataPoint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createUIDataPointAdapter() {
+		if (uiDataPointItemProvider == null) {
+			uiDataPointItemProvider = new UIDataPointItemProvider(this);
+		}
+
+		return uiDataPointItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -290,6 +313,7 @@ public class DatamodelItemProviderAdapterFactory extends DatamodelAdapterFactory
 		if (cellGroupItemProvider != null) cellGroupItemProvider.dispose();
 		if (cellMeasurementDataSetItemProvider != null) cellMeasurementDataSetItemProvider.dispose();
 		if (evaluationMethodItemProvider != null) evaluationMethodItemProvider.dispose();
+		if (uiDataPointItemProvider != null) uiDataPointItemProvider.dispose();
 	}
 
 }

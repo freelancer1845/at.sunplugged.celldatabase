@@ -2,6 +2,7 @@
 package at.sunplugged.celldatabase.rcp.modelviewer;
 
 import java.util.EventObject;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -35,26 +37,27 @@ public class ModelViewerPart {
 
 	@Inject
 	private MDirtyable dirtyable;
-	
+
 	@Persist
 	private void doSave(ModelDatabaseService databaseService) {
 		databaseService.save();
 	}
-	
+
 	@PostConstruct
 	public void postConstruct(Composite parent, ModelDatabaseService databaseService, EMenuService menuService,
-			IEclipseContext ctx, EPartService partService, EModelService modelService, MApplication app, @Named("editingDomain") EditingDomain editingDomain) {
+			IEclipseContext ctx, EPartService partService, EModelService modelService, MApplication app,
+			@Named("editingDomain") EditingDomain editingDomain) {
 
 		Database database = (Database) databaseService.getDatabase();
-		
+
 		editingDomain.getCommandStack().addCommandStackListener(new CommandStackListener() {
-			
+
 			@Override
 			public void commandStackChanged(EventObject event) {
 				dirtyable.setDirty(editingDomain.getCommandStack().canUndo());
 			}
 		});
-		
+
 		EContentAdapter adpater = new EContentAdapter() {
 			@Override
 			public void notifyChanged(Notification notification) {
@@ -64,7 +67,7 @@ public class ModelViewerPart {
 			}
 		};
 		database.eAdapters().add(adpater);
-		
+
 		TreeViewer treeViewer = TreeViewerSWTFactory.createTreeViewer(parent, databaseService.getDatabase());
 
 		treeViewer.addDoubleClickListener(new IDoubleClickListener() {
@@ -79,7 +82,22 @@ public class ModelViewerPart {
 
 				MPart editorPart = partService
 						.createPart("at.sunplugged.celldatabase.rcp.modeleditor.partdescriptor.modeleditor");
-				editorPart.setLabel(selectedElement.toString());
+
+				String label = null;
+				if (selectedElement instanceof EObject) {
+					EObject eObject = (EObject) selectedElement;
+					Optional<EAttribute> optional = eObject.eClass().getEAttributes().stream()
+							.filter(attr -> attr.getName() == "name").findFirst();
+					if (optional.isPresent()) {
+						EAttribute nameAttribute = optional.get();
+						label = (String) eObject.eGet(nameAttribute);
+					}
+
+				}
+				if (label == null) {
+					label = "Editor";
+				}
+				editorPart.setLabel(label);
 				editorPart.setObject(selectedElement);
 				MPartStack partStack = (MPartStack) modelService.find("at.sunplugged.celldatabase.rcp.partstack.1",
 						app);

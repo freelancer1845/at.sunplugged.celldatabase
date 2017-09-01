@@ -2,6 +2,7 @@
  */
 package datamodel.impl;
 
+import datamodel.*;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -64,36 +65,9 @@ public class DatamodelFactoryImpl extends EFactoryImpl implements DatamodelFacto
 			case DatamodelPackage.CELL_GROUP: return createCellGroup();
 			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET: return createCellMeasurementDataSet();
 			case DatamodelPackage.EVALUATION_METHOD: return createEvaluationMethod();
+			case DatamodelPackage.UI_DATA_POINT: return createUIDataPoint();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object createFromString(EDataType eDataType, String initialValue) {
-		switch (eDataType.getClassifierID()) {
-			case DatamodelPackage.VOLTAGE_CURRENT_DATA:
-				return createVoltageCurrentDataFromString(eDataType, initialValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String convertToString(EDataType eDataType, Object instanceValue) {
-		switch (eDataType.getClassifierID()) {
-			case DatamodelPackage.VOLTAGE_CURRENT_DATA:
-				return convertVoltageCurrentDataToString(eDataType, instanceValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -140,6 +114,16 @@ public class DatamodelFactoryImpl extends EFactoryImpl implements DatamodelFacto
 	public EvaluationMethod createEvaluationMethod() {
 		EvaluationMethodImpl evaluationMethod = new EvaluationMethodImpl();
 		return evaluationMethod;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UIDataPoint createUIDataPoint() {
+		UIDataPointImpl uiDataPoint = new UIDataPointImpl();
+		return uiDataPoint;
 	}
 
 	/**

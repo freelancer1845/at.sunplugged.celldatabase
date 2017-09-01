@@ -4,7 +4,6 @@ package datamodel;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -132,7 +131,7 @@ public interface DatamodelPackage extends EPackage {
 	int CELL_RESULT__DESCRIPTION = 1;
 
 	/**
-	 * The feature id for the '<em><b>Evaluation Method</b></em>' reference.
+	 * The feature id for the '<em><b>Evaluation Method</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -150,22 +149,13 @@ public interface DatamodelPackage extends EPackage {
 	int CELL_RESULT__DATA_EVALUATED = 3;
 
 	/**
-	 * The feature id for the '<em><b>Raw Data</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CELL_RESULT__RAW_DATA = 4;
-
-	/**
 	 * The feature id for the '<em><b>Open Circuit Voltage</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__OPEN_CIRCUIT_VOLTAGE = 5;
+	int CELL_RESULT__OPEN_CIRCUIT_VOLTAGE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Short Circuit Current</b></em>' attribute.
@@ -174,7 +164,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__SHORT_CIRCUIT_CURRENT = 6;
+	int CELL_RESULT__SHORT_CIRCUIT_CURRENT = 5;
 
 	/**
 	 * The feature id for the '<em><b>Parallel Resistance</b></em>' attribute.
@@ -183,7 +173,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__PARALLEL_RESISTANCE = 7;
+	int CELL_RESULT__PARALLEL_RESISTANCE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Series Resistance</b></em>' attribute.
@@ -192,7 +182,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__SERIES_RESISTANCE = 8;
+	int CELL_RESULT__SERIES_RESISTANCE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Maximum Power</b></em>' attribute.
@@ -201,7 +191,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__MAXIMUM_POWER = 9;
+	int CELL_RESULT__MAXIMUM_POWER = 8;
 
 	/**
 	 * The feature id for the '<em><b>Maximum Power Voltage</b></em>' attribute.
@@ -210,7 +200,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__MAXIMUM_POWER_VOLTAGE = 10;
+	int CELL_RESULT__MAXIMUM_POWER_VOLTAGE = 9;
 
 	/**
 	 * The feature id for the '<em><b>Maximum Power Current</b></em>' attribute.
@@ -219,7 +209,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__MAXIMUM_POWER_CURRENT = 11;
+	int CELL_RESULT__MAXIMUM_POWER_CURRENT = 10;
 
 	/**
 	 * The feature id for the '<em><b>Efficency</b></em>' attribute.
@@ -228,7 +218,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__EFFICENCY = 12;
+	int CELL_RESULT__EFFICENCY = 11;
 
 	/**
 	 * The feature id for the '<em><b>Fill Factor</b></em>' attribute.
@@ -237,7 +227,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__FILL_FACTOR = 13;
+	int CELL_RESULT__FILL_FACTOR = 12;
 
 	/**
 	 * The feature id for the '<em><b>Cell Measurmenet Data Set</b></em>' containment reference.
@@ -246,7 +236,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__CELL_MEASURMENET_DATA_SET = 14;
+	int CELL_RESULT__CELL_MEASURMENET_DATA_SET = 13;
 
 	/**
 	 * The number of structural features of the '<em>Cell Result</em>' class.
@@ -255,7 +245,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT_FEATURE_COUNT = 15;
+	int CELL_RESULT_FEATURE_COUNT = 14;
 
 	/**
 	 * The number of operations of the '<em>Cell Result</em>' class.
@@ -359,22 +349,13 @@ public interface DatamodelPackage extends EPackage {
 	int CELL_MEASUREMENT_DATA_SET__DATE_MEASURED = 2;
 
 	/**
-	 * The feature id for the '<em><b>Voltage Current Data</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CELL_MEASUREMENT_DATA_SET__VOLTAGE_CURRENT_DATA = 3;
-
-	/**
 	 * The feature id for the '<em><b>Area</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_MEASUREMENT_DATA_SET__AREA = 4;
+	int CELL_MEASUREMENT_DATA_SET__AREA = 3;
 
 	/**
 	 * The feature id for the '<em><b>Power Input</b></em>' attribute.
@@ -383,7 +364,16 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_MEASUREMENT_DATA_SET__POWER_INPUT = 5;
+	int CELL_MEASUREMENT_DATA_SET__POWER_INPUT = 4;
+
+	/**
+	 * The feature id for the '<em><b>Data</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CELL_MEASUREMENT_DATA_SET__DATA = 5;
 
 	/**
 	 * The number of structural features of the '<em>Cell Measurement Data Set</em>' class.
@@ -450,14 +440,50 @@ public interface DatamodelPackage extends EPackage {
 	int EVALUATION_METHOD_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '<em>Voltage Current Data</em>' data type.
+	 * The meta object id for the '{@link datamodel.impl.UIDataPointImpl <em>UI Data Point</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see datamodel.impl.DatamodelPackageImpl#getVoltageCurrentData()
+	 * @see datamodel.impl.UIDataPointImpl
+	 * @see datamodel.impl.DatamodelPackageImpl#getUIDataPoint()
 	 * @generated
 	 */
-	int VOLTAGE_CURRENT_DATA = 5;
+	int UI_DATA_POINT = 5;
 
+	/**
+	 * The feature id for the '<em><b>Voltage</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UI_DATA_POINT__VOLTAGE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Current</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UI_DATA_POINT__CURRENT = 1;
+
+	/**
+	 * The number of structural features of the '<em>UI Data Point</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UI_DATA_POINT_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>UI Data Point</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UI_DATA_POINT_OPERATION_COUNT = 0;
 
 	/**
 	 * Returns the meta object for class '{@link datamodel.Database <em>Database</em>}'.
@@ -524,10 +550,10 @@ public interface DatamodelPackage extends EPackage {
 	EAttribute getCellResult_Description();
 
 	/**
-	 * Returns the meta object for the reference '{@link datamodel.CellResult#getEvaluationMethod <em>Evaluation Method</em>}'.
+	 * Returns the meta object for the containment reference '{@link datamodel.CellResult#getEvaluationMethod <em>Evaluation Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Evaluation Method</em>'.
+	 * @return the meta object for the containment reference '<em>Evaluation Method</em>'.
 	 * @see datamodel.CellResult#getEvaluationMethod()
 	 * @see #getCellResult()
 	 * @generated
@@ -544,17 +570,6 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getCellResult_DataEvaluated();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link datamodel.CellResult#getRawData <em>Raw Data</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Raw Data</em>'.
-	 * @see datamodel.CellResult#getRawData()
-	 * @see #getCellResult()
-	 * @generated
-	 */
-	EReference getCellResult_RawData();
 
 	/**
 	 * Returns the meta object for the attribute '{@link datamodel.CellResult#getOpenCircuitVoltage <em>Open Circuit Voltage</em>}'.
@@ -753,17 +768,6 @@ public interface DatamodelPackage extends EPackage {
 	EAttribute getCellMeasurementDataSet_DateMeasured();
 
 	/**
-	 * Returns the meta object for the attribute '{@link datamodel.CellMeasurementDataSet#getVoltageCurrentData <em>Voltage Current Data</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Voltage Current Data</em>'.
-	 * @see datamodel.CellMeasurementDataSet#getVoltageCurrentData()
-	 * @see #getCellMeasurementDataSet()
-	 * @generated
-	 */
-	EAttribute getCellMeasurementDataSet_VoltageCurrentData();
-
-	/**
 	 * Returns the meta object for the attribute '{@link datamodel.CellMeasurementDataSet#getArea <em>Area</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -784,6 +788,17 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getCellMeasurementDataSet_PowerInput();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link datamodel.CellMeasurementDataSet#getData <em>Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Data</em>'.
+	 * @see datamodel.CellMeasurementDataSet#getData()
+	 * @see #getCellMeasurementDataSet()
+	 * @generated
+	 */
+	EReference getCellMeasurementDataSet_Data();
 
 	/**
 	 * Returns the meta object for class '{@link datamodel.EvaluationMethod <em>Evaluation Method</em>}'.
@@ -818,14 +833,36 @@ public interface DatamodelPackage extends EPackage {
 	EAttribute getEvaluationMethod_Description();
 
 	/**
-	 * Returns the meta object for data type '<em>Voltage Current Data</em>'.
+	 * Returns the meta object for class '{@link datamodel.UIDataPoint <em>UI Data Point</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for data type '<em>Voltage Current Data</em>'.
-	 * @model instanceClass="double[][]"
+	 * @return the meta object for class '<em>UI Data Point</em>'.
+	 * @see datamodel.UIDataPoint
 	 * @generated
 	 */
-	EDataType getVoltageCurrentData();
+	EClass getUIDataPoint();
+
+	/**
+	 * Returns the meta object for the attribute '{@link datamodel.UIDataPoint#getVoltage <em>Voltage</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Voltage</em>'.
+	 * @see datamodel.UIDataPoint#getVoltage()
+	 * @see #getUIDataPoint()
+	 * @generated
+	 */
+	EAttribute getUIDataPoint_Voltage();
+
+	/**
+	 * Returns the meta object for the attribute '{@link datamodel.UIDataPoint#getCurrent <em>Current</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Current</em>'.
+	 * @see datamodel.UIDataPoint#getCurrent()
+	 * @see #getUIDataPoint()
+	 * @generated
+	 */
+	EAttribute getUIDataPoint_Current();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -903,7 +940,7 @@ public interface DatamodelPackage extends EPackage {
 		EAttribute CELL_RESULT__DESCRIPTION = eINSTANCE.getCellResult_Description();
 
 		/**
-		 * The meta object literal for the '<em><b>Evaluation Method</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Evaluation Method</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -917,14 +954,6 @@ public interface DatamodelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CELL_RESULT__DATA_EVALUATED = eINSTANCE.getCellResult_DataEvaluated();
-
-		/**
-		 * The meta object literal for the '<em><b>Raw Data</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CELL_RESULT__RAW_DATA = eINSTANCE.getCellResult_RawData();
 
 		/**
 		 * The meta object literal for the '<em><b>Open Circuit Voltage</b></em>' attribute feature.
@@ -1075,14 +1104,6 @@ public interface DatamodelPackage extends EPackage {
 		EAttribute CELL_MEASUREMENT_DATA_SET__DATE_MEASURED = eINSTANCE.getCellMeasurementDataSet_DateMeasured();
 
 		/**
-		 * The meta object literal for the '<em><b>Voltage Current Data</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CELL_MEASUREMENT_DATA_SET__VOLTAGE_CURRENT_DATA = eINSTANCE.getCellMeasurementDataSet_VoltageCurrentData();
-
-		/**
 		 * The meta object literal for the '<em><b>Area</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1097,6 +1118,14 @@ public interface DatamodelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CELL_MEASUREMENT_DATA_SET__POWER_INPUT = eINSTANCE.getCellMeasurementDataSet_PowerInput();
+
+		/**
+		 * The meta object literal for the '<em><b>Data</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CELL_MEASUREMENT_DATA_SET__DATA = eINSTANCE.getCellMeasurementDataSet_Data();
 
 		/**
 		 * The meta object literal for the '{@link datamodel.impl.EvaluationMethodImpl <em>Evaluation Method</em>}' class.
@@ -1125,13 +1154,30 @@ public interface DatamodelPackage extends EPackage {
 		EAttribute EVALUATION_METHOD__DESCRIPTION = eINSTANCE.getEvaluationMethod_Description();
 
 		/**
-		 * The meta object literal for the '<em>Voltage Current Data</em>' data type.
+		 * The meta object literal for the '{@link datamodel.impl.UIDataPointImpl <em>UI Data Point</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see datamodel.impl.DatamodelPackageImpl#getVoltageCurrentData()
+		 * @see datamodel.impl.UIDataPointImpl
+		 * @see datamodel.impl.DatamodelPackageImpl#getUIDataPoint()
 		 * @generated
 		 */
-		EDataType VOLTAGE_CURRENT_DATA = eINSTANCE.getVoltageCurrentData();
+		EClass UI_DATA_POINT = eINSTANCE.getUIDataPoint();
+
+		/**
+		 * The meta object literal for the '<em><b>Voltage</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute UI_DATA_POINT__VOLTAGE = eINSTANCE.getUIDataPoint_Voltage();
+
+		/**
+		 * The meta object literal for the '<em><b>Current</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute UI_DATA_POINT__CURRENT = eINSTANCE.getUIDataPoint_Current();
 
 	}
 

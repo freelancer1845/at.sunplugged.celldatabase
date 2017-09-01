@@ -30,7 +30,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link datamodel.impl.CellResultImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getEvaluationMethod <em>Evaluation Method</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getDataEvaluated <em>Data Evaluated</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getRawData <em>Raw Data</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getOpenCircuitVoltage <em>Open Circuit Voltage</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getShortCircuitCurrent <em>Short Circuit Current</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getParallelResistance <em>Parallel Resistance</em>}</li>
@@ -87,7 +86,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	protected String description = DESCRIPTION_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getEvaluationMethod() <em>Evaluation Method</em>}' reference.
+	 * The cached value of the '{@link #getEvaluationMethod() <em>Evaluation Method</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getEvaluationMethod()
@@ -115,16 +114,6 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	 * @ordered
 	 */
 	protected Date dataEvaluated = DATA_EVALUATED_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getRawData() <em>Raw Data</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRawData()
-	 * @generated
-	 * @ordered
-	 */
-	protected CellMeasurementDataSet rawData;
 
 	/**
 	 * The default value of the '{@link #getOpenCircuitVoltage() <em>Open Circuit Voltage</em>}' attribute.
@@ -383,14 +372,6 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	 * @generated
 	 */
 	public EvaluationMethod getEvaluationMethod() {
-		if (evaluationMethod != null && evaluationMethod.eIsProxy()) {
-			InternalEObject oldEvaluationMethod = (InternalEObject)evaluationMethod;
-			evaluationMethod = (EvaluationMethod)eResolveProxy(oldEvaluationMethod);
-			if (evaluationMethod != oldEvaluationMethod) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DatamodelPackage.CELL_RESULT__EVALUATION_METHOD, oldEvaluationMethod, evaluationMethod));
-			}
-		}
 		return evaluationMethod;
 	}
 
@@ -399,8 +380,14 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EvaluationMethod basicGetEvaluationMethod() {
-		return evaluationMethod;
+	public NotificationChain basicSetEvaluationMethod(EvaluationMethod newEvaluationMethod, NotificationChain msgs) {
+		EvaluationMethod oldEvaluationMethod = evaluationMethod;
+		evaluationMethod = newEvaluationMethod;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__EVALUATION_METHOD, oldEvaluationMethod, newEvaluationMethod);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -409,10 +396,17 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	 * @generated
 	 */
 	public void setEvaluationMethod(EvaluationMethod newEvaluationMethod) {
-		EvaluationMethod oldEvaluationMethod = evaluationMethod;
-		evaluationMethod = newEvaluationMethod;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__EVALUATION_METHOD, oldEvaluationMethod, evaluationMethod));
+		if (newEvaluationMethod != evaluationMethod) {
+			NotificationChain msgs = null;
+			if (evaluationMethod != null)
+				msgs = ((InternalEObject)evaluationMethod).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__EVALUATION_METHOD, null, msgs);
+			if (newEvaluationMethod != null)
+				msgs = ((InternalEObject)newEvaluationMethod).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__EVALUATION_METHOD, null, msgs);
+			msgs = basicSetEvaluationMethod(newEvaluationMethod, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__EVALUATION_METHOD, newEvaluationMethod, newEvaluationMethod));
 	}
 
 	/**
@@ -434,49 +428,6 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 		dataEvaluated = newDataEvaluated;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__DATA_EVALUATED, oldDataEvaluated, dataEvaluated));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public CellMeasurementDataSet getRawData() {
-		return rawData;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetRawData(CellMeasurementDataSet newRawData, NotificationChain msgs) {
-		CellMeasurementDataSet oldRawData = rawData;
-		rawData = newRawData;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__RAW_DATA, oldRawData, newRawData);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setRawData(CellMeasurementDataSet newRawData) {
-		if (newRawData != rawData) {
-			NotificationChain msgs = null;
-			if (rawData != null)
-				msgs = ((InternalEObject)rawData).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__RAW_DATA, null, msgs);
-			if (newRawData != null)
-				msgs = ((InternalEObject)newRawData).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__RAW_DATA, null, msgs);
-			msgs = basicSetRawData(newRawData, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__RAW_DATA, newRawData, newRawData));
 	}
 
 	/**
@@ -719,8 +670,8 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case DatamodelPackage.CELL_RESULT__RAW_DATA:
-				return basicSetRawData(null, msgs);
+			case DatamodelPackage.CELL_RESULT__EVALUATION_METHOD:
+				return basicSetEvaluationMethod(null, msgs);
 			case DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET:
 				return basicSetCellMeasurmenetDataSet(null, msgs);
 		}
@@ -740,12 +691,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 			case DatamodelPackage.CELL_RESULT__DESCRIPTION:
 				return getDescription();
 			case DatamodelPackage.CELL_RESULT__EVALUATION_METHOD:
-				if (resolve) return getEvaluationMethod();
-				return basicGetEvaluationMethod();
+				return getEvaluationMethod();
 			case DatamodelPackage.CELL_RESULT__DATA_EVALUATED:
 				return getDataEvaluated();
-			case DatamodelPackage.CELL_RESULT__RAW_DATA:
-				return getRawData();
 			case DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE:
 				return getOpenCircuitVoltage();
 			case DatamodelPackage.CELL_RESULT__SHORT_CIRCUIT_CURRENT:
@@ -789,9 +737,6 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 				return;
 			case DatamodelPackage.CELL_RESULT__DATA_EVALUATED:
 				setDataEvaluated((Date)newValue);
-				return;
-			case DatamodelPackage.CELL_RESULT__RAW_DATA:
-				setRawData((CellMeasurementDataSet)newValue);
 				return;
 			case DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE:
 				setOpenCircuitVoltage((Double)newValue);
@@ -847,9 +792,6 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 			case DatamodelPackage.CELL_RESULT__DATA_EVALUATED:
 				setDataEvaluated(DATA_EVALUATED_EDEFAULT);
 				return;
-			case DatamodelPackage.CELL_RESULT__RAW_DATA:
-				setRawData((CellMeasurementDataSet)null);
-				return;
 			case DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE:
 				setOpenCircuitVoltage(OPEN_CIRCUIT_VOLTAGE_EDEFAULT);
 				return;
@@ -900,8 +842,6 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 				return evaluationMethod != null;
 			case DatamodelPackage.CELL_RESULT__DATA_EVALUATED:
 				return DATA_EVALUATED_EDEFAULT == null ? dataEvaluated != null : !DATA_EVALUATED_EDEFAULT.equals(dataEvaluated);
-			case DatamodelPackage.CELL_RESULT__RAW_DATA:
-				return rawData != null;
 			case DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE:
 				return openCircuitVoltage != OPEN_CIRCUIT_VOLTAGE_EDEFAULT;
 			case DatamodelPackage.CELL_RESULT__SHORT_CIRCUIT_CURRENT:
