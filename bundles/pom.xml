@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>at.sunplugged.celldatabase</groupId>
+	<artifactId>at.sunplugged.celldatabase.bundles</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>at.sunplugged.celldatabase</groupId>
+		<artifactId>at.sunplugged.celldatabase</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<modules>
+		<module>at.sunplugged.celldatabase.rcp</module>
+		<module>at.sunplugged.celldatabase.rcp.modelviewer</module>
+		<module>at.sunplugged.celldatabase.rcp.modeleditor</module>
+		<module>at.sunplugged.celldatabase.datamodel</module>
+		<module>at.sunplugged.celldatabase.datamodel.edit</module>
+		<module>at.sunplugged.celldatabase.database</module>
+		<module>at.sunplugged.celldatabase.datareader</module>
+	</modules>
+</project>
