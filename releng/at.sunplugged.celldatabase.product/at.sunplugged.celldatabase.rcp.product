@@ -23,12 +23,14 @@
       <plugin id="at.sunplugged.celldatabase.rcp"/>
       <plugin id="at.sunplugged.celldatabase.rcp.modeleditor"/>
       <plugin id="at.sunplugged.celldatabase.rcp.modelviewer"/>
+      <plugin id="com.google.gson"/>
       <plugin id="com.ibm.icu"/>
       <plugin id="javax.annotation"/>
       <plugin id="javax.inject"/>
       <plugin id="org.apache.batik.css"/>
       <plugin id="org.apache.batik.util"/>
       <plugin id="org.apache.batik.util.gui"/>
+      <plugin id="org.apache.commons.exec"/>
       <plugin id="org.apache.commons.jxpath"/>
       <plugin id="org.apache.commons.logging"/>
       <plugin id="org.apache.felix.gogo.command"/>
