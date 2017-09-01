@@ -4,6 +4,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 
 public class HandlerHelper {
 
+	@SuppressWarnings("rawtypes")
 	public static boolean isSingleSelected(IStructuredSelection selection, Class clazz) {
 		if (selection.size() != 1) {
 			return false;

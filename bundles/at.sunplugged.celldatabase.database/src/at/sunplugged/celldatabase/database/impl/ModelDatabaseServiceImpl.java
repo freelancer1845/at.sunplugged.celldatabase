@@ -23,12 +23,15 @@ import at.sunplugged.celldatabase.database.api.ModelDatabaseService;
 import datamodel.Database;
 import datamodel.DatamodelFactory;
 
+@SuppressWarnings("restriction")
 @Component
 public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 
+	@SuppressWarnings("restriction")
 	@Inject
 	private Logger logger;
 
+	
 	private Database database;
 
 	private AdapterFactory composedAdapterFactory;
@@ -92,7 +95,6 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 			}
 		}
 
-		
 
 		return database;
 	}
