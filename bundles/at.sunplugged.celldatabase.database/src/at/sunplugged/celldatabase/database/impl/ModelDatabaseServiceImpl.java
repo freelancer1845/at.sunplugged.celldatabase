@@ -65,7 +65,7 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 			// file.getAbsolutePath().toString());
 
 			DataStoreController.initHsqlStore();
-
+			// DataStoreController.initSqlExpressStore();
 			String uriStr = "hibernate://?" + HibernateResource.DS_NAME_PARAM + "="
 					+ DataStoreController.DATA_STORE_NAME;
 

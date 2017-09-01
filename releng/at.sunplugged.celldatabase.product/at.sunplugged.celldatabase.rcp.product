@@ -25,6 +25,7 @@
       <plugin id="at.sunplugged.celldatabase.rcp.modelviewer"/>
       <plugin id="com.google.gson"/>
       <plugin id="com.ibm.icu"/>
+      <plugin id="com.microsoft.sqlserver.jdbc"/>
       <plugin id="javax.annotation"/>
       <plugin id="javax.inject"/>
       <plugin id="javax.persistence"/>

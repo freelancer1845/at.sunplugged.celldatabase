@@ -1,6 +1,7 @@
 package at.sunplugged.celldatabase.database.impl;
 
 import at.sunplugged.celldatabase.database.impl.datastore.HsqlDbDataStoreHelper;
+import at.sunplugged.celldatabase.database.impl.datastore.SqlExpressDataStoreHelper;
 
 public class DataStoreController {
 
@@ -14,6 +15,16 @@ public class DataStoreController {
 			return;
 		}
 		if (HsqlDbDataStoreHelper.initHsqlDatastore()) {
+			isInit = true;
+		}
+	}
+
+	public static void initSqlExpressStore() {
+		if (isInit == true) {
+			System.out.println("Already initilized...");
+			return;
+		}
+		if (SqlExpressDataStoreHelper.initSqlExpressDatastore()) {
 			isInit = true;
 		}
 	}

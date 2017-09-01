@@ -2,32 +2,25 @@ package at.sunplugged.celldatabase.database.impl.datastore;
 
 import java.util.Properties;
 
-import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.teneo.PersistenceOptions;
 import org.eclipse.emf.teneo.hibernate.HbDataStore;
 import org.eclipse.emf.teneo.hibernate.HbHelper;
 import org.hibernate.cfg.Environment;
 
-import at.sunplugged.celldatabase.database.Activator;
 import at.sunplugged.celldatabase.database.impl.DataStoreController;
 import datamodel.DatamodelPackage;
 
-public class HsqlDbDataStoreHelper {
+public class SqlExpressDataStoreHelper {
 
-	private static final String PROP_HSQLDB_FILE = "hsqlDbFile";
-
-	public static boolean initHsqlDatastore() {
-
+	public static boolean initSqlExpressDatastore() {
 		Properties hibernateProperties = new Properties();
-		hibernateProperties.setProperty(Environment.DRIVER, "org.hsqldb.jdbcDriver");
-		hibernateProperties.setProperty(Environment.USER, "sa");
-
-		String filePath = ConfigurationScope.INSTANCE.getNode(Activator.PLUGIN_ID).get(PROP_HSQLDB_FILE, "tmp/hsqldb");
-
-		hibernateProperties.setProperty(Environment.URL, "jdbc:hsqldb:file:/" + filePath);
-		hibernateProperties.setProperty(Environment.PASS, "");
-		hibernateProperties.setProperty(Environment.DIALECT, org.hibernate.dialect.HSQLDialect.class.getName());
+		hibernateProperties.setProperty(Environment.DRIVER, "com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		hibernateProperties.setProperty(Environment.USER, "celldatabase");
+		hibernateProperties.setProperty(Environment.URL,
+				"jdbc:sqlserver://testdatabaseteneoemfsunplugged.ceu1dfiokowz.eu-central-1.rds.amazonaws.com:1433;");
+		hibernateProperties.setProperty(Environment.PASS, "xsmnn2n78f67b2");
+		hibernateProperties.setProperty(Environment.DIALECT, org.hibernate.dialect.SQLServerDialect.class.getName());
 
 		// set a specific option
 		// see this page http://wiki.eclipse.org/Teneo/Hibernate/Configuration_Options
