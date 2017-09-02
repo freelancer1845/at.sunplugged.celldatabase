@@ -23,4 +23,5 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Service-Component: OSGI-INF/at.sunplugged.celldatabase.database.impl.ModelDatabaseServiceImpl.xml
-Export-Package: at.sunplugged.celldatabase.database.api
+Export-Package: at.sunplugged.celldatabase.database,
+ at.sunplugged.celldatabase.database.api

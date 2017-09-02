@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmi:id="_c3AF0MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.application" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ">
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_c3AF0MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.application" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ">
   <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" label="Empty E4 Application" width="500" height="400">
     <children xsi:type="basic:PartSashContainer" xmi:id="_RkzywI7xEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partsashcontainer.0" horizontal="true">
       <children xsi:type="basic:PartStack" xmi:id="_S7JTkI7xEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partstack.0"/>
       <children xsi:type="basic:PartStack" xmi:id="_YrGMEI8JEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partstack.1"/>
     </children>
+    <mainMenu xmi:id="_GBr6sI_qEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.menu.0">
+      <children xsi:type="menu:Menu" xmi:id="_Hz100I_qEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.menu.main" label="Settings">
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_PRhHUI_qEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.directmenuitem.database" label="Database" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.DatabaseSettingsHandler"/>
+      </children>
+    </mainMenu>
   </children>
   <rootContext xmi:id="_c3AF2cjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
