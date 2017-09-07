@@ -20,5 +20,6 @@
 		<module>at.sunplugged.celldatabase.datamodel.edit</module>
 		<module>at.sunplugged.celldatabase.database</module>
 		<module>at.sunplugged.celldatabase.datareader</module>
+		<module>at.sunplugged.celldatabase.excelwriter</module>
 	</modules>
 </project>

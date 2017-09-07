@@ -5,6 +5,7 @@
   <imports xsi:type="commands:Command" xmi:id="_TK4eEI8EEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.command.addrawcellresult"/>
   <imports xsi:type="commands:Command" xmi:id="_pnSEwI8nEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.command.undo"/>
   <imports xsi:type="commands:Command" xmi:id="_sTsnsI8nEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.command.redo"/>
+  <imports xsi:type="commands:Command" xmi:id="_NvquAJOjEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.command.exporttoexcel"/>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_ifJ-kY7yEeelnoB5mxxecg" featurename="children" parentElementId="at.sunplugged.celldatabase.rcp.partstack.0">
     <elements xsi:type="basic:Part" xmi:id="_ifJ-ko7yEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.part.modelviewer" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.ModelViewerPart" label="Model Viewer" bindingContexts="_sxkaAI8oEee3m-gA9IKKWg">
       <handlers xmi:id="_-ZjkMI8DEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handler.0" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.handler.CreateGroupHandler" command="_TkOEwI78EeelnoB5mxxecg"/>
@@ -12,6 +13,7 @@
       <handlers xmi:id="_Wfg3kI8EEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handler.2" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.handler.AddRawCellResultHandler" command="_TK4eEI8EEeelnoB5mxxecg"/>
       <handlers xmi:id="_tyHtgI8nEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handler.3" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.handler.UndoHandler" command="_pnSEwI8nEee3m-gA9IKKWg"/>
       <handlers xmi:id="_4-hUgI8nEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handler.4" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.handler.RedoHandler" command="_sTsnsI8nEee3m-gA9IKKWg"/>
+      <handlers xmi:id="_ScLgcJOjEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handler.5" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.handler.ExportToExcelHandler" command="_NvquAJOjEeejFq7KVcklQw"/>
       <menus xsi:type="menu:PopupMenu" xmi:id="_kgcx0I77EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.popupmenu.treepopupmenu" label="Tree Popup Menu">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_nRyRAI77EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.addcellgroup" label="Add CellGroup" command="_TkOEwI78EeelnoB5mxxecg"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_K6jmoI8EEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.addrawcellresult" label="Add Raw Cell Result" command="_TK4eEI8EEeelnoB5mxxecg"/>
@@ -21,6 +23,8 @@
         <children xsi:type="menu:MenuSeparator" xmi:id="_q86wEI8pEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.menuseparator.1"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_r-YNEI8pEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.undo" label="Undo" command="_pnSEwI8nEee3m-gA9IKKWg"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_t5TBoI8pEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.redo" label="Redo" command="_sTsnsI8nEee3m-gA9IKKWg"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_t3NusJOiEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.modelviewer.menuseparator.2"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_1cUe4JOiEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.exporttoexcel" label="Export To Excel" command="_NvquAJOjEeejFq7KVcklQw"/>
       </menus>
       <menus xmi:id="_D9eugI7-EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.menu.edit" label="Edit"/>
     </elements>

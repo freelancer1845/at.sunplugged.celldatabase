@@ -2,10 +2,7 @@ package at.sunplugged.celldatabase.database.impl;
 
 import java.io.IOException;
 
-import javax.inject.Inject;
-
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.core.services.log.Logger;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -24,12 +21,8 @@ import datamodel.Database;
 import datamodel.DatamodelFactory;
 
 @SuppressWarnings("restriction")
-@Component
+@Component(immediate = true)
 public class ModelDatabaseServiceImpl implements ModelDatabaseService {
-
-	@SuppressWarnings("restriction")
-	@Inject
-	private Logger logger;
 
 	private Database database;
 
