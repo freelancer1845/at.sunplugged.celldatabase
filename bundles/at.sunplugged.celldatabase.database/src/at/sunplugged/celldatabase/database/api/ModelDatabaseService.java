@@ -17,4 +17,6 @@ public interface ModelDatabaseService {
 
 	void load();
 
+	boolean isOpen();
+
 }

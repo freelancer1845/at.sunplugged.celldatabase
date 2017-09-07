@@ -25,6 +25,12 @@ public class DatabaseSettingsDialog extends TitleAreaDialog {
 	private Text databaseNameText;
 	private Text addressText;
 
+	private String provider;
+	private String password;
+	private String username;
+	private String databaseName;
+	private String address;
+
 	private GridDataFactory gridDataFactory;
 
 	private IEclipsePreferences preferences = ConfigurationScope.INSTANCE
@@ -35,6 +41,7 @@ public class DatabaseSettingsDialog extends TitleAreaDialog {
 		super(parentShell);
 		gridDataFactory = GridDataFactory.fillDefaults();
 		gridDataFactory.grab(true, false);
+		setBlockOnOpen(true);
 	}
 
 	@Override
@@ -67,6 +74,16 @@ public class DatabaseSettingsDialog extends TitleAreaDialog {
 		}
 
 		return area;
+	}
+
+	@Override
+	protected void okPressed() {
+		provider = providerCombo.getText();
+		password = passwordText.getText();
+		username = usernameText.getText();
+		databaseName = databaseNameText.getText();
+		address = addressText.getText();
+		super.okPressed();
 	}
 
 	private void createProviderCombo(Composite container) {
@@ -146,23 +163,23 @@ public class DatabaseSettingsDialog extends TitleAreaDialog {
 	}
 
 	public String getPasswordText() {
-		return passwordText.getText();
+		return password;
 	}
 
 	public String getUsernameText() {
-		return usernameText.getText();
+		return username;
 	}
 
 	public String getDatabaseNameText() {
-		return databaseNameText.getText();
+		return databaseName;
 	}
 
 	public String getAddressText() {
-		return addressText.getText();
+		return address;
 	}
 
 	public String getDriverText() {
-		return providerCombo.getText();
+		return provider;
 	}
 
 	public IEclipsePreferences getPreferences() {

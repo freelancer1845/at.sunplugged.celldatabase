@@ -24,6 +24,7 @@ import org.osgi.service.prefs.Preferences;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import at.sunplugged.celldatabase.rcp.settings.ids.PythonSettings;
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
 import datamodel.DatamodelFactory;
@@ -31,15 +32,12 @@ import datamodel.UIDataPoint;
 
 public class DataReaderHelper {
 
-	private static final String SETTING_PYTHON_LOCATION = "pythonLocation";
-
-	private static final String SETTING_PYTHON_SCRIPT = "pythonEvalScript";
-
 	public static List<CellResult> readAndCalculateFile(Collection<File> files) {
-		Preferences preferences = ConfigurationScope.INSTANCE.getNode("at.sunplugged.database.datareader");
+		Preferences preferences = ConfigurationScope.INSTANCE
+				.getNode(at.sunplugged.celldatabase.rcp.Activator.PLUGIN_ID);
 
-		String pythonLocation = preferences.get(SETTING_PYTHON_LOCATION, "D:\\Anaconda3\\python.exe");
-		String pythonScript = preferences.get(SETTING_PYTHON_SCRIPT,
+		String pythonLocation = preferences.get(PythonSettings.PYTHON_PATH, "D:\\Anaconda3\\python.exe");
+		String pythonScript = preferences.get(PythonSettings.LABVIEW_IMPORT_SCRIPT_PATH,
 				"C:\\Users\\jasch\\SunpluggedJob\\at.sunplugged.celldatabase.master\\at.sunplugged.celldatabase\\bundles\\at.sunplugged.celldatabase.datareader\\pythonsrc\\main.py");
 		String pluginLocation = Activator.getDefault().getStateLocation().toOSString();
 

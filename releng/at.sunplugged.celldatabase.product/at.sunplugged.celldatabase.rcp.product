@@ -16,7 +16,7 @@
 
    <windowImages/>
 
-   <launcher>
+   <launcher name="CellDatabase">
       <win useIco="false">
          <bmp/>
       </win>
@@ -31,9 +31,13 @@
       <plugin id="at.sunplugged.celldatabase.datamodel.edit"/>
       <plugin id="at.sunplugged.celldatabase.datareader"/>
       <plugin id="at.sunplugged.celldatabase.excelwriter"/>
+      <plugin id="at.sunplugged.celldatabase.logging.config"/>
       <plugin id="at.sunplugged.celldatabase.rcp"/>
       <plugin id="at.sunplugged.celldatabase.rcp.modeleditor"/>
       <plugin id="at.sunplugged.celldatabase.rcp.modelviewer"/>
+      <plugin id="ch.qos.logback.classic"/>
+      <plugin id="ch.qos.logback.core"/>
+      <plugin id="ch.qos.logback.slf4j" fragment="true"/>
       <plugin id="com.google.gson"/>
       <plugin id="com.ibm.icu"/>
       <plugin id="com.microsoft.sqlserver.jdbc"/>
@@ -194,6 +198,7 @@
       <plugin id="org.eclipse.ui.workbench"/>
       <plugin id="org.hibernate"/>
       <plugin id="org.hsqldb"/>
+      <plugin id="org.slf4j.api"/>
       <plugin id="org.w3c.css.sac"/>
       <plugin id="org.w3c.dom.events"/>
       <plugin id="org.w3c.dom.smil"/>
@@ -201,6 +206,7 @@
    </plugins>
 
    <configurations>
+      <plugin id="at.sunplugged.celldatabase.logging.config" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />

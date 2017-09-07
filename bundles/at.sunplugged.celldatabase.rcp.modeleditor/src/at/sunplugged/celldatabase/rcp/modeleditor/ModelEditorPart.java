@@ -39,7 +39,8 @@ public class ModelEditorPart {
 		});
 
 		try {
-			ECPSWTView view = ECPSWTViewRenderer.INSTANCE.render(composite, (EObject) part.getObject());
+			ECPSWTView view = ECPSWTViewRenderer.INSTANCE.render(composite,
+					(EObject) part.getTransientData().get("data"));
 			composite.setContent(view.getSWTControl());
 		} catch (ECPRendererException e) {
 			e.printStackTrace();

@@ -3,7 +3,7 @@ package at.sunplugged.celldatabase.rcp.handler;
 
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.swt.SWT;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.osgi.service.prefs.BackingStoreException;
 
@@ -14,7 +14,7 @@ public class DatabaseSettingsHandler {
 	@Execute
 	public void execute(Shell shell) {
 		DatabaseSettingsDialog dialog = new DatabaseSettingsDialog(shell);
-		if (dialog.open() == SWT.OK) {
+		if (dialog.open() == Window.OK) {
 			try {
 				IEclipsePreferences pref = dialog.getPreferences();
 				pref.put(Settings.ADDRESS, dialog.getAddressText());

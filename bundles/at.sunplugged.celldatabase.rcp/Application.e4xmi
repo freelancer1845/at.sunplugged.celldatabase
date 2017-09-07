@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_c3AF0MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.application" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ">
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" label="Empty E4 Application" width="500" height="400">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" selectedElement="_RkzywI7xEeelnoB5mxxecg" label="Empty E4 Application" width="500" height="400">
     <children xsi:type="basic:PartSashContainer" xmi:id="_RkzywI7xEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partsashcontainer.0" horizontal="true">
-      <children xsi:type="basic:PartStack" xmi:id="_S7JTkI7xEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partstack.0"/>
-      <children xsi:type="basic:PartStack" xmi:id="_YrGMEI8JEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partstack.1"/>
+      <children xsi:type="basic:PartStack" xmi:id="_S7JTkI7xEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partstack.0">
+        <tags>NoAutoCollapse</tags>
+      </children>
+      <children xsi:type="basic:PartStack" xmi:id="_YrGMEI8JEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partstack.1">
+        <tags>NoAutoCollapse</tags>
+      </children>
     </children>
     <mainMenu xmi:id="_GBr6sI_qEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.menu.0">
       <children xsi:type="menu:Menu" xmi:id="_Hz100I_qEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.menu.main" label="Settings">
         <children xsi:type="menu:DirectMenuItem" xmi:id="_PRhHUI_qEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.directmenuitem.database" label="Database" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.DatabaseSettingsHandler"/>
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_ZmduIJOpEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.directmenuitem.pythonsettings" label="Python Settings" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.PythonSettingsHandler"/>
       </children>
     </mainMenu>
+    <trimBars xmi:id="_L16ZQJOyEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.trimbar.0">
+      <children xsi:type="menu:ToolBar" xmi:id="_MREEMJOyEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.toolbar.0">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_NZj9UJOyEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.handledtoolitem.connect" label="Connect" command="_SQSbsJOyEeejFq7KVcklQw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_GggBgJO3EeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.handledtoolitem.disconnect" label="Disconnect" command="_ILnfgJO3EeejFq7KVcklQw"/>
+      </children>
+    </trimBars>
   </children>
+  <handlers xmi:id="_VknTMJOyEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.handler.0" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.ConnectToDatabaseHandler" command="_SQSbsJOyEeejFq7KVcklQw"/>
+  <handlers xmi:id="_JbHYgJO3EeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.handler.1" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.DisconnectHandler" command="_ILnfgJO3EeejFq7KVcklQw"/>
   <rootContext xmi:id="_c3AF2cjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
@@ -23,6 +36,9 @@
   <commands xmi:id="_hJO6YI8nEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.command.undo" commandName="Undo" category="_XGpCoI78EeelnoB5mxxecg"/>
   <commands xmi:id="_jelBII8nEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.command.redo" commandName="Redo" category="_XGpCoI78EeelnoB5mxxecg"/>
   <commands xmi:id="_6NquAJOiEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.command.exporttoexcel" commandName="Export To Excel" category="_43OfgJOiEeejFq7KVcklQw"/>
+  <commands xmi:id="_SQSbsJOyEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.command.connect" commandName="Connect" category="_Q_81MJOyEeejFq7KVcklQw"/>
+  <commands xmi:id="_ILnfgJO3EeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.command.disconnect" commandName="Disconnect" category="_Q_81MJOyEeejFq7KVcklQw"/>
+  <commands xmi:id="_mZNwcJPAEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.command.save" commandName="Save" category="_XGpCoI78EeelnoB5mxxecg"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
@@ -32,4 +48,5 @@
   <addons xmi:id="_c3AF2MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
   <categories xmi:id="_XGpCoI78EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.category.databaseedit" name="Database Edit" description="Commands that constitute to Database editing"/>
   <categories xmi:id="_43OfgJOiEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.category.importexport" name="Import/Export"/>
+  <categories xmi:id="_Q_81MJOyEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.category.database" name="Database"/>
 </application:Application>

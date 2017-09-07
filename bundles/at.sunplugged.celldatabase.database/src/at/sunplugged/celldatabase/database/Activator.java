@@ -1,12 +1,12 @@
 package at.sunplugged.celldatabase.database;
 
-import org.osgi.framework.BundleActivator;
+import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
-public class Activator implements BundleActivator {
+public class Activator extends Plugin {
 
 	public static final String PLUGIN_ID = "at.sunplugged.celldatabase.database";
-	
+
 	private static BundleContext context;
 
 	public static BundleContext getContext() {

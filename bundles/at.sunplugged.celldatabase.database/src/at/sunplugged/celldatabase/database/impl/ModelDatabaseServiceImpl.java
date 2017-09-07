@@ -2,12 +2,16 @@ package at.sunplugged.celldatabase.database.impl;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
+
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.services.statusreporter.StatusReporter;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
@@ -15,7 +19,10 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.teneo.hibernate.resource.HibernateResource;
 import org.osgi.service.component.annotations.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import at.sunplugged.celldatabase.database.Activator;
 import at.sunplugged.celldatabase.database.api.ModelDatabaseService;
 import datamodel.Database;
 import datamodel.DatamodelFactory;
@@ -24,45 +31,39 @@ import datamodel.DatamodelFactory;
 @Component(immediate = true)
 public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 
+	@Inject
+	private StatusReporter statusReporter;
+
 	private Database database;
 
 	private AdapterFactory composedAdapterFactory;
 
 	private EditingDomain editingDomain;
 
+	private IEclipsePreferences pref = ConfigurationScope.INSTANCE.getNode(Activator.PLUGIN_ID);
+
+	private static final Logger LOG = LoggerFactory.getLogger(ModelDatabaseServiceImpl.class);
+
 	public ModelDatabaseServiceImpl() {
-		editingDomain = new AdapterFactoryEditingDomain(getAdapterFactory(), new BasicCommandStack());
-		IEclipseContext context = E4Workbench.getServiceContext();
-		while (context.getParent() != null) {
-			context = context.getParent();
-		}
-		context.set("editingDomain", editingDomain);
 	}
 
 	@Override
 	public void open() {
-		// logger.log(IStatus.INFO, "Model Database Connection opened");
-	}
-
-	@Override
-	public void close() {
-		// logger.log(IStatus.INFO, "Model Database Connection closed");
-	}
-
-	@Override
-	public Database getDatabase() {
 		if (database == null) {
+			editingDomain = new AdapterFactoryEditingDomain(getAdapterFactory(), new BasicCommandStack());
+			IEclipseContext context = E4Workbench.getServiceContext();
+			while (context.getParent() != null) {
+				context = context.getParent();
+			}
+			context.set("editingDomain", editingDomain);
 
-			// File file = Activator.getContext().getDataFile("resource.xml");
-			// Resource resource = editingDomain.createResource("file://" +
-			// file.getAbsolutePath().toString());
-
-			DataStoreController.initHsqlStore();
-			// DataStoreController.initSqlExpressStore();
+			if (DataStoreController.initFromSettings() == false) {
+				LOG.error(
+						"Failed to open connection to database. Probably the database is locked(used) by somebody else...");
+				return;
+			}
 			String uriStr = "hibernate://?" + HibernateResource.DS_NAME_PARAM + "="
 					+ DataStoreController.DATA_STORE_NAME;
-
-			final URI uri = URI.createURI(uriStr);
 
 			Resource resource = editingDomain.createResource(uriStr);
 			try {
@@ -76,22 +77,30 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 			EList<EObject> content = resource.getContents();
 			if (content.isEmpty()) {
 				database = DatamodelFactory.eINSTANCE.createDatabase();
-				/*
-				 * CellGroup cellGroup = DatamodelFactory.eINSTANCE.createCellGroup();
-				 * cellGroup.setName("Default Group");
-				 * 
-				 * CellResult cellResult = DatamodelFactory.eINSTANCE.createCellResult();
-				 * cellResult.setName("Default Result");
-				 * 
-				 * cellGroup.getCellResults().add(cellResult);
-				 * 
-				 * database.getCellGroups().add(cellGroup);
-				 */
 				content.add(database);
 
 			} else {
 				database = (Database) content.get(0);
 			}
+
+		}
+
+	}
+
+	@Override
+	public void close() {
+		if (database != null) {
+			database.eResource().unload();
+			database = null;
+
+		}
+		DataStoreController.dispose();
+	}
+
+	@Override
+	public Database getDatabase() {
+		if (database == null) {
+			System.out.println("Database not open..");
 		}
 
 		return database;
@@ -123,5 +132,11 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 			composedAdapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 		}
 		return composedAdapterFactory;
+	}
+
+	@Override
+	public boolean isOpen() {
+		boolean value = DataStoreController.isInit();
+		return value;
 	}
 }
