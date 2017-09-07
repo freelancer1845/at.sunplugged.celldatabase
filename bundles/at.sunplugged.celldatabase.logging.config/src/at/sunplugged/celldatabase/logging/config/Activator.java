@@ -1,7 +1,7 @@
 package at.sunplugged.celldatabase.logging.config;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
@@ -50,8 +50,13 @@ public class Activator implements BundleActivator {
 		context.reset();
 
 		// this assumes that the logback.xml file is in the root of the bundle.
-		URL logbackConfigFileUrl = FileLocator.find(bundle, new Path("logback.xml"), null);
-		jc.doConfigure(logbackConfigFileUrl.openStream());
+		File config = new File("logback.xml");
+		if (config.exists()) {
+			jc.doConfigure(config);
+		} else {
+			jc.doConfigure(FileLocator.openStream(bundle, new Path("logback.xml"), false));
+		}
+
 	}
 
 }

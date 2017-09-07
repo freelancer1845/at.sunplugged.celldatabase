@@ -22,6 +22,6 @@
 		<module>at.sunplugged.celldatabase.datareader</module>
 		<module>at.sunplugged.celldatabase.excelwriter</module>
 		<module>at.sunplugged.celldatabase.logging.config</module>
-		<module>org.hibernate</module>
+		<module>at.sunplugged.celldatabase.database.hibernate</module>
 	</modules>
 </project>
