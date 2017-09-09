@@ -1,7 +1,9 @@
 
 package at.sunplugged.celldatabase.rcp.modelviewer.handler;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.inject.Named;
 
@@ -14,6 +16,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
 import at.sunplugged.celldatabase.excelwriter.api.ExcelOutputHelper;
+import datamodel.CellGroup;
 import datamodel.CellResult;
 
 public class ExportToExcelHandler {
@@ -24,10 +27,16 @@ public class ExportToExcelHandler {
 		String fileName = fd.open();
 		if (fileName != null) {
 			IStructuredSelection selection = ((TreeViewer) viewer).getStructuredSelection();
-			@SuppressWarnings("unchecked")
-			List<CellResult> cellResults = selection.toList();
+			Set<CellResult> cellResults = new LinkedHashSet<>();
+			for (Object selected : selection.toList()) {
+				if (selected instanceof CellResult) {
+					cellResults.add((CellResult) selected);
+				} else if (selected instanceof CellGroup) {
+					cellResults.addAll(((CellGroup) selected).getCellResults());
+				}
+			}
 
-			ExcelOutputHelper helper = new ExcelOutputHelper(cellResults, fileName);
+			ExcelOutputHelper helper = new ExcelOutputHelper(new ArrayList<CellResult>(cellResults), fileName);
 			helper.execute();
 		}
 	}
@@ -40,7 +49,7 @@ public class ExportToExcelHandler {
 		if (selection.isEmpty()) {
 			return false;
 		}
-		return selection.toList().stream().allMatch(arg -> (arg instanceof CellResult));
+		return selection.toList().stream().anyMatch(arg -> (arg instanceof CellResult) || (arg instanceof CellGroup));
 
 	}
 
