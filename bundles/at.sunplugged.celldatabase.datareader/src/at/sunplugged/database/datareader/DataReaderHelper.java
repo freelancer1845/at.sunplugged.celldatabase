@@ -20,6 +20,8 @@ import org.apache.commons.exec.ExecuteWatchdog;
 import org.apache.commons.exec.Executor;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.osgi.service.prefs.Preferences;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -31,6 +33,8 @@ import datamodel.DatamodelFactory;
 import datamodel.UIDataPoint;
 
 public class DataReaderHelper {
+
+	private static final Logger LOG = LoggerFactory.getLogger(DataReaderHelper.class);
 
 	public static List<CellResult> readAndCalculateFile(Collection<File> files) {
 		Preferences preferences = ConfigurationScope.INSTANCE
@@ -64,10 +68,12 @@ public class DataReaderHelper {
 			executor.setWatchdog(watchdog);
 			try {
 				executor.execute(cmdLine);
-			} catch (ExecuteException e) {
-				Activator.log(e);
-			} catch (IOException e) {
-				Activator.log(e);
+			} catch (ExecuteException e1) {
+				LOG.error("Failed to execute Python Evaluation... (ExecuteException)", e1);
+				continue;
+			} catch (IOException e1) {
+				LOG.error("Failed to execute Python Evaluation... (IOException", e1);
+				continue;
 			}
 
 			CellResult result = DatamodelFactory.eINSTANCE.createCellResult();
@@ -93,11 +99,14 @@ public class DataReaderHelper {
 				dataSet.setPowerInput(p.getPowerInput());
 				dataSet.setArea(p.getArea());
 			} catch (UnsupportedEncodingException e) {
-				Activator.log(e);
+				LOG.error("Failed to read results...", e);
+				continue;
 			} catch (FileNotFoundException e) {
-				Activator.log(e);
+				LOG.error("Failed to read results...", e);
+				continue;
 			} catch (IOException e) {
-				Activator.log(e);
+				LOG.error("Failed to read results...", e);
+				continue;
 			}
 
 			try (Reader reader = new InputStreamReader(new FileInputStream(pluginLocation + "/data.json"), "UTF-8")) {
@@ -112,11 +121,14 @@ public class DataReaderHelper {
 					dataSet.getData().add(dataPoint);
 				}
 			} catch (UnsupportedEncodingException e) {
-				Activator.log(e);
+				LOG.error("Failed to read results...", e);
+				continue;
 			} catch (FileNotFoundException e) {
-				Activator.log(e);
+				LOG.error("Failed to read results...", e);
+				continue;
 			} catch (IOException e) {
-				Activator.log(e);
+				LOG.error("Failed to read results...", e);
+				continue;
 			}
 			File resultFile = new File(pluginLocation + "/result.json");
 			resultFile.delete();

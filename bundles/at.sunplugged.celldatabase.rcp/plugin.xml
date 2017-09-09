@@ -16,6 +16,10 @@
                name="appName"
                value="at.sunplugged.celldatabase.rcp">
          </property>
+         <property
+               name="lifeCycleURI"
+               value="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.LifeCycleManager">
+         </property>
       </product>
    </extension>
 

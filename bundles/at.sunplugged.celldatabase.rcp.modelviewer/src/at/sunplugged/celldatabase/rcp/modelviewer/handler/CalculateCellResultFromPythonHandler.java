@@ -26,23 +26,27 @@ import datamodel.CellResult;
 
 public class CalculateCellResultFromPythonHandler {
 	@Execute
-	public void execute(Shell parent, @Named("TreeViewer") TreeViewer treeViewer, ModelDatabaseService databaseService, @Named("editingDomain") EditingDomain editingDomain) {
-		FileDialog dialog = new FileDialog(parent, SWT.MULTI|SWT.OPEN);
+	public void execute(Shell parent, @Named("TreeViewer") TreeViewer treeViewer, ModelDatabaseService databaseService,
+			@Named("editingDomain") EditingDomain editingDomain) {
+		FileDialog dialog = new FileDialog(parent, SWT.MULTI | SWT.OPEN);
 		String dir = dialog.open();
 		if (dir != null) {
 			Path root = Paths.get(dir);
-			dir= root.getParent().toString();
+			dir = root.getParent().toString();
 			String[] fileNames = dialog.getFileNames();
 			List<File> files = new ArrayList<>();
 			for (String fileName : fileNames) {
 				files.add(new File(dir + "\\" + fileName));
 			}
 			List<CellResult> results = DataReaderHelper.readAndCalculateFile(files);
-			
-			Command cmd = AddCommand.create(editingDomain, ((CellGroup) treeViewer.getStructuredSelection().getFirstElement()), null, results);
-			editingDomain.getCommandStack().execute(cmd);
+			if (results.size() > 0) {
+				Command cmd = AddCommand.create(editingDomain,
+						((CellGroup) treeViewer.getStructuredSelection().getFirstElement()), null, results);
+				editingDomain.getCommandStack().execute(cmd);
+			}
+
 		}
-	
+
 	}
 
 	@CanExecute

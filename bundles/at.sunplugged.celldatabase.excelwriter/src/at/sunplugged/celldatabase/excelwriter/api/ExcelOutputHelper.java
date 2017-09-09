@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -15,6 +18,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EcorePackage;
 
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
@@ -34,6 +38,22 @@ public class ExcelOutputHelper {
 	private List<EAttribute> resAttribs = DatamodelPackage.eINSTANCE.getCellResult().getEAllAttributes();
 
 	private XSSFWorkbook workbook = new XSSFWorkbook();
+
+	private CellStyle dateCellStyle;
+
+	private CellStyle headerCellStyle;
+	{
+		CellStyle cellStyle = workbook.createCellStyle();
+		CreationHelper createHelper = workbook.getCreationHelper();
+		cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("m/d/yy h:mm"));
+		dateCellStyle = cellStyle;
+		headerCellStyle = workbook.createCellStyle();
+
+		headerCellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+		headerCellStyle.setBorderTop(CellStyle.BORDER_THIN);
+		headerCellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+		headerCellStyle.setBorderRight(CellStyle.BORDER_THIN);
+	}
 
 	private XSSFSheet summarySheet;
 
@@ -99,14 +119,13 @@ public class ExcelOutputHelper {
 			colId = 0;
 			for (EAttribute attrib : resAttribs) {
 				cCell = cRow.createCell(colId++);
-				Object value = res.eGet(attrib);
-				if (value != null) {
-					cCell.setCellValue(res.eGet(attrib).toString());
-				} else {
-					cCell.setCellValue("");
-				}
+				writeValueToCell(cCell, res.eGet(attrib), attrib);
 
 			}
+		}
+
+		for (int i = 0; i < 15; i++) {
+			summarySheet.getColumnHelper().setColWidth(i, 18);
 		}
 	}
 
@@ -123,14 +142,10 @@ public class ExcelOutputHelper {
 
 		for (EAttribute attr : resAttribs) {
 			cCell = nameRow.createCell(colId);
-			cCell.setCellValue(attr.getName());
+			cCell.setCellStyle(headerCellStyle);
+			writeValueToCell(cCell, attr.getName());
 			cCell = valueRow.createCell(colId++);
-			Object value = res.eGet(attr);
-			if (value != null) {
-				cCell.setCellValue(res.eGet(attr).toString());
-			} else {
-				cCell.setCellValue("");
-			}
+			writeValueToCell(cCell, res.eGet(attr), attr);
 		}
 
 		colId = 0;
@@ -140,31 +155,37 @@ public class ExcelOutputHelper {
 			return;
 		}
 
+		rowId++;
 		XSSFRow seperatorRow = sheet.createRow(rowId++);
-		seperatorRow.createCell(0).setCellValue("Measurement Data");
+		cCell = seperatorRow.createCell(0);
+		cCell.setCellValue("Measurement Data");
+		cCell.setCellStyle(headerCellStyle);
 
 		nameRow = sheet.createRow(rowId++);
 		valueRow = sheet.createRow(rowId++);
 		for (EAttribute attr : DatamodelPackage.eINSTANCE.getCellMeasurementDataSet().getEAttributes()) {
 			cCell = nameRow.createCell(colId);
-			cCell.setCellValue(attr.getName());
+			cCell.setCellStyle(headerCellStyle);
+			writeValueToCell(cCell, attr.getName());
 			cCell = valueRow.createCell(colId++);
-			Object value = res.eGet(attr);
-			if (value != null) {
-				cCell.setCellValue(dataSet.eGet(attr).toString());
-			} else {
-				cCell.setCellValue("");
-			}
+			writeValueToCell(cCell, dataSet.eGet(attr), attr);
 
 		}
 
+		rowId++;
 		XSSFRow seperatorRow2 = sheet.createRow(rowId++);
-		seperatorRow2.createCell(0).setCellValue("Measured Data");
+		cCell = seperatorRow2.createCell(0);
+		cCell.setCellValue("Measured Data");
+		cCell.setCellStyle(headerCellStyle);
 
 		XSSFRow dataNameRow = sheet.createRow(rowId++);
 
-		dataNameRow.createCell(0).setCellValue("Voltage[V]");
-		dataNameRow.createCell(1).setCellValue("Current [A]");
+		cCell = dataNameRow.createCell(0);
+		cCell.setCellStyle(headerCellStyle);
+		cCell.setCellValue("Voltage[V]");
+		cCell = dataNameRow.createCell(1);
+		cCell.setCellStyle(headerCellStyle);
+		cCell.setCellValue("Current [A]");
 
 		XSSFRow cRow;
 		for (UIDataPoint dataPoint : dataSet.getData()) {
@@ -192,6 +213,32 @@ public class ExcelOutputHelper {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	private void writeValueToCell(XSSFCell cell, Object value) {
+		writeValueToCell(cell, value, null);
+	}
+
+	private void writeValueToCell(XSSFCell cell, Object value, EAttribute attr) {
+		if (value != null) {
+			if (attr != null) {
+				if (attr.getEAttributeType().equals(EcorePackage.Literals.EDOUBLE)) {
+					cell.setCellValue((double) value);
+				} else if (attr.getEAttributeType().equals(EcorePackage.Literals.EDATE)) {
+
+					Date date = (Date) value;
+					cell.setCellValue((Date) date);
+					cell.setCellStyle(dateCellStyle);
+				} else {
+					cell.setCellValue(value.toString());
+				}
+			} else {
+				cell.setCellValue(value.toString());
+			}
+
+		} else {
+			cell.setCellValue("");
 		}
 	}
 

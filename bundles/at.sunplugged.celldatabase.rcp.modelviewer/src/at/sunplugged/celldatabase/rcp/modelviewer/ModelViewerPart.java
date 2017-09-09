@@ -198,6 +198,8 @@ public class ModelViewerPart {
 			}
 		});
 
+		treeViewer.collapseAll();
+
 		menuService.registerContextMenu(treeViewer.getControl(),
 				"at.sunplugged.celldatabase.rcp.modelviewer.popupmenu.treepopupmenu");
 		ctx.set("TreeViewer", treeViewer);
