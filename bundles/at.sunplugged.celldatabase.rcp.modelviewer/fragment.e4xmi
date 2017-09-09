@@ -12,6 +12,7 @@
     <elements xsi:type="commands:BindingTable" xmi:id="_CAxYII8oEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.bindingtable.0" bindingContext="_sxkaAI8oEee3m-gA9IKKWg">
       <bindings xmi:id="_NuKzYI8oEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.keybinding.0" keySequence="M1+Z" command="_pnSEwI8nEee3m-gA9IKKWg"/>
       <bindings xmi:id="_UeepkI8oEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.keybinding.1" keySequence="M1+Y" command="_sTsnsI8nEee3m-gA9IKKWg"/>
+      <bindings xmi:id="_T9BVQJVdEeeha-ZlG6JHqQ" elementId="at.sunplugged.celldatabase.rcp.modelviewer.keybinding.2" keySequence="M1+S" command="_rHW6kJPAEeejFq7KVcklQw"/>
     </elements>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_rBTWQI8oEee3m-gA9IKKWg" featurename="rootContext" parentElementId="org.eclipse.e4.application">

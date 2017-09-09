@@ -12,7 +12,7 @@ public class SaveHandler {
 	public void execute(EPartService partService, ISaveHandler saveHandler) {
 		MPart viewerPart = partService
 				.findPart("at.sunplugged.celldatabase.rcp.modelviewer.partdescriptor.modelviewer");
-		saveHandler.save(viewerPart, true);
+		saveHandler.save(viewerPart, false);
 	}
 
 	@CanExecute

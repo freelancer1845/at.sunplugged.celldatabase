@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Named;
 
+import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.EObject;
@@ -18,7 +19,8 @@ import at.sunplugged.celldatabase.database.api.ModelDatabaseService;
 
 public class DeleteElementHandler {
 	@Execute
-	public void execute(@Named("TreeViewer") TreeViewer viewer, ModelDatabaseService databaseService, @Named("editingDomain") EditingDomain domain) {
+	public void execute(@Named("TreeViewer") TreeViewer viewer, ModelDatabaseService databaseService,
+			@Named("editingDomain") EditingDomain domain) {
 
 		if (viewer instanceof TreeViewer) {
 
@@ -36,6 +38,11 @@ public class DeleteElementHandler {
 			}
 		}
 
+	}
+
+	@CanExecute
+	public boolean canExecute(@Named("TreeViewer") TreeViewer viewer) {
+		return !viewer.getStructuredSelection().isEmpty();
 	}
 
 }

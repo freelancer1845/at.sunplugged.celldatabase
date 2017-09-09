@@ -37,7 +37,9 @@ public class ExportToExcelHandler {
 	public boolean canExecute(@Named("TreeViewer") TreeViewer viewer) {
 
 		IStructuredSelection selection = ((TreeViewer) viewer).getStructuredSelection();
-
+		if (selection.isEmpty()) {
+			return false;
+		}
 		return selection.toList().stream().allMatch(arg -> (arg instanceof CellResult));
 
 	}
