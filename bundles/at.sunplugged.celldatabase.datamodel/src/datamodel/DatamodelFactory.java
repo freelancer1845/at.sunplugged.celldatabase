@@ -58,15 +58,6 @@ public interface DatamodelFactory extends EFactory {
 	CellMeasurementDataSet createCellMeasurementDataSet();
 
 	/**
-	 * Returns a new object of class '<em>Evaluation Method</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Evaluation Method</em>'.
-	 * @generated
-	 */
-	EvaluationMethod createEvaluationMethod();
-
-	/**
 	 * Returns a new object of class '<em>UI Data Point</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -6,6 +6,8 @@ public class PythonSettings {
 
 	public static final String LABVIEW_IMPORT_SCRIPT_PATH = "labViewImportScriptPath";
 
+	public static final String PLOT_SCRIPT_PATH = "plotScriptPyth";
+
 	private PythonSettings() {
 
 	}

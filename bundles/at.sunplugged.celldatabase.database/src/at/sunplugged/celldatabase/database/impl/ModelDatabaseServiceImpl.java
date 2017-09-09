@@ -48,7 +48,7 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 	}
 
 	@Override
-	public void open() {
+	public boolean open() {
 		if (database == null) {
 			editingDomain = new AdapterFactoryEditingDomain(getAdapterFactory(), new BasicCommandStack());
 			IEclipseContext context = E4Workbench.getServiceContext();
@@ -60,7 +60,7 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 			if (DataStoreController.initFromSettings() == false) {
 				LOG.error(
 						"Failed to open connection to database. Probably the database is locked(used) by somebody else...");
-				return;
+				return false;
 			}
 			String uriStr = "hibernate://?" + HibernateResource.DS_NAME_PARAM + "="
 					+ DataStoreController.DATA_STORE_NAME;
@@ -84,6 +84,7 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 			}
 
 		}
+		return true;
 
 	}
 

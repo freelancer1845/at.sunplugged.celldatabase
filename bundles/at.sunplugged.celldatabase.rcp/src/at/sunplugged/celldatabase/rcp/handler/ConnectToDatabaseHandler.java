@@ -15,7 +15,9 @@ public class ConnectToDatabaseHandler {
 	@Execute
 	public void execute(ModelDatabaseService databaseService, EPartService partService, EModelService modelService,
 			MApplication app) {
-		databaseService.open();
+		if (databaseService.open() == false) {
+			return;
+		}
 		MPart viewPart = partService
 				.createPart("at.sunplugged.celldatabase.rcp.modelviewer.partdescriptor.modelviewer");
 		MPartStack stack = (MPartStack) modelService.find("at.sunplugged.celldatabase.rcp.partstack.0", app);

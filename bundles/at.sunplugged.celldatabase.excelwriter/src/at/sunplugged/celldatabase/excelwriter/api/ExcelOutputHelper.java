@@ -135,7 +135,7 @@ public class ExcelOutputHelper {
 
 		colId = 0;
 
-		CellMeasurementDataSet dataSet = res.getCellMeasurmenetDataSet();
+		CellMeasurementDataSet dataSet = res.getCellMeasurementDataSet();
 		if (dataSet == null) {
 			return;
 		}

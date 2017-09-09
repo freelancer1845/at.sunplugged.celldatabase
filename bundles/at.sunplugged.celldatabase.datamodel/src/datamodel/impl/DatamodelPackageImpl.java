@@ -8,8 +8,6 @@ import datamodel.CellResult;
 import datamodel.Database;
 import datamodel.DatamodelFactory;
 import datamodel.DatamodelPackage;
-import datamodel.EvaluationMethod;
-
 import datamodel.UIDataPoint;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -52,13 +50,6 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * @generated
 	 */
 	private EClass cellMeasurementDataSetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass evaluationMethodEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -151,15 +142,6 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDatabase_EvluationMethods() {
-		return (EReference)databaseEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getCellResult() {
 		return cellResultEClass;
 	}
@@ -187,17 +169,8 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCellResult_EvaluationMethod() {
-		return (EReference)cellResultEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getCellResult_DataEvaluated() {
-		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -206,7 +179,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * @generated
 	 */
 	public EAttribute getCellResult_OpenCircuitVoltage() {
-		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -215,7 +188,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * @generated
 	 */
 	public EAttribute getCellResult_ShortCircuitCurrent() {
-		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -224,7 +197,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * @generated
 	 */
 	public EAttribute getCellResult_ParallelResistance() {
-		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -233,7 +206,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * @generated
 	 */
 	public EAttribute getCellResult_SeriesResistance() {
-		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(7);
+		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -242,7 +215,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * @generated
 	 */
 	public EAttribute getCellResult_MaximumPower() {
-		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(8);
+		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -251,7 +224,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * @generated
 	 */
 	public EAttribute getCellResult_MaximumPowerVoltage() {
-		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(9);
+		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -260,6 +233,15 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * @generated
 	 */
 	public EAttribute getCellResult_MaximumPowerCurrent() {
+		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCellResult_Efficiency() {
 		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -268,7 +250,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCellResult_Efficency() {
+	public EAttribute getCellResult_FillFactor() {
 		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -277,17 +259,8 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCellResult_FillFactor() {
-		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(12);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getCellResult_CellMeasurmenetDataSet() {
-		return (EReference)cellResultEClass.getEStructuralFeatures().get(13);
+	public EReference getCellResult_CellMeasurementDataSet() {
+		return (EReference)cellResultEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -394,33 +367,6 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getEvaluationMethod() {
-		return evaluationMethodEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getEvaluationMethod_Name() {
-		return (EAttribute)evaluationMethodEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getEvaluationMethod_Description() {
-		return (EAttribute)evaluationMethodEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getUIDataPoint() {
 		return uiDataPointEClass;
 	}
@@ -473,12 +419,10 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 		// Create classes and their features
 		databaseEClass = createEClass(DATABASE);
 		createEReference(databaseEClass, DATABASE__CELL_GROUPS);
-		createEReference(databaseEClass, DATABASE__EVLUATION_METHODS);
 
 		cellResultEClass = createEClass(CELL_RESULT);
 		createEAttribute(cellResultEClass, CELL_RESULT__NAME);
 		createEAttribute(cellResultEClass, CELL_RESULT__DESCRIPTION);
-		createEReference(cellResultEClass, CELL_RESULT__EVALUATION_METHOD);
 		createEAttribute(cellResultEClass, CELL_RESULT__DATA_EVALUATED);
 		createEAttribute(cellResultEClass, CELL_RESULT__OPEN_CIRCUIT_VOLTAGE);
 		createEAttribute(cellResultEClass, CELL_RESULT__SHORT_CIRCUIT_CURRENT);
@@ -487,9 +431,9 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 		createEAttribute(cellResultEClass, CELL_RESULT__MAXIMUM_POWER);
 		createEAttribute(cellResultEClass, CELL_RESULT__MAXIMUM_POWER_VOLTAGE);
 		createEAttribute(cellResultEClass, CELL_RESULT__MAXIMUM_POWER_CURRENT);
-		createEAttribute(cellResultEClass, CELL_RESULT__EFFICENCY);
+		createEAttribute(cellResultEClass, CELL_RESULT__EFFICIENCY);
 		createEAttribute(cellResultEClass, CELL_RESULT__FILL_FACTOR);
-		createEReference(cellResultEClass, CELL_RESULT__CELL_MEASURMENET_DATA_SET);
+		createEReference(cellResultEClass, CELL_RESULT__CELL_MEASUREMENT_DATA_SET);
 
 		cellGroupEClass = createEClass(CELL_GROUP);
 		createEAttribute(cellGroupEClass, CELL_GROUP__NAME);
@@ -503,10 +447,6 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 		createEAttribute(cellMeasurementDataSetEClass, CELL_MEASUREMENT_DATA_SET__AREA);
 		createEAttribute(cellMeasurementDataSetEClass, CELL_MEASUREMENT_DATA_SET__POWER_INPUT);
 		createEReference(cellMeasurementDataSetEClass, CELL_MEASUREMENT_DATA_SET__DATA);
-
-		evaluationMethodEClass = createEClass(EVALUATION_METHOD);
-		createEAttribute(evaluationMethodEClass, EVALUATION_METHOD__NAME);
-		createEAttribute(evaluationMethodEClass, EVALUATION_METHOD__DESCRIPTION);
 
 		uiDataPointEClass = createEClass(UI_DATA_POINT);
 		createEAttribute(uiDataPointEClass, UI_DATA_POINT__VOLTAGE);
@@ -545,12 +485,10 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 		// Initialize classes, features, and operations; add parameters
 		initEClass(databaseEClass, Database.class, "Database", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDatabase_CellGroups(), this.getCellGroup(), null, "cellGroups", null, 0, -1, Database.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDatabase_EvluationMethods(), this.getEvaluationMethod(), null, "evluationMethods", null, 0, -1, Database.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cellResultEClass, CellResult.class, "CellResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCellResult_Name(), ecorePackage.getEString(), "name", "default...", 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_Description(), ecorePackage.getEString(), "description", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCellResult_EvaluationMethod(), this.getEvaluationMethod(), null, "evaluationMethod", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_DataEvaluated(), ecorePackage.getEDate(), "dataEvaluated", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_OpenCircuitVoltage(), ecorePackage.getEDouble(), "openCircuitVoltage", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_ShortCircuitCurrent(), ecorePackage.getEDouble(), "shortCircuitCurrent", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -559,9 +497,9 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 		initEAttribute(getCellResult_MaximumPower(), ecorePackage.getEDouble(), "maximumPower", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_MaximumPowerVoltage(), ecorePackage.getEDouble(), "maximumPowerVoltage", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_MaximumPowerCurrent(), ecorePackage.getEDouble(), "maximumPowerCurrent", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCellResult_Efficency(), ecorePackage.getEDouble(), "efficency", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCellResult_Efficiency(), ecorePackage.getEDouble(), "efficiency", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_FillFactor(), ecorePackage.getEDouble(), "fillFactor", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCellResult_CellMeasurmenetDataSet(), this.getCellMeasurementDataSet(), null, "cellMeasurmenetDataSet", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCellResult_CellMeasurementDataSet(), this.getCellMeasurementDataSet(), null, "cellMeasurementDataSet", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cellGroupEClass, CellGroup.class, "CellGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCellGroup_Name(), ecorePackage.getEString(), "name", null, 0, 1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -575,10 +513,6 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 		initEAttribute(getCellMeasurementDataSet_Area(), ecorePackage.getEDouble(), "area", null, 0, 1, CellMeasurementDataSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellMeasurementDataSet_PowerInput(), ecorePackage.getEDouble(), "powerInput", null, 0, 1, CellMeasurementDataSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCellMeasurementDataSet_Data(), this.getUIDataPoint(), null, "data", null, 0, -1, CellMeasurementDataSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(evaluationMethodEClass, EvaluationMethod.class, "EvaluationMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEvaluationMethod_Name(), ecorePackage.getEString(), "name", null, 0, 1, EvaluationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEvaluationMethod_Description(), ecorePackage.getEString(), "description", null, 0, 1, EvaluationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(uiDataPointEClass, UIDataPoint.class, "UIDataPoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getUIDataPoint_Voltage(), ecorePackage.getEDouble(), "Voltage", null, 0, 1, UIDataPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

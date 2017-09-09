@@ -154,9 +154,6 @@ public class DatabaseItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Database.class)) {
-			case DatamodelPackage.DATABASE__EVLUATION_METHODS:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
 			case DatamodelPackage.DATABASE__CELL_GROUPS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -179,11 +176,6 @@ public class DatabaseItemProvider
 			(createChildParameter
 				(DatamodelPackage.Literals.DATABASE__CELL_GROUPS,
 				 DatamodelFactory.eINSTANCE.createCellGroup()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DatamodelPackage.Literals.DATABASE__EVLUATION_METHODS,
-				 DatamodelFactory.eINSTANCE.createEvaluationMethod()));
 	}
 
 	/**

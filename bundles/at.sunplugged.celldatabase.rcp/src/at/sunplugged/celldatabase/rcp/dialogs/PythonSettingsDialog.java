@@ -35,6 +35,10 @@ public class PythonSettingsDialog extends TitleAreaDialog {
 
 	private String labViewScriptPath;
 
+	private Text plotScriptPathText;
+
+	private String plotScriptPath;
+
 	public PythonSettingsDialog(Shell parentShell) {
 		super(parentShell);
 		setBlockOnOpen(true);
@@ -62,6 +66,7 @@ public class PythonSettingsDialog extends TitleAreaDialog {
 		pythonPathText = createLabeledFileChooser(container, "Python Path", PythonSettings.PYTHON_PATH);
 		labViewScriptPathText = createLabeledFileChooser(container, "LabView Python Script",
 				PythonSettings.LABVIEW_IMPORT_SCRIPT_PATH);
+		plotScriptPathText = createLabeledFileChooser(container, "Plot Script Path", PythonSettings.PLOT_SCRIPT_PATH);
 
 		return area;
 	}
@@ -109,6 +114,7 @@ public class PythonSettingsDialog extends TitleAreaDialog {
 	protected void okPressed() {
 		pythonPath = pythonPathText.getText();
 		labViewScriptPath = labViewScriptPathText.getText();
+		plotScriptPath = plotScriptPathText.getText();
 		super.okPressed();
 	}
 
@@ -118,6 +124,10 @@ public class PythonSettingsDialog extends TitleAreaDialog {
 
 	public String getLabViewScriptPathText() {
 		return labViewScriptPath;
+	}
+
+	public String getPlotScriptPathText() {
+		return plotScriptPath;
 	}
 
 	public IEclipsePreferences getPreferences() {

@@ -82,7 +82,7 @@ public class DataReaderHelper {
 				result.setOpenCircuitVoltage(p.getVoc());
 				result.setShortCircuitCurrent(p.getIsc());
 				result.setFillFactor(p.getFF());
-				result.setEfficency(p.getEff());
+				result.setEfficiency(p.getEff());
 				result.setMaximumPower(p.getMaximumPower());
 				result.setMaximumPowerCurrent(p.getMaximumPowerI());
 				result.setMaximumPowerVoltage(p.getMaximumPowerV());
@@ -122,7 +122,7 @@ public class DataReaderHelper {
 			resultFile.delete();
 			File dataFile = new File(pluginLocation + "/data.json");
 			dataFile.delete();
-			result.setCellMeasurmenetDataSet(dataSet);
+			result.setCellMeasurementDataSet(dataSet);
 			resultList.add(result);
 		}
 

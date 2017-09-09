@@ -84,10 +84,6 @@ public class DatamodelAdapterFactory extends AdapterFactoryImpl {
 				return createCellMeasurementDataSetAdapter();
 			}
 			@Override
-			public Adapter caseEvaluationMethod(EvaluationMethod object) {
-				return createEvaluationMethodAdapter();
-			}
-			@Override
 			public Adapter caseUIDataPoint(UIDataPoint object) {
 				return createUIDataPointAdapter();
 			}
@@ -164,20 +160,6 @@ public class DatamodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCellMeasurementDataSetAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link datamodel.EvaluationMethod <em>Evaluation Method</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see datamodel.EvaluationMethod
-	 * @generated
-	 */
-	public Adapter createEvaluationMethodAdapter() {
 		return null;
 	}
 

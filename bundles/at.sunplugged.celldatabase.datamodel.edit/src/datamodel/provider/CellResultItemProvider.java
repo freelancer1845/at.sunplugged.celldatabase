@@ -9,6 +9,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -21,6 +22,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import datamodel.CellResult;
+import datamodel.DatamodelFactory;
 import datamodel.DatamodelPackage;
 
 /**
@@ -60,7 +62,6 @@ public class CellResultItemProvider
 
 			addNamePropertyDescriptor(object);
 			addDescriptionPropertyDescriptor(object);
-			addEvaluationMethodPropertyDescriptor(object);
 			addDataEvaluatedPropertyDescriptor(object);
 			addOpenCircuitVoltagePropertyDescriptor(object);
 			addShortCircuitCurrentPropertyDescriptor(object);
@@ -69,9 +70,8 @@ public class CellResultItemProvider
 			addMaximumPowerPropertyDescriptor(object);
 			addMaximumPowerVoltagePropertyDescriptor(object);
 			addMaximumPowerCurrentPropertyDescriptor(object);
-			addEfficencyPropertyDescriptor(object);
+			addEfficiencyPropertyDescriptor(object);
 			addFillFactorPropertyDescriptor(object);
-			addCellMeasurmenetDataSetPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -116,28 +116,6 @@ public class CellResultItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Evaluation Method feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEvaluationMethodPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_CellResult_evaluationMethod_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CellResult_evaluationMethod_feature", "_UI_CellResult_type"),
-				 DatamodelPackage.Literals.CELL_RESULT__EVALUATION_METHOD,
-				 true,
-				 false,
-				 true,
-				 null,
 				 null,
 				 null));
 	}
@@ -319,19 +297,19 @@ public class CellResultItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Efficency feature.
+	 * This adds a property descriptor for the Efficiency feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addEfficencyPropertyDescriptor(Object object) {
+	protected void addEfficiencyPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_CellResult_efficency_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CellResult_efficency_feature", "_UI_CellResult_type"),
-				 DatamodelPackage.Literals.CELL_RESULT__EFFICENCY,
+				 getString("_UI_CellResult_efficiency_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CellResult_efficiency_feature", "_UI_CellResult_type"),
+				 DatamodelPackage.Literals.CELL_RESULT__EFFICIENCY,
 				 true,
 				 false,
 				 false,
@@ -363,25 +341,33 @@ public class CellResultItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Cell Measurmenet Data Set feature.
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addCellMeasurmenetDataSetPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_CellResult_cellMeasurmenetDataSet_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CellResult_cellMeasurmenetDataSet_feature", "_UI_CellResult_type"),
-				 DatamodelPackage.Literals.CELL_RESULT__CELL_MEASURMENET_DATA_SET,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(DatamodelPackage.Literals.CELL_RESULT__CELL_MEASUREMENT_DATA_SET);
+		}
+		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -432,9 +418,12 @@ public class CellResultItemProvider
 			case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER:
 			case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER_VOLTAGE:
 			case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER_CURRENT:
-			case DatamodelPackage.CELL_RESULT__EFFICENCY:
+			case DatamodelPackage.CELL_RESULT__EFFICIENCY:
 			case DatamodelPackage.CELL_RESULT__FILL_FACTOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case DatamodelPackage.CELL_RESULT__CELL_MEASUREMENT_DATA_SET:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -450,6 +439,11 @@ public class CellResultItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DatamodelPackage.Literals.CELL_RESULT__CELL_MEASUREMENT_DATA_SET,
+				 DatamodelFactory.eINSTANCE.createCellMeasurementDataSet()));
 	}
 
 	/**

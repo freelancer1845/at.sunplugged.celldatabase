@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link datamodel.CellResult#getName <em>Name</em>}</li>
  *   <li>{@link datamodel.CellResult#getDescription <em>Description</em>}</li>
- *   <li>{@link datamodel.CellResult#getEvaluationMethod <em>Evaluation Method</em>}</li>
  *   <li>{@link datamodel.CellResult#getDataEvaluated <em>Data Evaluated</em>}</li>
  *   <li>{@link datamodel.CellResult#getOpenCircuitVoltage <em>Open Circuit Voltage</em>}</li>
  *   <li>{@link datamodel.CellResult#getShortCircuitCurrent <em>Short Circuit Current</em>}</li>
@@ -26,9 +25,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link datamodel.CellResult#getMaximumPower <em>Maximum Power</em>}</li>
  *   <li>{@link datamodel.CellResult#getMaximumPowerVoltage <em>Maximum Power Voltage</em>}</li>
  *   <li>{@link datamodel.CellResult#getMaximumPowerCurrent <em>Maximum Power Current</em>}</li>
- *   <li>{@link datamodel.CellResult#getEfficency <em>Efficency</em>}</li>
+ *   <li>{@link datamodel.CellResult#getEfficiency <em>Efficiency</em>}</li>
  *   <li>{@link datamodel.CellResult#getFillFactor <em>Fill Factor</em>}</li>
- *   <li>{@link datamodel.CellResult#getCellMeasurmenetDataSet <em>Cell Measurmenet Data Set</em>}</li>
+ *   <li>{@link datamodel.CellResult#getCellMeasurementDataSet <em>Cell Measurement Data Set</em>}</li>
  * </ul>
  *
  * @see datamodel.DatamodelPackage#getCellResult()
@@ -88,32 +87,6 @@ public interface CellResult extends EObject {
 	 * @generated
 	 */
 	void setDescription(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Evaluation Method</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Evaluation Method</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Evaluation Method</em>' containment reference.
-	 * @see #setEvaluationMethod(EvaluationMethod)
-	 * @see datamodel.DatamodelPackage#getCellResult_EvaluationMethod()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EvaluationMethod getEvaluationMethod();
-
-	/**
-	 * Sets the value of the '{@link datamodel.CellResult#getEvaluationMethod <em>Evaluation Method</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Evaluation Method</em>' containment reference.
-	 * @see #getEvaluationMethod()
-	 * @generated
-	 */
-	void setEvaluationMethod(EvaluationMethod value);
 
 	/**
 	 * Returns the value of the '<em><b>Data Evaluated</b></em>' attribute.
@@ -324,30 +297,30 @@ public interface CellResult extends EObject {
 	void setMaximumPowerCurrent(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Efficency</b></em>' attribute.
+	 * Returns the value of the '<em><b>Efficiency</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Efficency</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Efficiency</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Efficency</em>' attribute.
-	 * @see #setEfficency(double)
-	 * @see datamodel.DatamodelPackage#getCellResult_Efficency()
+	 * @return the value of the '<em>Efficiency</em>' attribute.
+	 * @see #setEfficiency(double)
+	 * @see datamodel.DatamodelPackage#getCellResult_Efficiency()
 	 * @model
 	 * @generated
 	 */
-	double getEfficency();
+	double getEfficiency();
 
 	/**
-	 * Sets the value of the '{@link datamodel.CellResult#getEfficency <em>Efficency</em>}' attribute.
+	 * Sets the value of the '{@link datamodel.CellResult#getEfficiency <em>Efficiency</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Efficency</em>' attribute.
-	 * @see #getEfficency()
+	 * @param value the new value of the '<em>Efficiency</em>' attribute.
+	 * @see #getEfficiency()
 	 * @generated
 	 */
-	void setEfficency(double value);
+	void setEfficiency(double value);
 
 	/**
 	 * Returns the value of the '<em><b>Fill Factor</b></em>' attribute.
@@ -376,29 +349,29 @@ public interface CellResult extends EObject {
 	void setFillFactor(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Cell Measurmenet Data Set</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Cell Measurement Data Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Cell Measurmenet Data Set</em>' reference isn't clear,
+	 * If the meaning of the '<em>Cell Measurement Data Set</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Cell Measurmenet Data Set</em>' containment reference.
-	 * @see #setCellMeasurmenetDataSet(CellMeasurementDataSet)
-	 * @see datamodel.DatamodelPackage#getCellResult_CellMeasurmenetDataSet()
+	 * @return the value of the '<em>Cell Measurement Data Set</em>' containment reference.
+	 * @see #setCellMeasurementDataSet(CellMeasurementDataSet)
+	 * @see datamodel.DatamodelPackage#getCellResult_CellMeasurementDataSet()
 	 * @model containment="true"
 	 * @generated
 	 */
-	CellMeasurementDataSet getCellMeasurmenetDataSet();
+	CellMeasurementDataSet getCellMeasurementDataSet();
 
 	/**
-	 * Sets the value of the '{@link datamodel.CellResult#getCellMeasurmenetDataSet <em>Cell Measurmenet Data Set</em>}' containment reference.
+	 * Sets the value of the '{@link datamodel.CellResult#getCellMeasurementDataSet <em>Cell Measurement Data Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Cell Measurmenet Data Set</em>' containment reference.
-	 * @see #getCellMeasurmenetDataSet()
+	 * @param value the new value of the '<em>Cell Measurement Data Set</em>' containment reference.
+	 * @see #getCellMeasurementDataSet()
 	 * @generated
 	 */
-	void setCellMeasurmenetDataSet(CellMeasurementDataSet value);
+	void setCellMeasurementDataSet(CellMeasurementDataSet value);
 
 } // CellResult

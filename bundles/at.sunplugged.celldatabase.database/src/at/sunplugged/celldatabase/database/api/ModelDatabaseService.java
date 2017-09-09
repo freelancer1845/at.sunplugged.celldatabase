@@ -7,7 +7,7 @@ public interface ModelDatabaseService {
 	/**
 	 * 
 	 */
-	void open();
+	boolean open();
 
 	void close();
 

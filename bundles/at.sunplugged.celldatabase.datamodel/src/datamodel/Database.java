@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link datamodel.Database#getCellGroups <em>Cell Groups</em>}</li>
- *   <li>{@link datamodel.Database#getEvluationMethods <em>Evluation Methods</em>}</li>
  * </ul>
  *
  * @see datamodel.DatamodelPackage#getDatabase()
@@ -39,21 +38,5 @@ public interface Database extends EObject {
 	 * @generated
 	 */
 	EList<CellGroup> getCellGroups();
-
-	/**
-	 * Returns the value of the '<em><b>Evluation Methods</b></em>' containment reference list.
-	 * The list contents are of type {@link datamodel.EvaluationMethod}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Evluation Methods</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Evluation Methods</em>' containment reference list.
-	 * @see datamodel.DatamodelPackage#getDatabase_EvluationMethods()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<EvaluationMethod> getEvluationMethods();
 
 } // Database

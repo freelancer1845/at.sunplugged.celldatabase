@@ -5,8 +5,6 @@ package datamodel.impl;
 import datamodel.CellGroup;
 import datamodel.Database;
 import datamodel.DatamodelPackage;
-import datamodel.EvaluationMethod;
-
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -30,7 +28,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link datamodel.impl.DatabaseImpl#getCellGroups <em>Cell Groups</em>}</li>
- *   <li>{@link datamodel.impl.DatabaseImpl#getEvluationMethods <em>Evluation Methods</em>}</li>
  * </ul>
  *
  * @generated
@@ -45,16 +42,6 @@ public class DatabaseImpl extends MinimalEObjectImpl.Container implements Databa
 	 * @ordered
 	 */
 	protected EList<CellGroup> cellGroups;
-
-	/**
-	 * The cached value of the '{@link #getEvluationMethods() <em>Evluation Methods</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEvluationMethods()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<EvaluationMethod> evluationMethods;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -92,25 +79,11 @@ public class DatabaseImpl extends MinimalEObjectImpl.Container implements Databa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<EvaluationMethod> getEvluationMethods() {
-		if (evluationMethods == null) {
-			evluationMethods = new EObjectContainmentEList<EvaluationMethod>(EvaluationMethod.class, this, DatamodelPackage.DATABASE__EVLUATION_METHODS);
-		}
-		return evluationMethods;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case DatamodelPackage.DATABASE__CELL_GROUPS:
 				return ((InternalEList<?>)getCellGroups()).basicRemove(otherEnd, msgs);
-			case DatamodelPackage.DATABASE__EVLUATION_METHODS:
-				return ((InternalEList<?>)getEvluationMethods()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -125,8 +98,6 @@ public class DatabaseImpl extends MinimalEObjectImpl.Container implements Databa
 		switch (featureID) {
 			case DatamodelPackage.DATABASE__CELL_GROUPS:
 				return getCellGroups();
-			case DatamodelPackage.DATABASE__EVLUATION_METHODS:
-				return getEvluationMethods();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -144,10 +115,6 @@ public class DatabaseImpl extends MinimalEObjectImpl.Container implements Databa
 				getCellGroups().clear();
 				getCellGroups().addAll((Collection<? extends CellGroup>)newValue);
 				return;
-			case DatamodelPackage.DATABASE__EVLUATION_METHODS:
-				getEvluationMethods().clear();
-				getEvluationMethods().addAll((Collection<? extends EvaluationMethod>)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -163,9 +130,6 @@ public class DatabaseImpl extends MinimalEObjectImpl.Container implements Databa
 			case DatamodelPackage.DATABASE__CELL_GROUPS:
 				getCellGroups().clear();
 				return;
-			case DatamodelPackage.DATABASE__EVLUATION_METHODS:
-				getEvluationMethods().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -180,8 +144,6 @@ public class DatabaseImpl extends MinimalEObjectImpl.Container implements Databa
 		switch (featureID) {
 			case DatamodelPackage.DATABASE__CELL_GROUPS:
 				return cellGroups != null && !cellGroups.isEmpty();
-			case DatamodelPackage.DATABASE__EVLUATION_METHODS:
-				return evluationMethods != null && !evluationMethods.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

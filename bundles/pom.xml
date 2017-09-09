@@ -23,5 +23,6 @@
 		<module>at.sunplugged.celldatabase.excelwriter</module>
 		<module>at.sunplugged.celldatabase.logging.config</module>
 		<module>at.sunplugged.celldatabase.database.hibernate</module>
+		<module>at.sunplugged.celldatabase.plotting</module>
 	</modules>
 </project>

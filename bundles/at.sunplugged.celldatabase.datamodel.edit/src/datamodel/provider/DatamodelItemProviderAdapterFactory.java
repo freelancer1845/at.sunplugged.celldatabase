@@ -164,29 +164,6 @@ public class DatamodelItemProviderAdapterFactory extends DatamodelAdapterFactory
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link datamodel.EvaluationMethod} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EvaluationMethodItemProvider evaluationMethodItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link datamodel.EvaluationMethod}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createEvaluationMethodAdapter() {
-		if (evaluationMethodItemProvider == null) {
-			evaluationMethodItemProvider = new EvaluationMethodItemProvider(this);
-		}
-
-		return evaluationMethodItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link datamodel.UIDataPoint} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -312,7 +289,6 @@ public class DatamodelItemProviderAdapterFactory extends DatamodelAdapterFactory
 		if (cellResultItemProvider != null) cellResultItemProvider.dispose();
 		if (cellGroupItemProvider != null) cellGroupItemProvider.dispose();
 		if (cellMeasurementDataSetItemProvider != null) cellMeasurementDataSetItemProvider.dispose();
-		if (evaluationMethodItemProvider != null) evaluationMethodItemProvider.dispose();
 		if (uiDataPointItemProvider != null) uiDataPointItemProvider.dispose();
 	}
 

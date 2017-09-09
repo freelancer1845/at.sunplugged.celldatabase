@@ -10,14 +10,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
-import datamodel.CellGroup;
-import datamodel.CellMeasurementDataSet;
-import datamodel.CellResult;
-import datamodel.Database;
-import datamodel.DatamodelFactory;
-import datamodel.DatamodelPackage;
-import datamodel.EvaluationMethod;
-
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
  * end-user-doc -->
@@ -64,7 +56,6 @@ public class DatamodelFactoryImpl extends EFactoryImpl implements DatamodelFacto
 			case DatamodelPackage.CELL_RESULT: return createCellResult();
 			case DatamodelPackage.CELL_GROUP: return createCellGroup();
 			case DatamodelPackage.CELL_MEASUREMENT_DATA_SET: return createCellMeasurementDataSet();
-			case DatamodelPackage.EVALUATION_METHOD: return createEvaluationMethod();
 			case DatamodelPackage.UI_DATA_POINT: return createUIDataPoint();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -105,15 +96,6 @@ public class DatamodelFactoryImpl extends EFactoryImpl implements DatamodelFacto
 	public CellMeasurementDataSet createCellMeasurementDataSet() {
 		CellMeasurementDataSetImpl cellMeasurementDataSet = new CellMeasurementDataSetImpl();
 		return cellMeasurementDataSet;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EvaluationMethod createEvaluationMethod() {
-		EvaluationMethodImpl evaluationMethod = new EvaluationMethodImpl();
-		return evaluationMethod;
 	}
 
 	/**

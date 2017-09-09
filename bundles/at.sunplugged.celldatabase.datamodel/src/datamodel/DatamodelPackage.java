@@ -76,22 +76,13 @@ public interface DatamodelPackage extends EPackage {
 	int DATABASE__CELL_GROUPS = 0;
 
 	/**
-	 * The feature id for the '<em><b>Evluation Methods</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATABASE__EVLUATION_METHODS = 1;
-
-	/**
 	 * The number of structural features of the '<em>Database</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATABASE_FEATURE_COUNT = 2;
+	int DATABASE_FEATURE_COUNT = 1;
 
 	/**
 	 * The number of operations of the '<em>Database</em>' class.
@@ -131,22 +122,13 @@ public interface DatamodelPackage extends EPackage {
 	int CELL_RESULT__DESCRIPTION = 1;
 
 	/**
-	 * The feature id for the '<em><b>Evaluation Method</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CELL_RESULT__EVALUATION_METHOD = 2;
-
-	/**
 	 * The feature id for the '<em><b>Data Evaluated</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__DATA_EVALUATED = 3;
+	int CELL_RESULT__DATA_EVALUATED = 2;
 
 	/**
 	 * The feature id for the '<em><b>Open Circuit Voltage</b></em>' attribute.
@@ -155,7 +137,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__OPEN_CIRCUIT_VOLTAGE = 4;
+	int CELL_RESULT__OPEN_CIRCUIT_VOLTAGE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Short Circuit Current</b></em>' attribute.
@@ -164,7 +146,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__SHORT_CIRCUIT_CURRENT = 5;
+	int CELL_RESULT__SHORT_CIRCUIT_CURRENT = 4;
 
 	/**
 	 * The feature id for the '<em><b>Parallel Resistance</b></em>' attribute.
@@ -173,7 +155,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__PARALLEL_RESISTANCE = 6;
+	int CELL_RESULT__PARALLEL_RESISTANCE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Series Resistance</b></em>' attribute.
@@ -182,7 +164,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__SERIES_RESISTANCE = 7;
+	int CELL_RESULT__SERIES_RESISTANCE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Maximum Power</b></em>' attribute.
@@ -191,7 +173,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__MAXIMUM_POWER = 8;
+	int CELL_RESULT__MAXIMUM_POWER = 7;
 
 	/**
 	 * The feature id for the '<em><b>Maximum Power Voltage</b></em>' attribute.
@@ -200,7 +182,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__MAXIMUM_POWER_VOLTAGE = 9;
+	int CELL_RESULT__MAXIMUM_POWER_VOLTAGE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Maximum Power Current</b></em>' attribute.
@@ -209,16 +191,16 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__MAXIMUM_POWER_CURRENT = 10;
+	int CELL_RESULT__MAXIMUM_POWER_CURRENT = 9;
 
 	/**
-	 * The feature id for the '<em><b>Efficency</b></em>' attribute.
+	 * The feature id for the '<em><b>Efficiency</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__EFFICENCY = 11;
+	int CELL_RESULT__EFFICIENCY = 10;
 
 	/**
 	 * The feature id for the '<em><b>Fill Factor</b></em>' attribute.
@@ -227,16 +209,16 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__FILL_FACTOR = 12;
+	int CELL_RESULT__FILL_FACTOR = 11;
 
 	/**
-	 * The feature id for the '<em><b>Cell Measurmenet Data Set</b></em>' containment reference.
+	 * The feature id for the '<em><b>Cell Measurement Data Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__CELL_MEASURMENET_DATA_SET = 13;
+	int CELL_RESULT__CELL_MEASUREMENT_DATA_SET = 12;
 
 	/**
 	 * The number of structural features of the '<em>Cell Result</em>' class.
@@ -245,7 +227,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT_FEATURE_COUNT = 14;
+	int CELL_RESULT_FEATURE_COUNT = 13;
 
 	/**
 	 * The number of operations of the '<em>Cell Result</em>' class.
@@ -394,52 +376,6 @@ public interface DatamodelPackage extends EPackage {
 	int CELL_MEASUREMENT_DATA_SET_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link datamodel.impl.EvaluationMethodImpl <em>Evaluation Method</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see datamodel.impl.EvaluationMethodImpl
-	 * @see datamodel.impl.DatamodelPackageImpl#getEvaluationMethod()
-	 * @generated
-	 */
-	int EVALUATION_METHOD = 4;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVALUATION_METHOD__NAME = 0;
-
-	/**
-	 * The feature id for the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVALUATION_METHOD__DESCRIPTION = 1;
-
-	/**
-	 * The number of structural features of the '<em>Evaluation Method</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVALUATION_METHOD_FEATURE_COUNT = 2;
-
-	/**
-	 * The number of operations of the '<em>Evaluation Method</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVALUATION_METHOD_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link datamodel.impl.UIDataPointImpl <em>UI Data Point</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -447,7 +383,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @see datamodel.impl.DatamodelPackageImpl#getUIDataPoint()
 	 * @generated
 	 */
-	int UI_DATA_POINT = 5;
+	int UI_DATA_POINT = 4;
 
 	/**
 	 * The feature id for the '<em><b>Voltage</b></em>' attribute.
@@ -507,17 +443,6 @@ public interface DatamodelPackage extends EPackage {
 	EReference getDatabase_CellGroups();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link datamodel.Database#getEvluationMethods <em>Evluation Methods</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Evluation Methods</em>'.
-	 * @see datamodel.Database#getEvluationMethods()
-	 * @see #getDatabase()
-	 * @generated
-	 */
-	EReference getDatabase_EvluationMethods();
-
-	/**
 	 * Returns the meta object for class '{@link datamodel.CellResult <em>Cell Result</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -548,17 +473,6 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getCellResult_Description();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link datamodel.CellResult#getEvaluationMethod <em>Evaluation Method</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Evaluation Method</em>'.
-	 * @see datamodel.CellResult#getEvaluationMethod()
-	 * @see #getCellResult()
-	 * @generated
-	 */
-	EReference getCellResult_EvaluationMethod();
 
 	/**
 	 * Returns the meta object for the attribute '{@link datamodel.CellResult#getDataEvaluated <em>Data Evaluated</em>}'.
@@ -649,15 +563,15 @@ public interface DatamodelPackage extends EPackage {
 	EAttribute getCellResult_MaximumPowerCurrent();
 
 	/**
-	 * Returns the meta object for the attribute '{@link datamodel.CellResult#getEfficency <em>Efficency</em>}'.
+	 * Returns the meta object for the attribute '{@link datamodel.CellResult#getEfficiency <em>Efficiency</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Efficency</em>'.
-	 * @see datamodel.CellResult#getEfficency()
+	 * @return the meta object for the attribute '<em>Efficiency</em>'.
+	 * @see datamodel.CellResult#getEfficiency()
 	 * @see #getCellResult()
 	 * @generated
 	 */
-	EAttribute getCellResult_Efficency();
+	EAttribute getCellResult_Efficiency();
 
 	/**
 	 * Returns the meta object for the attribute '{@link datamodel.CellResult#getFillFactor <em>Fill Factor</em>}'.
@@ -671,15 +585,15 @@ public interface DatamodelPackage extends EPackage {
 	EAttribute getCellResult_FillFactor();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link datamodel.CellResult#getCellMeasurmenetDataSet <em>Cell Measurmenet Data Set</em>}'.
+	 * Returns the meta object for the containment reference '{@link datamodel.CellResult#getCellMeasurementDataSet <em>Cell Measurement Data Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Cell Measurmenet Data Set</em>'.
-	 * @see datamodel.CellResult#getCellMeasurmenetDataSet()
+	 * @return the meta object for the containment reference '<em>Cell Measurement Data Set</em>'.
+	 * @see datamodel.CellResult#getCellMeasurementDataSet()
 	 * @see #getCellResult()
 	 * @generated
 	 */
-	EReference getCellResult_CellMeasurmenetDataSet();
+	EReference getCellResult_CellMeasurementDataSet();
 
 	/**
 	 * Returns the meta object for class '{@link datamodel.CellGroup <em>Cell Group</em>}'.
@@ -801,38 +715,6 @@ public interface DatamodelPackage extends EPackage {
 	EReference getCellMeasurementDataSet_Data();
 
 	/**
-	 * Returns the meta object for class '{@link datamodel.EvaluationMethod <em>Evaluation Method</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Evaluation Method</em>'.
-	 * @see datamodel.EvaluationMethod
-	 * @generated
-	 */
-	EClass getEvaluationMethod();
-
-	/**
-	 * Returns the meta object for the attribute '{@link datamodel.EvaluationMethod#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see datamodel.EvaluationMethod#getName()
-	 * @see #getEvaluationMethod()
-	 * @generated
-	 */
-	EAttribute getEvaluationMethod_Name();
-
-	/**
-	 * Returns the meta object for the attribute '{@link datamodel.EvaluationMethod#getDescription <em>Description</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Description</em>'.
-	 * @see datamodel.EvaluationMethod#getDescription()
-	 * @see #getEvaluationMethod()
-	 * @generated
-	 */
-	EAttribute getEvaluationMethod_Description();
-
-	/**
 	 * Returns the meta object for class '{@link datamodel.UIDataPoint <em>UI Data Point</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -906,14 +788,6 @@ public interface DatamodelPackage extends EPackage {
 		EReference DATABASE__CELL_GROUPS = eINSTANCE.getDatabase_CellGroups();
 
 		/**
-		 * The meta object literal for the '<em><b>Evluation Methods</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DATABASE__EVLUATION_METHODS = eINSTANCE.getDatabase_EvluationMethods();
-
-		/**
 		 * The meta object literal for the '{@link datamodel.impl.CellResultImpl <em>Cell Result</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -938,14 +812,6 @@ public interface DatamodelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CELL_RESULT__DESCRIPTION = eINSTANCE.getCellResult_Description();
-
-		/**
-		 * The meta object literal for the '<em><b>Evaluation Method</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CELL_RESULT__EVALUATION_METHOD = eINSTANCE.getCellResult_EvaluationMethod();
 
 		/**
 		 * The meta object literal for the '<em><b>Data Evaluated</b></em>' attribute feature.
@@ -1012,12 +878,12 @@ public interface DatamodelPackage extends EPackage {
 		EAttribute CELL_RESULT__MAXIMUM_POWER_CURRENT = eINSTANCE.getCellResult_MaximumPowerCurrent();
 
 		/**
-		 * The meta object literal for the '<em><b>Efficency</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Efficiency</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CELL_RESULT__EFFICENCY = eINSTANCE.getCellResult_Efficency();
+		EAttribute CELL_RESULT__EFFICIENCY = eINSTANCE.getCellResult_Efficiency();
 
 		/**
 		 * The meta object literal for the '<em><b>Fill Factor</b></em>' attribute feature.
@@ -1028,12 +894,12 @@ public interface DatamodelPackage extends EPackage {
 		EAttribute CELL_RESULT__FILL_FACTOR = eINSTANCE.getCellResult_FillFactor();
 
 		/**
-		 * The meta object literal for the '<em><b>Cell Measurmenet Data Set</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Cell Measurement Data Set</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CELL_RESULT__CELL_MEASURMENET_DATA_SET = eINSTANCE.getCellResult_CellMeasurmenetDataSet();
+		EReference CELL_RESULT__CELL_MEASUREMENT_DATA_SET = eINSTANCE.getCellResult_CellMeasurementDataSet();
 
 		/**
 		 * The meta object literal for the '{@link datamodel.impl.CellGroupImpl <em>Cell Group</em>}' class.
@@ -1126,32 +992,6 @@ public interface DatamodelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CELL_MEASUREMENT_DATA_SET__DATA = eINSTANCE.getCellMeasurementDataSet_Data();
-
-		/**
-		 * The meta object literal for the '{@link datamodel.impl.EvaluationMethodImpl <em>Evaluation Method</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see datamodel.impl.EvaluationMethodImpl
-		 * @see datamodel.impl.DatamodelPackageImpl#getEvaluationMethod()
-		 * @generated
-		 */
-		EClass EVALUATION_METHOD = eINSTANCE.getEvaluationMethod();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute EVALUATION_METHOD__NAME = eINSTANCE.getEvaluationMethod_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute EVALUATION_METHOD__DESCRIPTION = eINSTANCE.getEvaluationMethod_Description();
 
 		/**
 		 * The meta object literal for the '{@link datamodel.impl.UIDataPointImpl <em>UI Data Point</em>}' class.

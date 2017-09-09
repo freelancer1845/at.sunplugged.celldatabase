@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_c3AF0MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.application" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ">
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" selectedElement="_RkzywI7xEeelnoB5mxxecg" label="Empty E4 Application" width="500" height="400">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" selectedElement="_RkzywI7xEeelnoB5mxxecg" label="Empty E4 Application" width="1000" height="600">
     <children xsi:type="basic:PartSashContainer" xmi:id="_RkzywI7xEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partsashcontainer.0" horizontal="true">
-      <children xsi:type="basic:PartStack" xmi:id="_S7JTkI7xEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partstack.0">
+      <children xsi:type="basic:PartStack" xmi:id="_S7JTkI7xEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partstack.0" containerData="4000">
         <tags>NoAutoCollapse</tags>
       </children>
-      <children xsi:type="basic:PartStack" xmi:id="_YrGMEI8JEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partstack.1">
+      <children xsi:type="basic:PartStack" xmi:id="_YrGMEI8JEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partstack.1" containerData="10000">
         <tags>NoAutoCollapse</tags>
       </children>
     </children>
@@ -39,6 +39,7 @@
   <commands xmi:id="_SQSbsJOyEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.command.connect" commandName="Connect" category="_Q_81MJOyEeejFq7KVcklQw"/>
   <commands xmi:id="_ILnfgJO3EeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.command.disconnect" commandName="Disconnect" category="_Q_81MJOyEeejFq7KVcklQw"/>
   <commands xmi:id="_mZNwcJPAEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.command.save" commandName="Save" category="_XGpCoI78EeelnoB5mxxecg"/>
+  <commands xmi:id="_OpnXMJU3Eeeha-ZlG6JHqQ" elementId="at.sunplugged.celldatabase.rcp.command.plotcellresults" commandName="Plot CellResults" category="_43OfgJOiEeejFq7KVcklQw"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

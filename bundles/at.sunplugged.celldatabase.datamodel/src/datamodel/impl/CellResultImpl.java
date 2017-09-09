@@ -5,8 +5,6 @@ package datamodel.impl;
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
 import datamodel.DatamodelPackage;
-import datamodel.EvaluationMethod;
-
 import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -28,7 +26,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link datamodel.impl.CellResultImpl#getName <em>Name</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getEvaluationMethod <em>Evaluation Method</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getDataEvaluated <em>Data Evaluated</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getOpenCircuitVoltage <em>Open Circuit Voltage</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getShortCircuitCurrent <em>Short Circuit Current</em>}</li>
@@ -37,9 +34,9 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link datamodel.impl.CellResultImpl#getMaximumPower <em>Maximum Power</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getMaximumPowerVoltage <em>Maximum Power Voltage</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getMaximumPowerCurrent <em>Maximum Power Current</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getEfficency <em>Efficency</em>}</li>
+ *   <li>{@link datamodel.impl.CellResultImpl#getEfficiency <em>Efficiency</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getFillFactor <em>Fill Factor</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getCellMeasurmenetDataSet <em>Cell Measurmenet Data Set</em>}</li>
+ *   <li>{@link datamodel.impl.CellResultImpl#getCellMeasurementDataSet <em>Cell Measurement Data Set</em>}</li>
  * </ul>
  *
  * @generated
@@ -84,16 +81,6 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	 * @ordered
 	 */
 	protected String description = DESCRIPTION_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getEvaluationMethod() <em>Evaluation Method</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEvaluationMethod()
-	 * @generated
-	 * @ordered
-	 */
-	protected EvaluationMethod evaluationMethod;
 
 	/**
 	 * The default value of the '{@link #getDataEvaluated() <em>Data Evaluated</em>}' attribute.
@@ -256,24 +243,24 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	protected double maximumPowerCurrent = MAXIMUM_POWER_CURRENT_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getEfficency() <em>Efficency</em>}' attribute.
+	 * The default value of the '{@link #getEfficiency() <em>Efficiency</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEfficency()
+	 * @see #getEfficiency()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double EFFICENCY_EDEFAULT = 0.0;
+	protected static final double EFFICIENCY_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getEfficency() <em>Efficency</em>}' attribute.
+	 * The cached value of the '{@link #getEfficiency() <em>Efficiency</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEfficency()
+	 * @see #getEfficiency()
 	 * @generated
 	 * @ordered
 	 */
-	protected double efficency = EFFICENCY_EDEFAULT;
+	protected double efficiency = EFFICIENCY_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getFillFactor() <em>Fill Factor</em>}' attribute.
@@ -296,14 +283,14 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	protected double fillFactor = FILL_FACTOR_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getCellMeasurmenetDataSet() <em>Cell Measurmenet Data Set</em>}' containment reference.
+	 * The cached value of the '{@link #getCellMeasurementDataSet() <em>Cell Measurement Data Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCellMeasurmenetDataSet()
+	 * @see #getCellMeasurementDataSet()
 	 * @generated
 	 * @ordered
 	 */
-	protected CellMeasurementDataSet cellMeasurmenetDataSet;
+	protected CellMeasurementDataSet cellMeasurementDataSet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -364,49 +351,6 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 		description = newDescription;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__DESCRIPTION, oldDescription, description));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EvaluationMethod getEvaluationMethod() {
-		return evaluationMethod;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetEvaluationMethod(EvaluationMethod newEvaluationMethod, NotificationChain msgs) {
-		EvaluationMethod oldEvaluationMethod = evaluationMethod;
-		evaluationMethod = newEvaluationMethod;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__EVALUATION_METHOD, oldEvaluationMethod, newEvaluationMethod);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEvaluationMethod(EvaluationMethod newEvaluationMethod) {
-		if (newEvaluationMethod != evaluationMethod) {
-			NotificationChain msgs = null;
-			if (evaluationMethod != null)
-				msgs = ((InternalEObject)evaluationMethod).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__EVALUATION_METHOD, null, msgs);
-			if (newEvaluationMethod != null)
-				msgs = ((InternalEObject)newEvaluationMethod).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__EVALUATION_METHOD, null, msgs);
-			msgs = basicSetEvaluationMethod(newEvaluationMethod, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__EVALUATION_METHOD, newEvaluationMethod, newEvaluationMethod));
 	}
 
 	/**
@@ -582,8 +526,8 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getEfficency() {
-		return efficency;
+	public double getEfficiency() {
+		return efficiency;
 	}
 
 	/**
@@ -591,11 +535,11 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setEfficency(double newEfficency) {
-		double oldEfficency = efficency;
-		efficency = newEfficency;
+	public void setEfficiency(double newEfficiency) {
+		double oldEfficiency = efficiency;
+		efficiency = newEfficiency;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__EFFICENCY, oldEfficency, efficency));
+			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__EFFICIENCY, oldEfficiency, efficiency));
 	}
 
 	/**
@@ -624,8 +568,8 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CellMeasurementDataSet getCellMeasurmenetDataSet() {
-		return cellMeasurmenetDataSet;
+	public CellMeasurementDataSet getCellMeasurementDataSet() {
+		return cellMeasurementDataSet;
 	}
 
 	/**
@@ -633,11 +577,11 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCellMeasurmenetDataSet(CellMeasurementDataSet newCellMeasurmenetDataSet, NotificationChain msgs) {
-		CellMeasurementDataSet oldCellMeasurmenetDataSet = cellMeasurmenetDataSet;
-		cellMeasurmenetDataSet = newCellMeasurmenetDataSet;
+	public NotificationChain basicSetCellMeasurementDataSet(CellMeasurementDataSet newCellMeasurementDataSet, NotificationChain msgs) {
+		CellMeasurementDataSet oldCellMeasurementDataSet = cellMeasurementDataSet;
+		cellMeasurementDataSet = newCellMeasurementDataSet;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET, oldCellMeasurmenetDataSet, newCellMeasurmenetDataSet);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__CELL_MEASUREMENT_DATA_SET, oldCellMeasurementDataSet, newCellMeasurementDataSet);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -648,18 +592,18 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCellMeasurmenetDataSet(CellMeasurementDataSet newCellMeasurmenetDataSet) {
-		if (newCellMeasurmenetDataSet != cellMeasurmenetDataSet) {
+	public void setCellMeasurementDataSet(CellMeasurementDataSet newCellMeasurementDataSet) {
+		if (newCellMeasurementDataSet != cellMeasurementDataSet) {
 			NotificationChain msgs = null;
-			if (cellMeasurmenetDataSet != null)
-				msgs = ((InternalEObject)cellMeasurmenetDataSet).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET, null, msgs);
-			if (newCellMeasurmenetDataSet != null)
-				msgs = ((InternalEObject)newCellMeasurmenetDataSet).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET, null, msgs);
-			msgs = basicSetCellMeasurmenetDataSet(newCellMeasurmenetDataSet, msgs);
+			if (cellMeasurementDataSet != null)
+				msgs = ((InternalEObject)cellMeasurementDataSet).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__CELL_MEASUREMENT_DATA_SET, null, msgs);
+			if (newCellMeasurementDataSet != null)
+				msgs = ((InternalEObject)newCellMeasurementDataSet).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__CELL_MEASUREMENT_DATA_SET, null, msgs);
+			msgs = basicSetCellMeasurementDataSet(newCellMeasurementDataSet, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET, newCellMeasurmenetDataSet, newCellMeasurmenetDataSet));
+			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__CELL_MEASUREMENT_DATA_SET, newCellMeasurementDataSet, newCellMeasurementDataSet));
 	}
 
 	/**
@@ -670,10 +614,8 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case DatamodelPackage.CELL_RESULT__EVALUATION_METHOD:
-				return basicSetEvaluationMethod(null, msgs);
-			case DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET:
-				return basicSetCellMeasurmenetDataSet(null, msgs);
+			case DatamodelPackage.CELL_RESULT__CELL_MEASUREMENT_DATA_SET:
+				return basicSetCellMeasurementDataSet(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -690,8 +632,6 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 				return getName();
 			case DatamodelPackage.CELL_RESULT__DESCRIPTION:
 				return getDescription();
-			case DatamodelPackage.CELL_RESULT__EVALUATION_METHOD:
-				return getEvaluationMethod();
 			case DatamodelPackage.CELL_RESULT__DATA_EVALUATED:
 				return getDataEvaluated();
 			case DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE:
@@ -708,12 +648,12 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 				return getMaximumPowerVoltage();
 			case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER_CURRENT:
 				return getMaximumPowerCurrent();
-			case DatamodelPackage.CELL_RESULT__EFFICENCY:
-				return getEfficency();
+			case DatamodelPackage.CELL_RESULT__EFFICIENCY:
+				return getEfficiency();
 			case DatamodelPackage.CELL_RESULT__FILL_FACTOR:
 				return getFillFactor();
-			case DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET:
-				return getCellMeasurmenetDataSet();
+			case DatamodelPackage.CELL_RESULT__CELL_MEASUREMENT_DATA_SET:
+				return getCellMeasurementDataSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -731,9 +671,6 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 				return;
 			case DatamodelPackage.CELL_RESULT__DESCRIPTION:
 				setDescription((String)newValue);
-				return;
-			case DatamodelPackage.CELL_RESULT__EVALUATION_METHOD:
-				setEvaluationMethod((EvaluationMethod)newValue);
 				return;
 			case DatamodelPackage.CELL_RESULT__DATA_EVALUATED:
 				setDataEvaluated((Date)newValue);
@@ -759,14 +696,14 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 			case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER_CURRENT:
 				setMaximumPowerCurrent((Double)newValue);
 				return;
-			case DatamodelPackage.CELL_RESULT__EFFICENCY:
-				setEfficency((Double)newValue);
+			case DatamodelPackage.CELL_RESULT__EFFICIENCY:
+				setEfficiency((Double)newValue);
 				return;
 			case DatamodelPackage.CELL_RESULT__FILL_FACTOR:
 				setFillFactor((Double)newValue);
 				return;
-			case DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET:
-				setCellMeasurmenetDataSet((CellMeasurementDataSet)newValue);
+			case DatamodelPackage.CELL_RESULT__CELL_MEASUREMENT_DATA_SET:
+				setCellMeasurementDataSet((CellMeasurementDataSet)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -785,9 +722,6 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 				return;
 			case DatamodelPackage.CELL_RESULT__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case DatamodelPackage.CELL_RESULT__EVALUATION_METHOD:
-				setEvaluationMethod((EvaluationMethod)null);
 				return;
 			case DatamodelPackage.CELL_RESULT__DATA_EVALUATED:
 				setDataEvaluated(DATA_EVALUATED_EDEFAULT);
@@ -813,14 +747,14 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 			case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER_CURRENT:
 				setMaximumPowerCurrent(MAXIMUM_POWER_CURRENT_EDEFAULT);
 				return;
-			case DatamodelPackage.CELL_RESULT__EFFICENCY:
-				setEfficency(EFFICENCY_EDEFAULT);
+			case DatamodelPackage.CELL_RESULT__EFFICIENCY:
+				setEfficiency(EFFICIENCY_EDEFAULT);
 				return;
 			case DatamodelPackage.CELL_RESULT__FILL_FACTOR:
 				setFillFactor(FILL_FACTOR_EDEFAULT);
 				return;
-			case DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET:
-				setCellMeasurmenetDataSet((CellMeasurementDataSet)null);
+			case DatamodelPackage.CELL_RESULT__CELL_MEASUREMENT_DATA_SET:
+				setCellMeasurementDataSet((CellMeasurementDataSet)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -838,8 +772,6 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case DatamodelPackage.CELL_RESULT__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case DatamodelPackage.CELL_RESULT__EVALUATION_METHOD:
-				return evaluationMethod != null;
 			case DatamodelPackage.CELL_RESULT__DATA_EVALUATED:
 				return DATA_EVALUATED_EDEFAULT == null ? dataEvaluated != null : !DATA_EVALUATED_EDEFAULT.equals(dataEvaluated);
 			case DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE:
@@ -856,12 +788,12 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 				return maximumPowerVoltage != MAXIMUM_POWER_VOLTAGE_EDEFAULT;
 			case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER_CURRENT:
 				return maximumPowerCurrent != MAXIMUM_POWER_CURRENT_EDEFAULT;
-			case DatamodelPackage.CELL_RESULT__EFFICENCY:
-				return efficency != EFFICENCY_EDEFAULT;
+			case DatamodelPackage.CELL_RESULT__EFFICIENCY:
+				return efficiency != EFFICIENCY_EDEFAULT;
 			case DatamodelPackage.CELL_RESULT__FILL_FACTOR:
 				return fillFactor != FILL_FACTOR_EDEFAULT;
-			case DatamodelPackage.CELL_RESULT__CELL_MEASURMENET_DATA_SET:
-				return cellMeasurmenetDataSet != null;
+			case DatamodelPackage.CELL_RESULT__CELL_MEASUREMENT_DATA_SET:
+				return cellMeasurementDataSet != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -896,8 +828,8 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 		result.append(maximumPowerVoltage);
 		result.append(", maximumPowerCurrent: ");
 		result.append(maximumPowerCurrent);
-		result.append(", efficency: ");
-		result.append(efficency);
+		result.append(", efficiency: ");
+		result.append(efficiency);
 		result.append(", fillFactor: ");
 		result.append(fillFactor);
 		result.append(')');
