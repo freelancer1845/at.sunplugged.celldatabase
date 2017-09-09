@@ -38,6 +38,7 @@ public class CalculateCellResultFromPythonHandler {
 			for (String fileName : fileNames) {
 				files.add(new File(dir + "\\" + fileName));
 			}
+
 			List<CellResult> results = DataReaderHelper.readAndCalculateFile(files);
 			if (results.size() > 0) {
 				Command cmd = AddCommand.create(editingDomain,
