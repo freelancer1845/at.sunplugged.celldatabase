@@ -9,6 +9,10 @@ import java.util.List;
 
 import javax.inject.Named;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.emf.common.command.Command;
@@ -39,12 +43,21 @@ public class CalculateCellResultFromPythonHandler {
 				files.add(new File(dir + "\\" + fileName));
 			}
 
-			List<CellResult> results = DataReaderHelper.readAndCalculateFile(files);
-			if (results.size() > 0) {
-				Command cmd = AddCommand.create(editingDomain,
-						((CellGroup) treeViewer.getStructuredSelection().getFirstElement()), null, results);
-				editingDomain.getCommandStack().execute(cmd);
-			}
+			Job job = new Job("caculateCellResults") {
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+					List<CellResult> results = DataReaderHelper.readAndCalculateFile(files);
+					if (results.size() > 0) {
+						Command cmd = AddCommand.create(editingDomain,
+								((CellGroup) treeViewer.getStructuredSelection().getFirstElement()), null, results);
+						editingDomain.getCommandStack().execute(cmd);
+					}
+					return Status.OK_STATUS;
+				}
+			};
+
+			job.setPriority(Job.LONG);
+			job.schedule();
 
 		}
 
