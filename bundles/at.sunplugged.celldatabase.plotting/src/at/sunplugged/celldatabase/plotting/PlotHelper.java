@@ -35,6 +35,10 @@ public class PlotHelper {
 		Preferences pref = ConfigurationScope.INSTANCE.getNode(at.sunplugged.celldatabase.rcp.Activator.PLUGIN_ID);
 
 		String pythonPath = pref.get(PythonSettings.PYTHON_PATH, "D:/Anaconda3/python.exe");
+		if (pythonPath.isEmpty()) {
+			LOG.error("Python Path may not be Empty!!!");
+			return;
+		}
 		String scriptPath = pref.get(PythonSettings.PLOT_SCRIPT_PATH,
 				"C:\\Users\\jasch\\SunpluggedJob\\at.sunplugged.celldatabase.master\\at.sunplugged.celldatabase\\features\\at.sunplugged.celldatabase.feature\\python\\plotScript.py");
 
