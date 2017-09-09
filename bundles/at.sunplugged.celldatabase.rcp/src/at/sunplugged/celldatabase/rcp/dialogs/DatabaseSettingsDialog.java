@@ -67,7 +67,7 @@ public class DatabaseSettingsDialog extends TitleAreaDialog {
 		createUsernameField(container);
 		createPasswordField(container);
 
-		if (preferences.get(Settings.DRIVER, Settings.DRIVER_HSQL) == Settings.DRIVER_HSQL) {
+		if (preferences.get(Settings.DRIVER, Settings.DRIVER_HSQL).equals(Settings.DRIVER_HSQL)) {
 			providerCombo.select(0);
 		} else {
 			providerCombo.select(1);

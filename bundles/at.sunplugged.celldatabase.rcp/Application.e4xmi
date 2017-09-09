@@ -2,8 +2,13 @@
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_c3AF0MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.application" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ">
   <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" selectedElement="_RkzywI7xEeelnoB5mxxecg" label="Empty E4 Application" width="1000" height="600">
     <children xsi:type="basic:PartSashContainer" xmi:id="_RkzywI7xEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partsashcontainer.0" horizontal="true">
-      <children xsi:type="basic:PartStack" xmi:id="_S7JTkI7xEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partstack.0" containerData="4000">
-        <tags>NoAutoCollapse</tags>
+      <children xsi:type="basic:PartSashContainer" xmi:id="_IqzEAJVmEeeha-ZlG6JHqQ" elementId="at.sunplugged.celldatabase.rcp.partsashcontainer.1" containerData="4000">
+        <children xsi:type="basic:PartStack" xmi:id="_S7JTkI7xEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partstack.0" containerData="10000">
+          <tags>NoAutoCollapse</tags>
+        </children>
+        <children xsi:type="basic:PartStack" xmi:id="_K0DPgJVmEeeha-ZlG6JHqQ" elementId="at.sunplugged.celldatabase.rcp.partstack.2" containerData="2000">
+          <children xsi:type="basic:Part" xmi:id="_vofkgJViEeeha-ZlG6JHqQ" elementId="at.sunplugged.celldatabase.rcp.part.progressview" contributionURI="bundleclass://org.eclipse.e4.ui.progress/org.eclipse.e4.ui.progress.ProgressView" label="Progress View" closeable="true"/>
+        </children>
       </children>
       <children xsi:type="basic:PartStack" xmi:id="_YrGMEI8JEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partstack.1" containerData="10000">
         <tags>NoAutoCollapse</tags>
@@ -20,6 +25,9 @@
         <children xsi:type="menu:HandledToolItem" xmi:id="_NZj9UJOyEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.handledtoolitem.connect" label="Connect" command="_SQSbsJOyEeejFq7KVcklQw"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_GggBgJO3EeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.handledtoolitem.disconnect" label="Disconnect" command="_ILnfgJO3EeejFq7KVcklQw"/>
       </children>
+    </trimBars>
+    <trimBars xmi:id="_4hQ8AJViEeeha-ZlG6JHqQ" elementId="at.sunplugged.celldatabase.rcp.trimbar.1" side="Bottom">
+      <children xsi:type="menu:ToolControl" xmi:id="_13grgJViEeeha-ZlG6JHqQ" elementId="at.sunplugged.celldatabase.rcp.toolcontrol.1" contributionURI="bundleclass://org.eclipse.e4.ui.progress/org.eclipse.e4.ui.progress.internal.ProgressRegion"/>
     </trimBars>
   </children>
   <handlers xmi:id="_VknTMJOyEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.handler.0" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.ConnectToDatabaseHandler" command="_SQSbsJOyEeejFq7KVcklQw"/>
@@ -47,6 +55,7 @@
   <addons xmi:id="_c3AF1sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
   <addons xmi:id="_c3AF18jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
   <addons xmi:id="_c3AF2MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+  <addons xmi:id="_pg4tEJViEeeha-ZlG6JHqQ" elementId="at.sunplugged.celldatabase.rcp.addon.progressview" contributionURI="bundleclass://org.eclipse.e4.ui.progress/org.eclipse.e4.ui.progress.ProgressViewAddon"/>
   <categories xmi:id="_XGpCoI78EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.category.databaseedit" name="Database Edit" description="Commands that constitute to Database editing"/>
   <categories xmi:id="_43OfgJOiEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.category.importexport" name="Import/Export"/>
   <categories xmi:id="_Q_81MJOyEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.category.database" name="Database"/>

@@ -20,6 +20,7 @@ import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
@@ -48,9 +49,12 @@ public class CalculateCellResultFromPythonHandler {
 				protected IStatus run(IProgressMonitor monitor) {
 					List<CellResult> results = DataReaderHelper.readAndCalculateFile(files);
 					if (results.size() > 0) {
-						Command cmd = AddCommand.create(editingDomain,
-								((CellGroup) treeViewer.getStructuredSelection().getFirstElement()), null, results);
-						editingDomain.getCommandStack().execute(cmd);
+						Display.getDefault().asyncExec(() -> {
+							Command cmd = AddCommand.create(editingDomain,
+									((CellGroup) treeViewer.getStructuredSelection().getFirstElement()), null, results);
+							editingDomain.getCommandStack().execute(cmd);
+						});
+
 					}
 					return Status.OK_STATUS;
 				}

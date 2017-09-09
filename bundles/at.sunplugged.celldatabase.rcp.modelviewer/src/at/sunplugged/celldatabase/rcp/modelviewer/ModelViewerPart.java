@@ -11,6 +11,10 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Persist;
@@ -38,6 +42,7 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 
 import at.sunplugged.celldatabase.database.api.ModelDatabaseService;
 import datamodel.Database;
@@ -54,12 +59,26 @@ public class ModelViewerPart {
 
 	@Persist
 	private void doSave(ModelDatabaseService databaseService, @Named("TreeViewer") @Optional TreeViewer treeViewer) {
-		databaseService.save();
-		dirtyTreeElements.clear();
-		dirtyable.setDirty(false);
-		if (treeViewer != null) {
-			treeViewer.refresh();
-		}
+
+		Job saveJob = new Job("Saving Database...") {
+
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				databaseService.save();
+				Display.getDefault().asyncExec(() -> {
+					dirtyTreeElements.clear();
+					dirtyable.setDirty(false);
+					if (treeViewer != null) {
+						treeViewer.refresh();
+					}
+				});
+
+				return Status.OK_STATUS;
+			}
+
+		};
+		saveJob.setPriority(Job.LONG);
+		saveJob.schedule();
 	}
 
 	@PostConstruct

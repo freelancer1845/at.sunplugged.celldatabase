@@ -28,6 +28,11 @@ public class DataStoreController {
 		return isInit;
 	}
 
+	public static void cancel() {
+		LOG.debug("Canceling is not implemented yet....");
+		// HbHelper.INSTANCE.getDataStore(DATA_STORE_NAME).close();
+	}
+
 	public static boolean initFromSettings() {
 		if (isInit == true) {
 			System.out.println("Already initilized...");

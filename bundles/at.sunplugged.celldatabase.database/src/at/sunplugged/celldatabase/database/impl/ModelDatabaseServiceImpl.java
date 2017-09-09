@@ -140,4 +140,10 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 		boolean value = DataStoreController.isInit();
 		return value;
 	}
+
+	@Override
+	public void cancelConnecting() {
+		DataStoreController.cancel();
+
+	}
 }

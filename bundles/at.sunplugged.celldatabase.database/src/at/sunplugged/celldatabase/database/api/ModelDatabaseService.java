@@ -9,6 +9,8 @@ public interface ModelDatabaseService {
 	 */
 	boolean open();
 
+	void cancelConnecting();
+
 	void close();
 
 	Database getDatabase();

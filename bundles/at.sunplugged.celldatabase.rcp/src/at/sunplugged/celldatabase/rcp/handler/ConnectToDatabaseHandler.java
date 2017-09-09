@@ -50,7 +50,8 @@ public class ConnectToDatabaseHandler {
 			}
 		});
 
-		Job job = new Job("connectToDatabseJob") {
+		Job job = new Job("Connecting To Database...") {
+
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				LOG.debug("Connecting to database...");
@@ -61,11 +62,17 @@ public class ConnectToDatabaseHandler {
 				}
 				eventBroker.send(TOPIC_CONNECT, true);
 				LOG.debug("Successfully connected to databsae...");
+
 				return Status.OK_STATUS;
 			}
 
+			@Override
+			protected void canceling() {
+				databaseService.cancelConnecting();
+				System.out.println("Cancel Requested");
+			}
 		};
-		job.setPriority(Job.INTERACTIVE);
+		job.setPriority(Job.LONG);
 		job.schedule();
 
 	}
