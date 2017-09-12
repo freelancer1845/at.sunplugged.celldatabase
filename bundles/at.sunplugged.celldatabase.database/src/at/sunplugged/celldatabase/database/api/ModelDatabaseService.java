@@ -21,4 +21,6 @@ public interface ModelDatabaseService {
 
 	boolean isOpen();
 
+	void commit();
+
 }

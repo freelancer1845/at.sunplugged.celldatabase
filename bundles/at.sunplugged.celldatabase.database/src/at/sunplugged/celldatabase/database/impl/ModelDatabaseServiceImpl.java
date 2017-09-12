@@ -1,6 +1,7 @@
 package at.sunplugged.celldatabase.database.impl;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -11,7 +12,16 @@ import org.eclipse.e4.core.services.statusreporter.StatusReporter;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.compare.Comparison;
+import org.eclipse.emf.compare.Diff;
+import org.eclipse.emf.compare.EMFCompare;
+import org.eclipse.emf.compare.merge.BatchMerger;
+import org.eclipse.emf.compare.merge.IBatchMerger;
+import org.eclipse.emf.compare.merge.IMerger;
+import org.eclipse.emf.compare.scope.DefaultComparisonScope;
+import org.eclipse.emf.compare.scope.IComparisonScope;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
@@ -63,7 +73,7 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 				return false;
 			}
 			String uriStr = "hibernate://?" + HibernateResource.DS_NAME_PARAM + "="
-					+ DataStoreController.DATA_STORE_NAME;
+					+ DataStoreController.DATA_STORE_NAME_LOCAL;
 
 			Resource resource = editingDomain.createResource(uriStr);
 			try {
@@ -120,7 +130,42 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 
 	@Override
 	public void load() {
-		// logger.log(IStatus.INFO, "Database load requested...");
+		if (isOpen() == true) {
+			LOG.debug("(Re)Loading database...");
+
+			HibernateResource localRes = (HibernateResource) database.eResource();
+			String uriStr = "hibernate://?" + HibernateResource.DS_NAME_PARAM + "="
+					+ DataStoreController.DATA_STOE_NAME_REMOTE;
+
+			Resource remoteRes = editingDomain.createResource(uriStr);
+			try {
+				LOG.debug("Loading remote repository...");
+				remoteRes.load(null);
+				IComparisonScope scope = new DefaultComparisonScope(remoteRes, localRes, null);
+				Comparison comparison = EMFCompare.builder().build().compare(scope);
+
+				List<Diff> differences = comparison.getDifferences();
+				// Let's merge every single diff
+
+				for (Diff diff : differences) {
+					LOG.info("Diff found...: " + diff.toString());
+				}
+				IMerger.Registry mergerRegistry = IMerger.RegistryImpl.createStandaloneInstance();
+				IBatchMerger merger = new BatchMerger(mergerRegistry);
+				merger.copyAllLeftToRight(differences, new BasicMonitor());
+
+				remoteRes.unload();
+
+				LOG.debug("Comparision done... Number of diffs: " + differences.size());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else {
+			LOG.warn("Database reload requested but not connected...");
+		}
+
 	}
 
 	/**
@@ -145,5 +190,46 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 	public void cancelConnecting() {
 		DataStoreController.cancel();
 
+	}
+
+	@Override
+	public void commit() {
+		if (isOpen() == true) {
+			LOG.debug("Commiting local database to remote...");
+
+			HibernateResource localRes = (HibernateResource) database.eResource();
+			String uriStr = "hibernate://?" + HibernateResource.DS_NAME_PARAM + "="
+					+ DataStoreController.DATA_STOE_NAME_REMOTE;
+
+			Resource remoteRes = editingDomain.createResource(uriStr);
+			try {
+				LOG.debug("Loading remote repository...");
+				remoteRes.load(null);
+				IComparisonScope scope = new DefaultComparisonScope(localRes, remoteRes, null);
+				Comparison comparison = EMFCompare.builder().build().compare(scope);
+
+				List<Diff> differences = comparison.getDifferences();
+				// Let's merge every single diff
+
+				for (Diff diff : differences) {
+					LOG.info("Diff found...: " + diff.toString());
+				}
+				IMerger.Registry mergerRegistry = IMerger.RegistryImpl.createStandaloneInstance();
+				IBatchMerger merger = new BatchMerger(mergerRegistry);
+				merger.copyAllLeftToRight(differences, new BasicMonitor());
+				LOG.debug("Saving changes...");
+				remoteRes.save(null);
+				remoteRes.unload();
+				LOG.debug("Remote database updated...");
+
+				LOG.debug("Commit  done... Number of diffs: " + differences.size());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else {
+			LOG.warn("Database commit requested but not connected...");
+		}
 	}
 }

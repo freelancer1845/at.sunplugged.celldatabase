@@ -2,12 +2,14 @@ package at.sunplugged.celldatabase.database.impl;
 
 import java.util.Properties;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.teneo.PersistenceOptions;
 import org.eclipse.emf.teneo.hibernate.HbDataStore;
 import org.eclipse.emf.teneo.hibernate.HbHelper;
+import org.eclipse.osgi.service.datalocation.Location;
 import org.hibernate.cfg.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +20,9 @@ import datamodel.DatamodelPackage;
 
 public class DataStoreController {
 
-	public static final String DATA_STORE_NAME = "dataStoreDefault";
+	public static final String DATA_STORE_NAME_LOCAL = "localDataStore";
+
+	public static final String DATA_STOE_NAME_REMOTE = "remoteDataStore";
 
 	private static boolean isInit = false;
 
@@ -39,44 +43,116 @@ public class DataStoreController {
 			return false;
 		}
 		isInit = true;
+
+		boolean fullyInitilized = setupHsqlDataStore();
+		if (fullyInitilized == true) {
+			if (setupSqlExpressDataStore() == true) {
+				isInit = true;
+				return true;
+			} else {
+				isInit = false;
+
+				LOG.debug("Failed to connect to remote db. Local available though...");
+				return false;
+			}
+		} else {
+			return false;
+		}
+
+	}
+
+	private static boolean setupSqlExpressDataStore() {
+		if (HbHelper.INSTANCE.getDataStore(DATA_STOE_NAME_REMOTE) != null) {
+			LOG.debug("Remote datastore already initilized ignoring... ");
+			return true;
+		}
+
 		Properties hibernateProperties = new Properties();
 
 		IEclipsePreferences pref = ConfigurationScope.INSTANCE.getNode(Activator.PLUGIN_ID);
 
-		switch (pref.get(Settings.DRIVER, Settings.DRIVER_HSQL)) {
+		hibernateProperties.setProperty(Environment.DRIVER, "com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		String address = pref.get(Settings.ADDRESS, "");
+		// hibernateProperties.setProperty(Environment.URL, "jdbc:sqlserver://" +
+		// address + ";");
+		// hibernateProperties.setProperty(Environment.DIALECT,
+		// org.hibernate.dialect.SQLServerDialect.class.getName());
+		//
+		// hibernateProperties.setProperty(Environment.USER, pref.get(Settings.USERNAME,
+		// "sa"));
+		//
+		// hibernateProperties.setProperty(Environment.PASS, pref.get(Settings.PASSWORD,
+		// ""));
 
-		case Settings.DRIVER_HSQL:
-		default:
-			hibernateProperties.setProperty(Environment.DRIVER, "org.hsqldb.jdbcDriver");
-			hibernateProperties.setProperty(Environment.DIALECT, org.hibernate.dialect.HSQLDialect.class.getName());
-			String filePath = pref.get(Settings.ADDRESS, "tmp/hsqldb");
-			hibernateProperties.setProperty(Environment.URL, "jdbc:hsqldb:file:/" + filePath);
-			break;
+		hibernateProperties.setProperty(Environment.URL, "jdbc:sqlserver://"
+				+ "testdatabaseteneoemfsunplugged.ceu1dfiokowz.eu-central-1.rds.amazonaws.com:1433;");
+		hibernateProperties.setProperty(Environment.DIALECT, org.hibernate.dialect.SQLServerDialect.class.getName());
 
-		case Settings.DRIVER_SQL_EXPRESS:
-			hibernateProperties.setProperty(Environment.DRIVER, "com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			String address = pref.get(Settings.ADDRESS, "");
-			hibernateProperties.setProperty(Environment.URL, "jdbc:sqlserver://" + address + ";");
-			hibernateProperties.setProperty(Environment.DIALECT,
-					org.hibernate.dialect.SQLServerDialect.class.getName());
-			break;
-		}
+		hibernateProperties.setProperty(Environment.USER, pref.get(Settings.USERNAME, "celldatabase"));
 
-		hibernateProperties.setProperty(Environment.USER, pref.get(Settings.USERNAME, "sa"));
-
-		hibernateProperties.setProperty(Environment.PASS, pref.get(Settings.PASSWORD, ""));
+		hibernateProperties.setProperty(Environment.PASS, pref.get(Settings.PASSWORD, "xsmnn2n78f67b2"));
 
 		hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_NON_CONTAINMENT, "ALL");
 		hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_CONTAINMENT, "ALL");
 		hibernateProperties.setProperty(PersistenceOptions.INHERITANCE_MAPPING, "JOINED");
 
-		final HbDataStore dataStore = HbHelper.INSTANCE.createRegisterDataStore(DataStoreController.DATA_STORE_NAME);
+		final HbDataStore dataStore = HbHelper.INSTANCE
+				.createRegisterDataStore(DataStoreController.DATA_STOE_NAME_REMOTE);
 		dataStore.setDataStoreProperties(hibernateProperties);
 		dataStore.setEPackages(new EPackage[] { (EPackage) DatamodelPackage.eINSTANCE });
 
 		try {
 			dataStore.initialize();
-			LOG.debug("Successfully connected to database...\"" + pref.get(Settings.ADDRESS, "") + "\"");
+			LOG.debug("Successfully connected to remote database...");
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			dataStore.close();
+			isInit = false;
+			return false;
+		} finally {
+
+		}
+	}
+
+	private static boolean setupHsqlDataStore() {
+
+		if (HbHelper.INSTANCE.getDataStore(DATA_STORE_NAME_LOCAL) != null) {
+			LOG.debug("Local datastore already initilized... ignoring.");
+			return true;
+		}
+
+		Properties hibernateProperties = new Properties();
+		hibernateProperties.setProperty(Environment.DRIVER, "org.hsqldb.jdbcDriver");
+		hibernateProperties.setProperty(Environment.DIALECT, org.hibernate.dialect.HSQLDialect.class.getName());
+
+		Location installLocation = Platform.getInstallLocation();
+		if (installLocation == null) {
+			LOG.debug("Couldn't find install location...");
+			return false;
+		}
+		String installPath = installLocation.getURL().getPath().replaceAll("^/", "");
+
+		String filePath = installPath + "/localDatabase/data";
+		System.out.println("filepath for shql: " + filePath);
+		hibernateProperties.setProperty(Environment.URL, "jdbc:hsqldb:file:/" + filePath);
+
+		hibernateProperties.setProperty(Environment.USER, "sa");
+
+		hibernateProperties.setProperty(Environment.PASS, "");
+
+		hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_NON_CONTAINMENT, "ALL");
+		hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_CONTAINMENT, "ALL");
+		hibernateProperties.setProperty(PersistenceOptions.INHERITANCE_MAPPING, "JOINED");
+
+		final HbDataStore dataStore = HbHelper.INSTANCE
+				.createRegisterDataStore(DataStoreController.DATA_STORE_NAME_LOCAL);
+		dataStore.setDataStoreProperties(hibernateProperties);
+		dataStore.setEPackages(new EPackage[] { (EPackage) DatamodelPackage.eINSTANCE });
+
+		try {
+			dataStore.initialize();
+			LOG.debug("Successfully connected to local database...");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,7 +170,7 @@ public class DataStoreController {
 			System.out.println("Not initilized...");
 			return false;
 		}
-		HbHelper.INSTANCE.deRegisterDataStore(DATA_STORE_NAME);
+		HbHelper.INSTANCE.closeAll();
 		isInit = false;
 		return true;
 	}

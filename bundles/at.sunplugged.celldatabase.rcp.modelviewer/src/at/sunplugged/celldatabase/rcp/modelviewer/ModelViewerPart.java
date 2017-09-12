@@ -53,7 +53,13 @@ public class ModelViewerPart {
 	@Inject
 	private MDirtyable dirtyable;
 
-	private List<Object> dirtyTreeElements = new ArrayList<>();
+	private List<Object> dirtyTreeElements = new ArrayList<Object>() {
+		@Override
+		public boolean add(Object arg0) {
+			dirtyable.setDirty(true);
+			return super.add(arg0);
+		}
+	};
 
 	private Map<URI, MPart> createdEditors = new HashMap<>();
 
@@ -142,7 +148,7 @@ public class ModelViewerPart {
 			@Override
 			public void notifyChanged(Notification notification) {
 				super.notifyChanged(notification);
-				dirtyable.setDirty(editingDomain.getCommandStack().canUndo());
+				dirtyable.setDirty(true);
 				dirtyTreeElements.add(notification.getNotifier());
 				if (DatamodelPackage.eINSTANCE.getCellResult_Name().equals(notification.getFeature())) {
 					URI uri = EcoreUtil.getURI((EObject) notification.getNotifier());
