@@ -37,8 +37,12 @@
 		<appender-ref ref="STDOUT" />
 	</logger>
 
-	<logger name="org.hibernate.type" level="info" />
-	<logger name="org.hibernate" level="info" />
+	<logger name="org.hibernate.type" level="info">
+		<appender-ref ref="STDOUT" />
+	</logger>
+	<logger name="org.hibernate" level="info">
+		<appender-ref ref="STDOUT" />
+	</logger>
 
 	<root level="debug">
 		<appender-ref ref="FILE" />

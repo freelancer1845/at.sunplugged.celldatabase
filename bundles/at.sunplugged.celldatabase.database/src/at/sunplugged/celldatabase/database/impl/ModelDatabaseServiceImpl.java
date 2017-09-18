@@ -70,7 +70,6 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 			if (DataStoreController.initFromSettings() == false) {
 				LOG.error(
 						"Failed to open connection to database. Probably the database is locked(used) by somebody else...");
-				return false;
 			}
 			String uriStr = "hibernate://?" + HibernateResource.DS_NAME_PARAM + "="
 					+ DataStoreController.DATA_STORE_NAME_LOCAL;

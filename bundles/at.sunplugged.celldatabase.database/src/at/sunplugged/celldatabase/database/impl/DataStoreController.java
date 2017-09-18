@@ -115,7 +115,7 @@ public class DataStoreController {
 		}
 	}
 
-	private static boolean setupHsqlDataStore() {
+	public static boolean setupHsqlDataStore() {
 
 		if (HbHelper.INSTANCE.getDataStore(DATA_STORE_NAME_LOCAL) != null) {
 			LOG.debug("Local datastore already initilized... ignoring.");
@@ -134,7 +134,6 @@ public class DataStoreController {
 		String installPath = installLocation.getURL().getPath().replaceAll("^/", "");
 
 		String filePath = installPath + "/localDatabase/data";
-		System.out.println("filepath for shql: " + filePath);
 		hibernateProperties.setProperty(Environment.URL, "jdbc:hsqldb:file:/" + filePath);
 
 		hibernateProperties.setProperty(Environment.USER, "sa");
@@ -152,7 +151,6 @@ public class DataStoreController {
 
 		try {
 			dataStore.initialize();
-			LOG.debug("Successfully connected to local database...");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
