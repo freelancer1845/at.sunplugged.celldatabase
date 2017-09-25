@@ -28,7 +28,7 @@ public class RefreshDatabaseHandler {
 
 	@CanExecute
 	public boolean canExecute(ModelDatabaseService databaseService) {
-		return databaseService.isOpen();
+		return databaseService.isConnected();
 	}
 
 }

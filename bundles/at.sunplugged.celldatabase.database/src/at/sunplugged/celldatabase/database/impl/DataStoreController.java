@@ -32,36 +32,20 @@ public class DataStoreController {
 		return isInit;
 	}
 
+	public static boolean isRemoteConnected() {
+		if (HbHelper.INSTANCE.getDataStore(DATA_STOE_NAME_REMOTE) != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public static void cancel() {
 		LOG.debug("Canceling is not implemented yet....");
 		// HbHelper.INSTANCE.getDataStore(DATA_STORE_NAME).close();
 	}
 
-	public static boolean initFromSettings() {
-		if (isInit == true) {
-			System.out.println("Already initilized...");
-			return false;
-		}
-		isInit = true;
-
-		boolean fullyInitilized = setupHsqlDataStore();
-		if (fullyInitilized == true) {
-			if (setupSqlExpressDataStore() == true) {
-				isInit = true;
-				return true;
-			} else {
-				isInit = false;
-
-				LOG.debug("Failed to connect to remote db. Local available though...");
-				return false;
-			}
-		} else {
-			return false;
-		}
-
-	}
-
-	private static boolean setupSqlExpressDataStore() {
+	public static boolean setupSqlExpressDataStore() {
 		if (HbHelper.INSTANCE.getDataStore(DATA_STOE_NAME_REMOTE) != null) {
 			LOG.debug("Remote datastore already initilized ignoring... ");
 			return true;
@@ -103,6 +87,7 @@ public class DataStoreController {
 
 		try {
 			dataStore.initialize();
+			isInit = true;
 			LOG.debug("Successfully connected to remote database...");
 			return true;
 		} catch (Exception e) {

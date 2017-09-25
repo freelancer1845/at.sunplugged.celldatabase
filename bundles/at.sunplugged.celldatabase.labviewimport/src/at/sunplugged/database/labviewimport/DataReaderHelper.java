@@ -1,4 +1,4 @@
-package at.sunplugged.database.datareader;
+package at.sunplugged.database.labviewimport;
 
 import java.io.File;
 import java.io.FileInputStream;

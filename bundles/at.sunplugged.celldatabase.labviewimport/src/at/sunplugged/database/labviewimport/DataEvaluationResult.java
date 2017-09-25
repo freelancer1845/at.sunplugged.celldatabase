@@ -1,4 +1,4 @@
-package at.sunplugged.database.datareader;
+package at.sunplugged.database.labviewimport;
 
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;

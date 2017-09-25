@@ -1,5 +1,7 @@
 package at.sunplugged.celldatabase.database.api;
 
+import org.eclipse.emf.ecore.resource.Resource;
+
 import datamodel.Database;
 
 public interface ModelDatabaseService {
@@ -7,7 +9,7 @@ public interface ModelDatabaseService {
 	/**
 	 * 
 	 */
-	boolean open();
+	boolean connnectRemote();
 
 	void cancelConnecting();
 
@@ -19,8 +21,12 @@ public interface ModelDatabaseService {
 
 	void load();
 
-	boolean isOpen();
+	boolean isConnected();
 
 	void commit();
+
+	Resource getLocalResource();
+
+	Resource getRemoteResource();
 
 }

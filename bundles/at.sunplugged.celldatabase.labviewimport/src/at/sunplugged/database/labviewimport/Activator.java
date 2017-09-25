@@ -1,4 +1,4 @@
-package at.sunplugged.database.datareader;
+package at.sunplugged.database.labviewimport;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;

@@ -13,5 +13,6 @@
 
     <modules>
         <module>at.sunplugged.celldatabase.feature</module>
+        <module>at.sunplugged.celldatabase.feature.target</module>
     </modules>
 </project>

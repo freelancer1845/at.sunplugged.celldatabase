@@ -29,6 +29,8 @@ public class ConnectToDatabaseHandler {
 
 	private static boolean connecting = false;
 
+	private static MPart viewPart;
+
 	@Execute
 	public void execute(ModelDatabaseService databaseService, EPartService partService, EModelService modelService,
 			MApplication app, IEventBroker eventBroker) {
@@ -39,12 +41,16 @@ public class ConnectToDatabaseHandler {
 			public void handleEvent(Event event) {
 				connecting = false;
 				if ((boolean) event.getProperty(IEventBroker.DATA) == true) {
-					MPart viewPart = partService
-							.createPart("at.sunplugged.celldatabase.rcp.modelviewer.partdescriptor.modelviewer");
-					MPartStack stack = (MPartStack) modelService.find("at.sunplugged.celldatabase.rcp.partstack.0",
-							app);
-					stack.getChildren().add(viewPart);
-					partService.activate(viewPart);
+					if (viewPart != null) {
+						partService.activate(viewPart);
+					} else {
+						viewPart = partService
+								.createPart("at.sunplugged.celldatabase.rcp.modelviewer.partdescriptor.modelviewer");
+						MPartStack stack = (MPartStack) modelService.find("at.sunplugged.celldatabase.rcp.partstack.0",
+								app);
+						stack.getChildren().add(viewPart);
+						partService.activate(viewPart);
+					}
 				}
 				eventBroker.unsubscribe(this);
 			}
@@ -55,7 +61,7 @@ public class ConnectToDatabaseHandler {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				LOG.debug("Connecting to database...");
-				if (databaseService.open() == false) {
+				if (databaseService.connnectRemote() == false) {
 					eventBroker.send(TOPIC_CONNECT, false);
 					LOG.error("Failed to connect to database...");
 					return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to connect to database...");
@@ -79,7 +85,7 @@ public class ConnectToDatabaseHandler {
 
 	@CanExecute
 	public boolean canExecute(ModelDatabaseService databaseService) {
-		return !databaseService.isOpen() && !connecting;
+		return !databaseService.isConnected() && !connecting;
 	}
 
 }

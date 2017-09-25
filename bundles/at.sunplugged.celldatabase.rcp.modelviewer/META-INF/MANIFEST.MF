@@ -21,8 +21,9 @@ Require-Bundle: org.eclipse.e4.ui.model.workbench;bundle-version="2.0.0.v2017022
  org.eclipse.core.runtime;bundle-version="3.13.0"
 Import-Package: at.sunplugged.celldatabase.database.api,
  at.sunplugged.celldatabase.excelwriter.api,
+ at.sunplugged.celldatabase.labviewimport.ui.wizard,
  at.sunplugged.celldatabase.plotting,
- at.sunplugged.database.datareader,
+ at.sunplugged.database.labviewimport,
  datamodel,
  javax.annotation;version="1.0.0";resolution:=optional,
  javax.inject;version="1.0.0",

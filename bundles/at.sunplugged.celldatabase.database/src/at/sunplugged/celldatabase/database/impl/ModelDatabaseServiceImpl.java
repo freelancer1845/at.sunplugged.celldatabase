@@ -23,6 +23,7 @@ import org.eclipse.emf.compare.merge.IMerger;
 import org.eclipse.emf.compare.scope.DefaultComparisonScope;
 import org.eclipse.emf.compare.scope.IComparisonScope;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.change.util.ChangeRecorder;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -55,10 +56,34 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 	private static final Logger LOG = LoggerFactory.getLogger(ModelDatabaseServiceImpl.class);
 
 	public ModelDatabaseServiceImpl() {
+		getDatabase();
 	}
 
 	@Override
-	public boolean open() {
+	public boolean connnectRemote() {
+		boolean success = false;
+		if (DataStoreController.setupSqlExpressDataStore() == false) {
+			LOG.error(
+					"Failed to open connection to database. Probably the database is locked(used) by somebody else...");
+		} else {
+			success = true;
+		}
+		return success;
+
+	}
+
+	@Override
+	public void close() {
+		if (database != null) {
+			database.eResource().unload();
+			database = null;
+
+		}
+		DataStoreController.dispose();
+	}
+
+	@Override
+	public Database getDatabase() {
 		if (database == null) {
 			editingDomain = new AdapterFactoryEditingDomain(getAdapterFactory(), new BasicCommandStack());
 			IEclipseContext context = E4Workbench.getServiceContext();
@@ -67,10 +92,6 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 			}
 			context.set("editingDomain", editingDomain);
 
-			if (DataStoreController.initFromSettings() == false) {
-				LOG.error(
-						"Failed to open connection to database. Probably the database is locked(used) by somebody else...");
-			}
 			String uriStr = "hibernate://?" + HibernateResource.DS_NAME_PARAM + "="
 					+ DataStoreController.DATA_STORE_NAME_LOCAL;
 
@@ -91,28 +112,7 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 			} else {
 				database = (Database) content.get(0);
 			}
-
 		}
-		return true;
-
-	}
-
-	@Override
-	public void close() {
-		if (database != null) {
-			database.eResource().unload();
-			database = null;
-
-		}
-		DataStoreController.dispose();
-	}
-
-	@Override
-	public Database getDatabase() {
-		if (database == null) {
-			System.out.println("Database not open..");
-		}
-
 		return database;
 	}
 
@@ -129,7 +129,7 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 
 	@Override
 	public void load() {
-		if (isOpen() == true) {
+		if (isConnected() == true) {
 			LOG.debug("(Re)Loading database...");
 
 			HibernateResource localRes = (HibernateResource) database.eResource();
@@ -151,6 +151,7 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 				}
 				IMerger.Registry mergerRegistry = IMerger.RegistryImpl.createStandaloneInstance();
 				IBatchMerger merger = new BatchMerger(mergerRegistry);
+				ChangeRecorder changeRecorder = new ChangeRecorder(localRes);
 				merger.copyAllLeftToRight(differences, new BasicMonitor());
 
 				remoteRes.unload();
@@ -180,9 +181,8 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 	}
 
 	@Override
-	public boolean isOpen() {
-		boolean value = DataStoreController.isInit();
-		return value;
+	public boolean isConnected() {
+		return DataStoreController.isRemoteConnected();
 	}
 
 	@Override
@@ -193,14 +193,12 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 
 	@Override
 	public void commit() {
-		if (isOpen() == true) {
+		if (isConnected() == true) {
 			LOG.debug("Commiting local database to remote...");
 
-			HibernateResource localRes = (HibernateResource) database.eResource();
-			String uriStr = "hibernate://?" + HibernateResource.DS_NAME_PARAM + "="
-					+ DataStoreController.DATA_STOE_NAME_REMOTE;
+			Resource localRes = getLocalResource();
 
-			Resource remoteRes = editingDomain.createResource(uriStr);
+			Resource remoteRes = getRemoteResource();
 			try {
 				LOG.debug("Loading remote repository...");
 				remoteRes.load(null);
@@ -230,5 +228,19 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 		} else {
 			LOG.warn("Database commit requested but not connected...");
 		}
+	}
+
+	@Override
+	public Resource getLocalResource() {
+		HibernateResource localRes = (HibernateResource) database.eResource();
+		return localRes;
+	}
+
+	@Override
+	public Resource getRemoteResource() {
+		String uriStr = "hibernate://?" + HibernateResource.DS_NAME_PARAM + "="
+				+ DataStoreController.DATA_STOE_NAME_REMOTE;
+		Resource remoteRes = editingDomain.createResource(uriStr);
+		return remoteRes;
 	}
 }

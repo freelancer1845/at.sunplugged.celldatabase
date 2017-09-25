@@ -19,10 +19,16 @@
 		<module>at.sunplugged.celldatabase.datamodel</module>
 		<module>at.sunplugged.celldatabase.datamodel.edit</module>
 		<module>at.sunplugged.celldatabase.database</module>
-		<module>at.sunplugged.celldatabase.datareader</module>
+		<module>at.sunplugged.celldatabase.database.ui</module>
+		<module>at.sunplugged.celldatabase.labviewimport</module>
+		<module>at.sunplugged.celldatabase.labviewimport.ui</module>
 		<module>at.sunplugged.celldatabase.excelwriter</module>
 		<module>at.sunplugged.celldatabase.logging.config</module>
 		<module>at.sunplugged.celldatabase.database.hibernate</module>
 		<module>at.sunplugged.celldatabase.plotting</module>
+		<!-- 
+		<module>org.eclipse.emf.compare.ide.ui.e4</module>
+		<module>org.eclipse.compare</module>
+		 -->
 	</modules>
 </project>

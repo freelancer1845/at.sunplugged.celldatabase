@@ -27,7 +27,7 @@ public class DisconnectHandler {
 			}
 		}
 		partsList.add(viewerPart);
-		if (viewerPart.isDirty()) {
+		if (viewerPart != null && viewerPart.isDirty()) {
 			saveHandler.save(viewerPart, true);
 		}
 		databaseService.close();
@@ -39,7 +39,7 @@ public class DisconnectHandler {
 
 	@CanExecute
 	public boolean canExecute(ModelDatabaseService databaseService) {
-		return databaseService.isOpen();
+		return databaseService.isConnected();
 	}
 
 }

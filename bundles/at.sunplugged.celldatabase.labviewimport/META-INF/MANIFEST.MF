@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Datareader
-Bundle-SymbolicName: at.sunplugged.celldatabase.datareader
+Bundle-SymbolicName: at.sunplugged.celldatabase.labviewimport
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: at.sunplugged.database.datareader.Activator
+Bundle-Activator: at.sunplugged.database.labviewimport.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.equinox.registry,
  org.eclipse.e4.core.di.annotations,
@@ -17,5 +17,5 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Include-Resource: pythonsrc/
-Export-Package: at.sunplugged.database.datareader
+Export-Package: at.sunplugged.database.labviewimport
 Import-Package: org.slf4j
