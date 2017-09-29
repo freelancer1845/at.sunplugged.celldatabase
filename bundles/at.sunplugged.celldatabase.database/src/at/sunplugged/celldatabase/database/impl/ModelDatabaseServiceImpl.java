@@ -18,7 +18,6 @@ import org.eclipse.emf.compare.merge.IMerger;
 import org.eclipse.emf.compare.scope.DefaultComparisonScope;
 import org.eclipse.emf.compare.scope.IComparisonScope;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.change.util.ChangeRecorder;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -147,7 +146,6 @@ public class ModelDatabaseServiceImpl implements ModelDatabaseService {
 				}
 				IMerger.Registry mergerRegistry = IMerger.RegistryImpl.createStandaloneInstance();
 				IBatchMerger merger = new BatchMerger(mergerRegistry);
-				ChangeRecorder changeRecorder = new ChangeRecorder(localRes);
 				merger.copyAllLeftToRight(differences, new BasicMonitor());
 
 				remoteRes.unload();
