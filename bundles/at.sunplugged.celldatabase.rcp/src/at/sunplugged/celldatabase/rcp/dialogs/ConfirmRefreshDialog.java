@@ -4,10 +4,12 @@ import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.compare.Comparison;
 import org.eclipse.emf.compare.Diff;
 import org.eclipse.emf.compare.utils.MatchUtil;
 import org.eclipse.emf.ecore.EAttribute;
@@ -16,11 +18,11 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckboxCellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.EditingSupport;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
@@ -34,6 +36,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
+
+import datamodel.CellMeasurementDataSet;
 
 public class ConfirmRefreshDialog extends TitleAreaDialog {
 
@@ -49,9 +53,12 @@ public class ConfirmRefreshDialog extends TitleAreaDialog {
 
 	private Map<Diff, Boolean> differencesMap;
 
-	public ConfirmRefreshDialog(Shell parentShell, List<Diff> differences) {
+	private Comparison comparison;
+
+	public ConfirmRefreshDialog(Shell parentShell, List<Diff> differences, Comparison comparision) {
 		super(parentShell);
 		this.differencesMap = new LinkedHashMap<>();
+		this.comparison = comparision;
 		for (Diff diff : differences) {
 			differencesMap.put(diff, true);
 		}
@@ -76,12 +83,77 @@ public class ConfirmRefreshDialog extends TitleAreaDialog {
 
 		container.setLayout(new FillLayout());
 
+		// TreeViewer treeViewer = new CheckboxTreeViewer(container,
+		// SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
+		//
+		// treeViewer.setContentProvider(new ITreeContentProvider() {
+		//
+		// @Override
+		// public boolean hasChildren(Object element) {
+		//
+		// EObject eObject = (EObject) element;
+		// if (comparison.getDifferences(eObject).isEmpty() == true) {
+		// if (eObject.eContents().isEmpty()) {
+		// return false;
+		// }
+		// } else {
+		// return true;
+		// }
+		//
+		// EObject eObject = diff.getMatch().getLeft();
+		// return eObject.eContents().isEmpty() == false;
+		// }
+		//
+		// @Override
+		// public Object getParent(Object element) {
+		// Diff diff = (Diff) element;
+		// EObject eObject = diff.getMatch().getLeft();
+		// return eObject.eContainmentFeature();
+		// }
+		//
+		// @Override
+		// public Object[] getElements(Object inputElement) {
+		// List<Diff> differences = (List<Diff>) inputElement;
+		// List<CellGroup> groups = new ArrayList<>();
+		// for (Diff diff : differences) {
+		// EObject root = diff.getMatch().getLeft().eContainmentFeature();
+		// while (root instanceof CellGroup == false) {
+		// root = root.eContainmentFeature();
+		// }
+		// groups.add((CellGroup) root);
+		//
+		// }
+		// return groups.toArray();
+		// }
+		//
+		// @Override
+		// public Object[] getChildren(Object parentElement) {
+		// Diff diff = (Diff) parentElement;
+		// EObject eObject = diff.getMatch().getLeft();
+		// return eObject.eContents().toArray();
+		// }
+		// });
+
 		viewer = new TableViewer(container, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
 		createColumns(container, viewer);
 		Table table = viewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
-		viewer.setContentProvider(new ArrayContentProvider());
+		viewer.setContentProvider(new IStructuredContentProvider() {
+
+			@Override
+			public Object[] getElements(Object inputElement) {
+				Set<Diff> diffs = (Set<Diff>) inputElement;
+				return diffs.stream().filter(diff -> {
+					if (diff.getMatch().getLeft() instanceof CellMeasurementDataSet) {
+						return false;
+					} else {
+						return true;
+					}
+				}).toArray();
+
+			}
+		});
 		viewer.setInput(differencesMap.keySet());
 		return container;
 	}
@@ -149,7 +221,22 @@ public class ConfirmRefreshDialog extends TitleAreaDialog {
 			@Override
 			protected void setValue(Object element, Object value) {
 				differencesMap.put((Diff) element, (boolean) value);
-				viewer.update(element, null);
+				// if ((boolean) value == true) {
+				// List<Diff> childDiffs = comparison.getDifferences(((Diff)
+				// element).getMatch().getLeft());
+				// ((Diff) element).getMatch().getAllDifferences();
+				// System.out.println(Arrays.toString(childDiffs.toArray()));
+				// childDiffs.forEach(diff -> differencesMap.put(diff, (boolean) value ==
+				// true));
+				// viewer.refresh();
+				// } else {
+				// Iterable<Diff> childDiffs = ((Diff) element).getMatch().getAllDifferences();
+				// childDiffs.forEach(diff -> System.out.println(diff.toString()));
+				// childDiffs.forEach(diff -> differencesMap.put(diff, (boolean) value));
+				// viewer.refresh();
+				// viewer.update(element, null);
+				// }
+
 			}
 
 			@Override

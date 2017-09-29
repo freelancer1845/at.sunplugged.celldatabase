@@ -57,7 +57,7 @@ public class RefreshDatabaseHandler {
 
 				List<Diff> differences = comparison.getDifferences();
 
-				ConfirmRefreshDialog dialog = new ConfirmRefreshDialog(shell, differences);
+				ConfirmRefreshDialog dialog = new ConfirmRefreshDialog(shell, differences, comparison);
 				int result;
 				Display.getDefault().syncExec(() -> {
 					dialog.open();
