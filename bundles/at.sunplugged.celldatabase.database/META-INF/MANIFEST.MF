@@ -22,9 +22,13 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.teneo.hibernate;bundle-version="2.1.0",
  at.sunplugged.celldatabase.database.hibernate,
  org.eclipse.emf.compare;bundle-version="3.5.0",
- org.apache.commons.logging;bundle-version="1.1.1"
+ org.apache.commons.logging;bundle-version="1.1.1",
+ org.eclipse.equinox.app
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/at.sunplugged.celldatabase.database.impl.ModelDatabaseServiceImpl.xml
+Service-Component: OSGI-INF/at.sunplugged.celldatabase.database.impl.ModelDatabaseServiceImpl.xml,
+ OSGI-INF/at.sunplugged.celldatabase.database.impl.DataStoreController.xml
 Export-Package: at.sunplugged.celldatabase.database,
- at.sunplugged.celldatabase.database.api
+ at.sunplugged.celldatabase.database.api,
+ at.sunplugged.celldatabase.database.impl
+Import-Package: at.sunplugged.celldatabase.common.topics

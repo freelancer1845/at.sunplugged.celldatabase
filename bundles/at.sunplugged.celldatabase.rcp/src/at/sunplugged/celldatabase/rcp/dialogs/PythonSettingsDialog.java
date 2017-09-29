@@ -18,14 +18,14 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import at.sunplugged.celldatabase.rcp.Activator;
-import at.sunplugged.celldatabase.rcp.settings.ids.PythonSettings;
+import at.sunplugged.celldatabase.common.PrefNodes;
+import at.sunplugged.celldatabase.common.PythonSettings;
 
 public class PythonSettingsDialog extends TitleAreaDialog {
 
 	private GridDataFactory gridDataFactory;
 
-	private IEclipsePreferences preferences = ConfigurationScope.INSTANCE.getNode(Activator.PLUGIN_ID);
+	private IEclipsePreferences preferences = ConfigurationScope.INSTANCE.getNode(PrefNodes.PYTHON);
 
 	private Text pythonPathText;
 

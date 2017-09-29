@@ -4,12 +4,11 @@ Bundle-Name: Plotting
 Bundle-SymbolicName: at.sunplugged.celldatabase.plotting
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: at.sunplugged.celldatabase.plotting.Activator
-Require-Bundle: org.eclipse.core.runtime
+Require-Bundle: org.eclipse.core.runtime,
+ at.sunplugged.celldatabase.common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Import-Package: at.sunplugged.celldatabase.rcp,
- at.sunplugged.celldatabase.rcp.settings.ids,
- com.google.gson;version="2.7.0",
+Import-Package: com.google.gson;version="2.7.0",
  com.google.gson.reflect;version="2.7.0",
  datamodel,
  org.apache.commons.exec;version="1.1.0",

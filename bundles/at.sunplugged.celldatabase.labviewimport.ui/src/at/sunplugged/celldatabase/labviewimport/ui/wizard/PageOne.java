@@ -1,6 +1,6 @@
 package at.sunplugged.celldatabase.labviewimport.ui.wizard;
 
-import java.util.ArrayList;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 
@@ -29,12 +29,13 @@ import org.eclipse.swt.widgets.TableColumn;
 
 public class PageOne extends WizardPage {
 
-	private List<LabviewDataFile> dataFiles = new ArrayList<>();
+	private List<LabviewDataFile> dataFiles;
 
 	private TableViewer viewer;
 
-	protected PageOne() {
+	protected PageOne(List<LabviewDataFile> dataFiles) {
 		super("Choose Data Files...");
+		this.dataFiles = dataFiles;
 		setTitle("Choose Data Files...");
 		setDescription("Labview Import Wizard: First Page");
 	}
@@ -103,7 +104,7 @@ public class PageOne extends WizardPage {
 					String[] paths = dialog.getFileNames();
 
 					for (String path : paths) {
-						dataFiles.add(new LabviewDataFile(dialog.getFilterPath() + path, path));
+						dataFiles.add(new LabviewDataFile(Paths.get(dialog.getFilterPath(), path).toString(), path));
 
 					}
 					viewer.refresh();

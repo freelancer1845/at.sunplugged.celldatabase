@@ -21,8 +21,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import at.sunplugged.celldatabase.common.PrefNodes;
+import at.sunplugged.celldatabase.common.PythonSettings;
 import at.sunplugged.celldatabase.plotting.internal.CellResultExclusingStrategy;
-import at.sunplugged.celldatabase.rcp.settings.ids.PythonSettings;
 import datamodel.CellResult;
 
 public class PlotHelper {
@@ -32,7 +33,7 @@ public class PlotHelper {
 	public static void plotCellResults(List<CellResult> cellResults) {
 		LOG.debug("Plotting CellResults...");
 
-		Preferences pref = ConfigurationScope.INSTANCE.getNode(at.sunplugged.celldatabase.rcp.Activator.PLUGIN_ID);
+		Preferences pref = ConfigurationScope.INSTANCE.getNode(PrefNodes.PYTHON);
 
 		String pythonPath = pref.get(PythonSettings.PYTHON_PATH, "D:/Anaconda3/python.exe");
 		if (pythonPath.isEmpty()) {

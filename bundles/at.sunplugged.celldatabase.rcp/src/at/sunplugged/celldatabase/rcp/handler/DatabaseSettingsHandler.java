@@ -21,7 +21,6 @@ public class DatabaseSettingsHandler {
 				pref.put(Settings.DATABASE, dialog.getDatabaseNameText());
 				pref.put(Settings.USERNAME, dialog.getUsernameText());
 				pref.put(Settings.PASSWORD, dialog.getPasswordText());
-				pref.put(Settings.DRIVER, dialog.getDriverText());
 				dialog.getPreferences().flush();
 			} catch (BackingStoreException e) {
 				// TODO Auto-generated catch block

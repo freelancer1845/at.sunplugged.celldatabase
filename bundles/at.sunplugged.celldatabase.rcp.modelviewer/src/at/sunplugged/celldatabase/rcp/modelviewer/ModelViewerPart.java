@@ -98,7 +98,6 @@ public class ModelViewerPart {
 
 			@Override
 			public void commandStackChanged(EventObject event) {
-				dirtyable.setDirty(editingDomain.getCommandStack().canUndo());
 				if (editingDomain.getCommandStack().canUndo() == false) {
 					dirtyable.setDirty(false);
 					dirtyTreeElements.clear();

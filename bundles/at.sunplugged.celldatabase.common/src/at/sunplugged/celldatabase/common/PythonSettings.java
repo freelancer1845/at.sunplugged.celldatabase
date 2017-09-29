@@ -1,4 +1,4 @@
-package at.sunplugged.celldatabase.rcp.settings.ids;
+package at.sunplugged.celldatabase.common;
 
 public class PythonSettings {
 

@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ISaveHandler;
 
@@ -16,7 +18,7 @@ import at.sunplugged.celldatabase.database.api.ModelDatabaseService;
 public class DisconnectHandler {
 	@Execute
 	public void execute(ModelDatabaseService databaseService, EPartService partService, ISaveHandler saveHandler,
-			MApplication app) {
+			MApplication app, IEventBroker eventBroker) {
 		MPart viewerPart = partService
 				.findPart("at.sunplugged.celldatabase.rcp.modelviewer.partdescriptor.modelviewer");
 		MPart[] parts = partService.getParts().toArray(new MPart[] {});
@@ -30,11 +32,11 @@ public class DisconnectHandler {
 		if (viewerPart != null && viewerPart.isDirty()) {
 			saveHandler.save(viewerPart, true);
 		}
-		databaseService.close();
+		databaseService.disconnectRemote();
 		for (MPart part : partsList) {
 			partService.hidePart(part, true);
 		}
-
+		eventBroker.send(UIEvents.REQUEST_ENABLEMENT_UPDATE_TOPIC, UIEvents.ALL_ELEMENT_ID);
 	}
 
 	@CanExecute

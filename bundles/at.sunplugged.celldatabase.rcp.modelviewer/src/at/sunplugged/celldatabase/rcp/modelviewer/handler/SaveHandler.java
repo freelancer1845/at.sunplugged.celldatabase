@@ -10,15 +10,13 @@ import org.eclipse.e4.ui.workbench.modeling.ISaveHandler;
 public class SaveHandler {
 	@Execute
 	public void execute(EPartService partService, ISaveHandler saveHandler) {
-		MPart viewerPart = partService
-				.findPart("at.sunplugged.celldatabase.rcp.modelviewer.partdescriptor.modelviewer");
+		MPart viewerPart = partService.findPart("at.sunplugged.celldatabase.rcp.modelviewer.part.modelviewer");
 		saveHandler.save(viewerPart, false);
 	}
 
 	@CanExecute
 	public boolean canExecute(EPartService partService) {
-		MPart viewerPart = partService
-				.findPart("at.sunplugged.celldatabase.rcp.modelviewer.partdescriptor.modelviewer");
+		MPart viewerPart = partService.findPart("at.sunplugged.celldatabase.rcp.modelviewer.part.modelviewer");
 		if (viewerPart == null) {
 			return false;
 		}

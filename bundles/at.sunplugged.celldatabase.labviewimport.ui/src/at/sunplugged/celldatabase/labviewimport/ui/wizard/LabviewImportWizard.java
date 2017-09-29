@@ -1,10 +1,22 @@
 package at.sunplugged.celldatabase.labviewimport.ui.wizard;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.wizard.Wizard;
+
+import datamodel.CellResult;
 
 public class LabviewImportWizard extends Wizard {
 
 	protected PageOne pageOne;
+
+	protected PageTwo pageTwo;
+
+	private List<LabviewDataFile> dataFiles = new ArrayList<>();
+
+	private EList<CellResult> cellResults;
 
 	public LabviewImportWizard() {
 		super();
@@ -13,8 +25,10 @@ public class LabviewImportWizard extends Wizard {
 
 	@Override
 	public void addPages() {
-		pageOne = new PageOne();
+		pageOne = new PageOne(dataFiles);
+		pageTwo = new PageTwo(dataFiles);
 		addPage(pageOne);
+		addPage(pageTwo);
 	}
 
 	@Override
@@ -24,7 +38,15 @@ public class LabviewImportWizard extends Wizard {
 
 	@Override
 	public boolean performFinish() {
+		cellResults = pageTwo.getCellResults();
+		if (cellResults.isEmpty() == true) {
+			return false;
+		}
 		return true;
+	}
+
+	public EList<CellResult> getCellResults() {
+		return cellResults;
 	}
 
 }

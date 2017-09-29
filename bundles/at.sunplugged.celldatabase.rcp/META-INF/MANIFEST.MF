@@ -4,8 +4,7 @@ Bundle-Name: Rcp
 Bundle-SymbolicName: at.sunplugged.celldatabase.rcp;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: at.sunplugged.celldatabase.rcp.Activator
-Export-Package: at.sunplugged.celldatabase.rcp,
-  at.sunplugged.celldatabase.rcp.settings.ids
+Export-Package: at.sunplugged.celldatabase.rcp
 Require-Bundle: javax.inject;bundle-version="0.0.0",
  org.eclipse.core.runtime;bundle-version="0.0.0",
  org.eclipse.swt;bundle-version="0.0.0",
@@ -21,10 +20,13 @@ Require-Bundle: javax.inject;bundle-version="0.0.0",
  org.eclipse.osgi,
  org.eclipse.osgi.services,
  org.eclipse.e4.ui.progress;bundle-version="0.1.100",
- org.eclipse.core.jobs
+ org.eclipse.core.jobs,
+ at.sunplugged.celldatabase.common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Import-Package: at.sunplugged.celldatabase.database,
+Import-Package: at.sunplugged.celldatabase.common.topics,
+ at.sunplugged.celldatabase.database,
  at.sunplugged.celldatabase.database.api,
+ at.sunplugged.celldatabase.database.impl,
  at.sunplugged.celldatabase.database.ui.compare,
  javax.inject;version="1.0.0",
  org.eclipse.e4.core.services.events,

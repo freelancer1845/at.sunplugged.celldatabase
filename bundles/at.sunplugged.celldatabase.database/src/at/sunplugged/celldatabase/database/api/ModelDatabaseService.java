@@ -29,4 +29,6 @@ public interface ModelDatabaseService {
 
 	Resource getRemoteResource();
 
+	void disconnectRemote();
+
 }

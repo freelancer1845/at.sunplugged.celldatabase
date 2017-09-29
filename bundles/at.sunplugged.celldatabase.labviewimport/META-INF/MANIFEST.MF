@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.core.runtime,
  at.sunplugged.celldatabase.datamodel,
  com.google.gson;bundle-version="2.7.0",
  org.apache.commons.exec;bundle-version="1.1.0",
- at.sunplugged.celldatabase.rcp;bundle-version="1.0.0"
+ at.sunplugged.celldatabase.common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Include-Resource: pythonsrc/

@@ -9,8 +9,8 @@ import org.osgi.service.prefs.BackingStoreException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import at.sunplugged.celldatabase.common.PythonSettings;
 import at.sunplugged.celldatabase.rcp.dialogs.PythonSettingsDialog;
-import at.sunplugged.celldatabase.rcp.settings.ids.PythonSettings;
 
 public class PythonSettingsHandler {
 

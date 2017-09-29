@@ -6,10 +6,7 @@ import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -25,7 +22,6 @@ public class DatabaseSettingsDialog extends TitleAreaDialog {
 	private Text databaseNameText;
 	private Text addressText;
 
-	private String provider;
 	private String password;
 	private String username;
 	private String databaseName;
@@ -35,7 +31,6 @@ public class DatabaseSettingsDialog extends TitleAreaDialog {
 
 	private IEclipsePreferences preferences = ConfigurationScope.INSTANCE
 			.getNode(at.sunplugged.celldatabase.database.Activator.PLUGIN_ID);
-	private Combo providerCombo;
 
 	public DatabaseSettingsDialog(Shell parentShell) {
 		super(parentShell);
@@ -67,18 +62,12 @@ public class DatabaseSettingsDialog extends TitleAreaDialog {
 		createUsernameField(container);
 		createPasswordField(container);
 
-		if (preferences.get(Settings.DRIVER, Settings.DRIVER_HSQL).equals(Settings.DRIVER_HSQL)) {
-			providerCombo.select(0);
-		} else {
-			providerCombo.select(1);
-		}
-
 		return area;
 	}
 
 	@Override
 	protected void okPressed() {
-		provider = providerCombo.getText();
+		// provider = providerCombo.getText();
 		password = passwordText.getText();
 		username = usernameText.getText();
 		databaseName = databaseNameText.getText();
@@ -91,33 +80,6 @@ public class DatabaseSettingsDialog extends TitleAreaDialog {
 		label.setText("Database Driver");
 		label.setLayoutData(gridDataFactory.create());
 
-		providerCombo = new Combo(container, SWT.NONE);
-		providerCombo.setLayoutData(gridDataFactory.create());
-		providerCombo.setItems(new String[] { Settings.DRIVER_HSQL, Settings.DRIVER_SQL_EXPRESS });
-		providerCombo.addModifyListener(new ModifyListener() {
-
-			@Override
-			public void modifyText(ModifyEvent e) {
-				int index = providerCombo.getSelectionIndex();
-				if (index == 0) {
-					preferences.put(Settings.DRIVER, Settings.DRIVER_HSQL);
-					databaseNameText.setText("");
-					databaseNameText.setEnabled(false);
-					usernameText.setEnabled(false);
-					usernameText.setText("sa");
-					passwordText.setEnabled(false);
-					passwordText.setText("");
-				} else if (index == 1) {
-					preferences.put(Settings.DRIVER, Settings.DRIVER_SQL_EXPRESS);
-					databaseNameText.setText(preferences.get(Settings.DATABASE, ""));
-					databaseNameText.setEnabled(true);
-					usernameText.setEnabled(true);
-					usernameText.setText(preferences.get(Settings.USERNAME, ""));
-					passwordText.setEnabled(true);
-					passwordText.setText(preferences.get(Settings.PASSWORD, "0000"));
-				}
-			}
-		});
 	}
 
 	private void createAddressField(Composite container) {
@@ -176,10 +138,6 @@ public class DatabaseSettingsDialog extends TitleAreaDialog {
 
 	public String getAddressText() {
 		return address;
-	}
-
-	public String getDriverText() {
-		return provider;
 	}
 
 	public IEclipsePreferences getPreferences() {
