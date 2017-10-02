@@ -1,47 +1,29 @@
 package at.sunplugged.celldatabase.rcp.dialogs;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.compare.Comparison;
 import org.eclipse.emf.compare.Diff;
 import org.eclipse.emf.compare.Match;
-import org.eclipse.emf.compare.utils.MatchUtil;
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.CheckboxCellEditor;
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
-import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.EditingSupport;
+import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.TableColumn;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
 
 public class ConfirmRefreshDialog extends TitleAreaDialog {
 
@@ -49,23 +31,15 @@ public class ConfirmRefreshDialog extends TitleAreaDialog {
 
 	private static final String MESSAGE = "Review changes made to local database...";
 
-	private final Image CHECKED = getImageDescriptor("checked.png").createImage();
-
-	private final Image UNCHECKED = getImageDescriptor("unchecked.png").createImage();
-
-	private TableViewer viewer;
-
-	private Map<Diff, Boolean> differencesMap;
+	private List<Diff> verifiedDiffs;
 
 	private Comparison comparison;
 
+	private CheckboxTreeViewerExtended treeViewer;
+
 	public ConfirmRefreshDialog(Shell parentShell, List<Diff> differences, Comparison comparision) {
 		super(parentShell);
-		this.differencesMap = new LinkedHashMap<>();
 		this.comparison = comparision;
-		for (Diff diff : differences) {
-			differencesMap.put(diff, true);
-		}
 	}
 
 	@Override
@@ -75,9 +49,17 @@ public class ConfirmRefreshDialog extends TitleAreaDialog {
 		setMessage(MESSAGE, IMessageProvider.INFORMATION);
 	}
 
+	@Override
+	protected void buttonPressed(int buttonId) {
+		if (buttonId == IDialogConstants.OK_ID) {
+			verifiedDiffs = Arrays.asList(Arrays.stream(treeViewer.getCheckedElements())
+					.filter(object -> object instanceof Diff).toArray(Diff[]::new));
+		}
+		super.buttonPressed(buttonId);
+	}
+
 	public List<Diff> getVerifiedDiffs() {
-		return differencesMap.entrySet().stream().filter(map -> map.getValue() == true).map(map -> map.getKey())
-				.collect(Collectors.toList());
+		return verifiedDiffs;
 	}
 
 	@Override
@@ -87,205 +69,184 @@ public class ConfirmRefreshDialog extends TitleAreaDialog {
 
 		container.setLayout(new FillLayout());
 
-		TreeViewer treeViewer = new CheckboxTreeViewer(container,
+		treeViewer = new CheckboxTreeViewerExtended(container,
 				SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
 
-		treeViewer.setContentProvider(new ITreeContentProvider() {
+		treeViewer.addCheckStateListener(new ICheckStateListener() {
 
 			@Override
-			public boolean hasChildren(Object element) {
-				if (element instanceof Match) {
-					EList<Match> submatches = ((Match) element).getSubmatches();
-
-					List<Diff> diffs = new ArrayList<Diff>();
-					((Match) element).getAllDifferences().forEach(diffs::add);
-
-					return submatches.isEmpty() == false;
-				} else if (element instanceof Diff) {
-					return false;
-				}
-
-				return false;
+			public void checkStateChanged(CheckStateChangedEvent event) {
+				treeViewer.refresh();
 			}
 
-			@Override
-			public Object getParent(Object element) {
+		});
 
-				if (element instanceof Match) {
-					return ((Match) element).getComparison().getMatches().stream()
-							.filter(match -> match.getSubmatches().contains(element)).findAny().orElse(null);
-				} else if (element instanceof Diff) {
-					return ((Diff) element).getMatch();
+		treeViewer.addCheckStateListener(new ICheckStateListener() {
+
+			@Override
+			public void checkStateChanged(CheckStateChangedEvent event) {
+				Object element = event.getElement();
+				ITreeContentProvider provider = (ITreeContentProvider) treeViewer.getContentProvider();
+
+				if (event.getChecked() == false) {
+					handleUnchecked(element, provider);
 				} else {
-					return null;
+					handleChecked(element, provider);
 				}
+
+				treeViewer.refresh();
+
 			}
 
-			@Override
-			public Object[] getElements(Object inputElement) {
-				return ((EList<Match>) inputElement).toArray();
+			private void handleChecked(Object element, ITreeContentProvider provider) {
+				List<Object> allChildren = new ArrayList<>();
+				if (provider.getParent(element) != null) {
+					getAllChildren(provider, provider.getParent(element), allChildren);
+				}
+
+				treeViewer.setSubtreeChecked(element, true);
+
+				Object parent = provider.getParent(element);
+				while (parent != null) {
+					treeViewer.setChecked(parent, true);
+					if (allChildrenChecked(treeViewer, parent)) {
+						treeViewer.setGrayed(parent, false);
+					} else {
+						treeViewer.setGrayed(parent, true);
+					}
+
+					parent = provider.getParent(parent);
+				}
+				allChildren.clear();
+				getAllChildren(provider, element, allChildren);
+
+				allChildren.forEach(child -> treeViewer.setGrayed(child, false));
+
+				treeViewer.setGrayed(element, false);
 			}
 
-			@Override
-			public Object[] getChildren(Object parentElement) {
-				List<Object> children = new ArrayList<>();
-				if (parentElement instanceof Match) {
-					children.addAll(((Match) parentElement).getDifferences());
-					children.addAll(((Match) parentElement).getSubmatches().stream().filter(match -> {
-						List<Match> allSubmatches = new ArrayList<>();
-						match.getAllSubmatches().forEach(allSubmatches::add);
-						return allSubmatches.stream().filter(submatch -> submatch.getDifferences().isEmpty() == false)
-								.findAny().isPresent();
-					}).collect(Collectors.toCollection(ArrayList::new)));
-					return children.toArray();
-				} else {
-					return null;
-				}
+			private void handleUnchecked(Object element, ITreeContentProvider provider) {
+				treeViewer.setSubtreeChecked(element, false);
+				treeViewer.setParentsGrayed(element, true);
 			}
 		});
+		treeViewer.setContentProvider(new MatchTreeContentProvider());
 
 		ComposedAdapterFactory composedAdapterFactory = new ComposedAdapterFactory(
 				ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 		treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(composedAdapterFactory));
 		treeViewer.setInput(comparison.getMatches());
+		treeViewer.expandToLevel(2);
+		treeViewer.setSubtreeChecked(comparison.getMatches().get(0), true);
 
-		// viewer = new TableViewer(container, SWT.MULTI | SWT.BORDER |
-		// SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
-		// createColumns(container, viewer);
-		// Table table = viewer.getTable();
-		// table.setHeaderVisible(true);
-		// table.setLinesVisible(true);
-		// viewer.setContentProvider(new IStructuredContentProvider() {
-		//
-		// @Override
-		// public Object[] getElements(Object inputElement) {
-		// Set<Diff> diffs = (Set<Diff>) inputElement;
-		// return diffs.stream().filter(diff -> {
-		// if (diff.getMatch().getLeft() instanceof CellMeasurementDataSet) {
-		// return false;
-		// } else {
-		// return true;
-		// }
-		// }).toArray();
-		//
-		// }
-		// });
-		// viewer.setInput(differencesMap.keySet());
 		return container;
 	}
 
-	private void createColumns(Composite container, TableViewer viewer2) {
+	private boolean allChildrenChecked(CheckboxTreeViewer treeViewer, Object element) {
+		List<Object> children = new ArrayList<>();
+		getAllChildren((ITreeContentProvider) treeViewer.getContentProvider(), element, children);
+		return children.stream().allMatch(child -> treeViewer.getChecked(child));
+	}
 
-		String[] titles = { "Object Label", "Type", "Attribute", "Do" };
-		int[] bounds = { 100, 100, 100, 100 };
+	private void getAllChildren(ITreeContentProvider provider, Object element, List<Object> children) {
+		if (provider.hasChildren(element) == false) {
+			return;
+		}
+		for (Object child : provider.getChildren(element)) {
+			children.add(child);
+			getAllChildren(provider, child, children);
+		}
+	}
 
-		TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
-		col.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				Diff diff = (Diff) element;
-				EObject eObject = diff.getMatch().getLeft();
-				String title = null;
-				EAttribute attribute = eObject.eClass().getEAttributes().stream()
-						.filter(attr -> attr.getName() == "name").findFirst().orElse(null);
-				if (attribute != null) {
-					title = (String) eObject.eGet(attribute);
+	private final class MatchTreeContentProvider implements ITreeContentProvider {
+		@Override
+		public boolean hasChildren(Object element) {
+			if (element instanceof Match) {
+				EList<Match> submatches = ((Match) element).getSubmatches();
+
+				List<Diff> diffs = new ArrayList<Diff>();
+				((Match) element).getAllDifferences().forEach(diffs::add);
+				if (diffs.isEmpty() == false) {
+					System.out.println("has children");
+					return true;
+				} else {
+					return false;
 				}
 
-				if (title == null) {
-					title = "Unkown";
-				}
-				return title;
+			} else if (element instanceof Diff) {
+				return false;
 			}
-		});
 
-		col = createTableViewerColumn(titles[1], bounds[1], 1);
-		col.setLabelProvider(new ColumnLabelProvider() {
-			public String getText(Object element) {
-				Diff diff = (Diff) element;
-				return diff.getKind().toString();
-			};
-		});
+			return false;
+		}
 
-		col = createTableViewerColumn(titles[2], bounds[2], 2);
-		col.setLabelProvider(new ColumnLabelProvider() {
-			public String getText(Object element) {
-				Diff diff = (Diff) element;
-				EStructuralFeature feature = MatchUtil.getStructuralFeature(diff);
-				return feature.getName();
-			};
-		});
+		private Object findParent(Match toFindOf, Match match) {
+			if (match.getSubmatches().contains(toFindOf)) {
+				return match;
+			}
+			Object parent = null;
+			for (Match submatch : match.getSubmatches()) {
+				parent = (findParent(toFindOf, submatch));
+				if (parent != null) {
+					return parent;
+				}
+			}
+			return null;
+		}
 
-		col = createTableViewerColumn(titles[3], bounds[3], 3);
-		col.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
+		@Override
+		public Object getParent(Object element) {
+
+			if (element instanceof Match) {
+				for (Match match : comparison.getMatches()) {
+					if (match == element) {
+						return null;
+					}
+					Object parent = findParent((Match) element, match);
+					return parent;
+				}
+				return null;
+			} else if (element instanceof Diff) {
+				return ((Diff) element).getMatch();
+			} else {
 				return null;
 			}
+		}
 
-			@Override
-			public Image getImage(Object element) {
-				if (differencesMap.get(element)) {
-					return CHECKED;
-				} else {
-					return UNCHECKED;
-				}
+		@Override
+		public Object[] getElements(Object inputElement) {
+			return ((EList<Match>) inputElement).toArray();
+		}
+
+		@Override
+		public Object[] getChildren(Object parentElement) {
+			List<Object> children = new ArrayList<>();
+			if (parentElement instanceof Match) {
+				children.addAll(((Match) parentElement).getDifferences());
+				children.addAll(((Match) parentElement).getSubmatches().stream().filter(match -> {
+					List<Match> allSubmatches = new ArrayList<>();
+					match.getAllSubmatches().forEach(allSubmatches::add);
+					return allSubmatches.stream().filter(submatch -> submatch.getDifferences().isEmpty() == false)
+							.findAny().isPresent();
+				}).collect(Collectors.toCollection(ArrayList::new)));
+				return children.toArray();
+			} else {
+				return new Object[0];
 			}
-		});
-		col.setEditingSupport(new EditingSupport(viewer) {
-
-			@Override
-			protected void setValue(Object element, Object value) {
-				differencesMap.put((Diff) element, (boolean) value);
-				if ((boolean) value == true) {
-					List<Diff> childDiffs = comparison.getDifferences(((Diff) element).getMatch().getLeft());
-					((Diff) element).getMatch().getAllDifferences();
-					System.out.println(Arrays.toString(childDiffs.toArray()));
-					childDiffs.forEach(diff -> differencesMap.put(diff, (boolean) value == true));
-					viewer.refresh();
-				} else {
-					Iterable<Diff> childDiffs = ((Diff) element).getMatch().getAllDifferences();
-					childDiffs.forEach(diff -> System.out.println(diff.toString()));
-					childDiffs.forEach(diff -> differencesMap.put(diff, (boolean) value));
-					viewer.refresh();
-					viewer.update(element, null);
-				}
-
-			}
-
-			@Override
-			protected Object getValue(Object element) {
-				return differencesMap.get((Diff) element);
-			}
-
-			@Override
-			protected CellEditor getCellEditor(Object element) {
-				return new CheckboxCellEditor(null, SWT.CHECK | SWT.READ_ONLY);
-			}
-
-			@Override
-			protected boolean canEdit(Object element) {
-				return true;
-			}
-		});
+		}
 	}
 
-	private TableViewerColumn createTableViewerColumn(String title, int bound, int colNumber) {
-		TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.NONE);
-		TableColumn column = viewerColumn.getColumn();
-		column.setText(title);
-		column.setWidth(bound);
-		column.setResizable(true);
-		column.setMoveable(true);
+	private class CheckboxTreeViewerExtended extends CheckboxTreeViewer {
 
-		return viewerColumn;
-	}
+		public CheckboxTreeViewerExtended(Composite parent, int style) {
+			super(parent, style);
+		}
 
-	private static ImageDescriptor getImageDescriptor(String file) {
-		// assume that the current class is called View.java
-		Bundle bundle = FrameworkUtil.getBundle(ConfirmRefreshDialog.class);
-		URL url = FileLocator.find(bundle, new Path("icons/" + file), null);
-		return ImageDescriptor.createFromURL(url);
+		@Override
+		public void fireCheckStateChanged(CheckStateChangedEvent event) {
+			super.fireCheckStateChanged(event);
+		}
+
 	}
 
 }
