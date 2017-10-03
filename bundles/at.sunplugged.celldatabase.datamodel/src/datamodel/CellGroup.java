@@ -36,7 +36,7 @@ public interface CellGroup extends EObject {
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see datamodel.DatamodelPackage#getCellGroup_Name()
-	 * @model
+	 * @model volatile="true" derived="true"
 	 * @generated
 	 */
 	String getName();
