@@ -150,7 +150,7 @@ public class ExcelOutputHelper {
 
 		colId = 0;
 
-		CellMeasurementDataSet dataSet = res.getCellMeasurementDataSet();
+		CellMeasurementDataSet dataSet = res.getLightMeasurementDataSet();
 		if (dataSet == null) {
 			return;
 		}

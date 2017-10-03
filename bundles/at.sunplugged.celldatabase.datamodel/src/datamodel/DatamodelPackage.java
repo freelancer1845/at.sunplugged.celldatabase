@@ -158,22 +158,31 @@ public interface DatamodelPackage extends EPackage {
 	int CELL_RESULT__PARALLEL_RESISTANCE = 5;
 
 	/**
+	 * The feature id for the '<em><b>Dark Parallel Resistance</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CELL_RESULT__DARK_PARALLEL_RESISTANCE = 6;
+
+	/**
 	 * The feature id for the '<em><b>Series Resistance</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__SERIES_RESISTANCE = 6;
+	int CELL_RESULT__SERIES_RESISTANCE = 7;
 
 	/**
-	 * The feature id for the '<em><b>Maximum Power</b></em>' attribute.
+	 * The feature id for the '<em><b>Dark Series Resistance</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__MAXIMUM_POWER = 7;
+	int CELL_RESULT__DARK_SERIES_RESISTANCE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Maximum Power Voltage</b></em>' attribute.
@@ -182,7 +191,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__MAXIMUM_POWER_VOLTAGE = 8;
+	int CELL_RESULT__MAXIMUM_POWER_VOLTAGE = 9;
 
 	/**
 	 * The feature id for the '<em><b>Maximum Power Current</b></em>' attribute.
@@ -191,7 +200,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__MAXIMUM_POWER_CURRENT = 9;
+	int CELL_RESULT__MAXIMUM_POWER_CURRENT = 10;
 
 	/**
 	 * The feature id for the '<em><b>Efficiency</b></em>' attribute.
@@ -200,7 +209,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__EFFICIENCY = 10;
+	int CELL_RESULT__EFFICIENCY = 11;
 
 	/**
 	 * The feature id for the '<em><b>Fill Factor</b></em>' attribute.
@@ -209,16 +218,25 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__FILL_FACTOR = 11;
+	int CELL_RESULT__FILL_FACTOR = 12;
 
 	/**
-	 * The feature id for the '<em><b>Cell Measurement Data Set</b></em>' containment reference.
+	 * The feature id for the '<em><b>Light Measurement Data Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT__CELL_MEASUREMENT_DATA_SET = 12;
+	int CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET = 13;
+
+	/**
+	 * The feature id for the '<em><b>Dark Measuremenet Data Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CELL_RESULT__DARK_MEASUREMENET_DATA_SET = 14;
 
 	/**
 	 * The number of structural features of the '<em>Cell Result</em>' class.
@@ -227,7 +245,7 @@ public interface DatamodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_RESULT_FEATURE_COUNT = 13;
+	int CELL_RESULT_FEATURE_COUNT = 15;
 
 	/**
 	 * The number of operations of the '<em>Cell Result</em>' class.
@@ -519,6 +537,17 @@ public interface DatamodelPackage extends EPackage {
 	EAttribute getCellResult_ParallelResistance();
 
 	/**
+	 * Returns the meta object for the attribute '{@link datamodel.CellResult#getDarkParallelResistance <em>Dark Parallel Resistance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Dark Parallel Resistance</em>'.
+	 * @see datamodel.CellResult#getDarkParallelResistance()
+	 * @see #getCellResult()
+	 * @generated
+	 */
+	EAttribute getCellResult_DarkParallelResistance();
+
+	/**
 	 * Returns the meta object for the attribute '{@link datamodel.CellResult#getSeriesResistance <em>Series Resistance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -530,15 +559,15 @@ public interface DatamodelPackage extends EPackage {
 	EAttribute getCellResult_SeriesResistance();
 
 	/**
-	 * Returns the meta object for the attribute '{@link datamodel.CellResult#getMaximumPower <em>Maximum Power</em>}'.
+	 * Returns the meta object for the attribute '{@link datamodel.CellResult#getDarkSeriesResistance <em>Dark Series Resistance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Maximum Power</em>'.
-	 * @see datamodel.CellResult#getMaximumPower()
+	 * @return the meta object for the attribute '<em>Dark Series Resistance</em>'.
+	 * @see datamodel.CellResult#getDarkSeriesResistance()
 	 * @see #getCellResult()
 	 * @generated
 	 */
-	EAttribute getCellResult_MaximumPower();
+	EAttribute getCellResult_DarkSeriesResistance();
 
 	/**
 	 * Returns the meta object for the attribute '{@link datamodel.CellResult#getMaximumPowerVoltage <em>Maximum Power Voltage</em>}'.
@@ -585,15 +614,26 @@ public interface DatamodelPackage extends EPackage {
 	EAttribute getCellResult_FillFactor();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link datamodel.CellResult#getCellMeasurementDataSet <em>Cell Measurement Data Set</em>}'.
+	 * Returns the meta object for the containment reference '{@link datamodel.CellResult#getLightMeasurementDataSet <em>Light Measurement Data Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Cell Measurement Data Set</em>'.
-	 * @see datamodel.CellResult#getCellMeasurementDataSet()
+	 * @return the meta object for the containment reference '<em>Light Measurement Data Set</em>'.
+	 * @see datamodel.CellResult#getLightMeasurementDataSet()
 	 * @see #getCellResult()
 	 * @generated
 	 */
-	EReference getCellResult_CellMeasurementDataSet();
+	EReference getCellResult_LightMeasurementDataSet();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link datamodel.CellResult#getDarkMeasuremenetDataSet <em>Dark Measuremenet Data Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Dark Measuremenet Data Set</em>'.
+	 * @see datamodel.CellResult#getDarkMeasuremenetDataSet()
+	 * @see #getCellResult()
+	 * @generated
+	 */
+	EReference getCellResult_DarkMeasuremenetDataSet();
 
 	/**
 	 * Returns the meta object for class '{@link datamodel.CellGroup <em>Cell Group</em>}'.
@@ -846,6 +886,14 @@ public interface DatamodelPackage extends EPackage {
 		EAttribute CELL_RESULT__PARALLEL_RESISTANCE = eINSTANCE.getCellResult_ParallelResistance();
 
 		/**
+		 * The meta object literal for the '<em><b>Dark Parallel Resistance</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CELL_RESULT__DARK_PARALLEL_RESISTANCE = eINSTANCE.getCellResult_DarkParallelResistance();
+
+		/**
 		 * The meta object literal for the '<em><b>Series Resistance</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -854,12 +902,12 @@ public interface DatamodelPackage extends EPackage {
 		EAttribute CELL_RESULT__SERIES_RESISTANCE = eINSTANCE.getCellResult_SeriesResistance();
 
 		/**
-		 * The meta object literal for the '<em><b>Maximum Power</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Dark Series Resistance</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CELL_RESULT__MAXIMUM_POWER = eINSTANCE.getCellResult_MaximumPower();
+		EAttribute CELL_RESULT__DARK_SERIES_RESISTANCE = eINSTANCE.getCellResult_DarkSeriesResistance();
 
 		/**
 		 * The meta object literal for the '<em><b>Maximum Power Voltage</b></em>' attribute feature.
@@ -894,12 +942,20 @@ public interface DatamodelPackage extends EPackage {
 		EAttribute CELL_RESULT__FILL_FACTOR = eINSTANCE.getCellResult_FillFactor();
 
 		/**
-		 * The meta object literal for the '<em><b>Cell Measurement Data Set</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Light Measurement Data Set</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CELL_RESULT__CELL_MEASUREMENT_DATA_SET = eINSTANCE.getCellResult_CellMeasurementDataSet();
+		EReference CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET = eINSTANCE.getCellResult_LightMeasurementDataSet();
+
+		/**
+		 * The meta object literal for the '<em><b>Dark Measuremenet Data Set</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CELL_RESULT__DARK_MEASUREMENET_DATA_SET = eINSTANCE.getCellResult_DarkMeasuremenetDataSet();
 
 		/**
 		 * The meta object literal for the '{@link datamodel.impl.CellGroupImpl <em>Cell Group</em>}' class.

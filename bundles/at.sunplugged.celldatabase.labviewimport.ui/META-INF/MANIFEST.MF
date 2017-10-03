@@ -13,6 +13,7 @@ Require-Bundle: org.eclipse.jface,
  org.eclipse.core.jobs,
  org.eclipse.core.runtime
 Export-Package: at.sunplugged.celldatabase.labviewimport.ui.wizard
-Import-Package: at.sunplugged.database.labviewimport,
+Import-Package: at.sunplugged.celldatabase.common,
+ at.sunplugged.database.labviewimport,
  datamodel,
  org.eclipse.emfforms.spi.swt.treemasterdetail;version="1.13.1"

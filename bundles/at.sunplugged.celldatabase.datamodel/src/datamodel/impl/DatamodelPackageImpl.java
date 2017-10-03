@@ -205,7 +205,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCellResult_SeriesResistance() {
+	public EAttribute getCellResult_DarkParallelResistance() {
 		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -214,7 +214,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCellResult_MaximumPower() {
+	public EAttribute getCellResult_SeriesResistance() {
 		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -223,7 +223,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCellResult_MaximumPowerVoltage() {
+	public EAttribute getCellResult_DarkSeriesResistance() {
 		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -232,7 +232,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCellResult_MaximumPowerCurrent() {
+	public EAttribute getCellResult_MaximumPowerVoltage() {
 		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -241,7 +241,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCellResult_Efficiency() {
+	public EAttribute getCellResult_MaximumPowerCurrent() {
 		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -250,7 +250,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCellResult_FillFactor() {
+	public EAttribute getCellResult_Efficiency() {
 		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -259,8 +259,26 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCellResult_CellMeasurementDataSet() {
-		return (EReference)cellResultEClass.getEStructuralFeatures().get(12);
+	public EAttribute getCellResult_FillFactor() {
+		return (EAttribute)cellResultEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCellResult_LightMeasurementDataSet() {
+		return (EReference)cellResultEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCellResult_DarkMeasuremenetDataSet() {
+		return (EReference)cellResultEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -427,13 +445,15 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 		createEAttribute(cellResultEClass, CELL_RESULT__OPEN_CIRCUIT_VOLTAGE);
 		createEAttribute(cellResultEClass, CELL_RESULT__SHORT_CIRCUIT_CURRENT);
 		createEAttribute(cellResultEClass, CELL_RESULT__PARALLEL_RESISTANCE);
+		createEAttribute(cellResultEClass, CELL_RESULT__DARK_PARALLEL_RESISTANCE);
 		createEAttribute(cellResultEClass, CELL_RESULT__SERIES_RESISTANCE);
-		createEAttribute(cellResultEClass, CELL_RESULT__MAXIMUM_POWER);
+		createEAttribute(cellResultEClass, CELL_RESULT__DARK_SERIES_RESISTANCE);
 		createEAttribute(cellResultEClass, CELL_RESULT__MAXIMUM_POWER_VOLTAGE);
 		createEAttribute(cellResultEClass, CELL_RESULT__MAXIMUM_POWER_CURRENT);
 		createEAttribute(cellResultEClass, CELL_RESULT__EFFICIENCY);
 		createEAttribute(cellResultEClass, CELL_RESULT__FILL_FACTOR);
-		createEReference(cellResultEClass, CELL_RESULT__CELL_MEASUREMENT_DATA_SET);
+		createEReference(cellResultEClass, CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET);
+		createEReference(cellResultEClass, CELL_RESULT__DARK_MEASUREMENET_DATA_SET);
 
 		cellGroupEClass = createEClass(CELL_GROUP);
 		createEAttribute(cellGroupEClass, CELL_GROUP__NAME);
@@ -493,13 +513,15 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 		initEAttribute(getCellResult_OpenCircuitVoltage(), ecorePackage.getEDouble(), "openCircuitVoltage", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_ShortCircuitCurrent(), ecorePackage.getEDouble(), "shortCircuitCurrent", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_ParallelResistance(), ecorePackage.getEDouble(), "parallelResistance", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCellResult_DarkParallelResistance(), ecorePackage.getEDouble(), "darkParallelResistance", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_SeriesResistance(), ecorePackage.getEDouble(), "seriesResistance", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCellResult_MaximumPower(), ecorePackage.getEDouble(), "maximumPower", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCellResult_DarkSeriesResistance(), ecorePackage.getEDouble(), "darkSeriesResistance", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_MaximumPowerVoltage(), ecorePackage.getEDouble(), "maximumPowerVoltage", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_MaximumPowerCurrent(), ecorePackage.getEDouble(), "maximumPowerCurrent", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_Efficiency(), ecorePackage.getEDouble(), "efficiency", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCellResult_FillFactor(), ecorePackage.getEDouble(), "fillFactor", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCellResult_CellMeasurementDataSet(), this.getCellMeasurementDataSet(), null, "cellMeasurementDataSet", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCellResult_LightMeasurementDataSet(), this.getCellMeasurementDataSet(), null, "lightMeasurementDataSet", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCellResult_DarkMeasuremenetDataSet(), this.getCellMeasurementDataSet(), null, "darkMeasuremenetDataSet", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cellGroupEClass, CellGroup.class, "CellGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCellGroup_Name(), ecorePackage.getEString(), "name", null, 0, 1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -165,11 +165,11 @@ public class PageTwo extends WizardPage {
 
 		for (LabviewDataFile dataFile : dataFiles) {
 
-			Job job = new Job("Calculation result... " + dataFile.getName()) {
+			Job job = new Job("Calculation result... " + dataFile.getNameLight()) {
 				protected IStatus run(IProgressMonitor monitor) {
-					CellResult result = DataReaderHelper.readAndCalculateFile(new File(dataFile.getAbsolutPath()));
-					result.getCellMeasurementDataSet().setArea(dataFile.getArea());
-					result.getCellMeasurementDataSet().setPowerInput(dataFile.getPowerInput());
+					CellResult result = DataReaderHelper.readAndCalculateFile(dataFile.getName(),
+							new File(dataFile.getAbsolutPathDark()), new File(dataFile.getAbsolutPathLight()),
+							dataFile.getArea(), dataFile.getPowerInput());
 					tempGroup.getCellResults().add(result);
 					return Status.OK_STATUS;
 				}

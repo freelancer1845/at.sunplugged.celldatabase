@@ -21,13 +21,15 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link datamodel.CellResult#getOpenCircuitVoltage <em>Open Circuit Voltage</em>}</li>
  *   <li>{@link datamodel.CellResult#getShortCircuitCurrent <em>Short Circuit Current</em>}</li>
  *   <li>{@link datamodel.CellResult#getParallelResistance <em>Parallel Resistance</em>}</li>
+ *   <li>{@link datamodel.CellResult#getDarkParallelResistance <em>Dark Parallel Resistance</em>}</li>
  *   <li>{@link datamodel.CellResult#getSeriesResistance <em>Series Resistance</em>}</li>
- *   <li>{@link datamodel.CellResult#getMaximumPower <em>Maximum Power</em>}</li>
+ *   <li>{@link datamodel.CellResult#getDarkSeriesResistance <em>Dark Series Resistance</em>}</li>
  *   <li>{@link datamodel.CellResult#getMaximumPowerVoltage <em>Maximum Power Voltage</em>}</li>
  *   <li>{@link datamodel.CellResult#getMaximumPowerCurrent <em>Maximum Power Current</em>}</li>
  *   <li>{@link datamodel.CellResult#getEfficiency <em>Efficiency</em>}</li>
  *   <li>{@link datamodel.CellResult#getFillFactor <em>Fill Factor</em>}</li>
- *   <li>{@link datamodel.CellResult#getCellMeasurementDataSet <em>Cell Measurement Data Set</em>}</li>
+ *   <li>{@link datamodel.CellResult#getLightMeasurementDataSet <em>Light Measurement Data Set</em>}</li>
+ *   <li>{@link datamodel.CellResult#getDarkMeasuremenetDataSet <em>Dark Measuremenet Data Set</em>}</li>
  * </ul>
  *
  * @see datamodel.DatamodelPackage#getCellResult()
@@ -193,6 +195,32 @@ public interface CellResult extends EObject {
 	void setParallelResistance(double value);
 
 	/**
+	 * Returns the value of the '<em><b>Dark Parallel Resistance</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Dark Parallel Resistance</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Dark Parallel Resistance</em>' attribute.
+	 * @see #setDarkParallelResistance(double)
+	 * @see datamodel.DatamodelPackage#getCellResult_DarkParallelResistance()
+	 * @model
+	 * @generated
+	 */
+	double getDarkParallelResistance();
+
+	/**
+	 * Sets the value of the '{@link datamodel.CellResult#getDarkParallelResistance <em>Dark Parallel Resistance</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Dark Parallel Resistance</em>' attribute.
+	 * @see #getDarkParallelResistance()
+	 * @generated
+	 */
+	void setDarkParallelResistance(double value);
+
+	/**
 	 * Returns the value of the '<em><b>Series Resistance</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -219,30 +247,30 @@ public interface CellResult extends EObject {
 	void setSeriesResistance(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Maximum Power</b></em>' attribute.
+	 * Returns the value of the '<em><b>Dark Series Resistance</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Maximum Power</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Dark Series Resistance</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Maximum Power</em>' attribute.
-	 * @see #setMaximumPower(double)
-	 * @see datamodel.DatamodelPackage#getCellResult_MaximumPower()
+	 * @return the value of the '<em>Dark Series Resistance</em>' attribute.
+	 * @see #setDarkSeriesResistance(double)
+	 * @see datamodel.DatamodelPackage#getCellResult_DarkSeriesResistance()
 	 * @model
 	 * @generated
 	 */
-	double getMaximumPower();
+	double getDarkSeriesResistance();
 
 	/**
-	 * Sets the value of the '{@link datamodel.CellResult#getMaximumPower <em>Maximum Power</em>}' attribute.
+	 * Sets the value of the '{@link datamodel.CellResult#getDarkSeriesResistance <em>Dark Series Resistance</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Maximum Power</em>' attribute.
-	 * @see #getMaximumPower()
+	 * @param value the new value of the '<em>Dark Series Resistance</em>' attribute.
+	 * @see #getDarkSeriesResistance()
 	 * @generated
 	 */
-	void setMaximumPower(double value);
+	void setDarkSeriesResistance(double value);
 
 	/**
 	 * Returns the value of the '<em><b>Maximum Power Voltage</b></em>' attribute.
@@ -349,29 +377,55 @@ public interface CellResult extends EObject {
 	void setFillFactor(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Cell Measurement Data Set</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Light Measurement Data Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Cell Measurement Data Set</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Light Measurement Data Set</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Cell Measurement Data Set</em>' containment reference.
-	 * @see #setCellMeasurementDataSet(CellMeasurementDataSet)
-	 * @see datamodel.DatamodelPackage#getCellResult_CellMeasurementDataSet()
+	 * @return the value of the '<em>Light Measurement Data Set</em>' containment reference.
+	 * @see #setLightMeasurementDataSet(CellMeasurementDataSet)
+	 * @see datamodel.DatamodelPackage#getCellResult_LightMeasurementDataSet()
 	 * @model containment="true"
 	 * @generated
 	 */
-	CellMeasurementDataSet getCellMeasurementDataSet();
+	CellMeasurementDataSet getLightMeasurementDataSet();
 
 	/**
-	 * Sets the value of the '{@link datamodel.CellResult#getCellMeasurementDataSet <em>Cell Measurement Data Set</em>}' containment reference.
+	 * Sets the value of the '{@link datamodel.CellResult#getLightMeasurementDataSet <em>Light Measurement Data Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Cell Measurement Data Set</em>' containment reference.
-	 * @see #getCellMeasurementDataSet()
+	 * @param value the new value of the '<em>Light Measurement Data Set</em>' containment reference.
+	 * @see #getLightMeasurementDataSet()
 	 * @generated
 	 */
-	void setCellMeasurementDataSet(CellMeasurementDataSet value);
+	void setLightMeasurementDataSet(CellMeasurementDataSet value);
+
+	/**
+	 * Returns the value of the '<em><b>Dark Measuremenet Data Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Dark Measuremenet Data Set</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Dark Measuremenet Data Set</em>' containment reference.
+	 * @see #setDarkMeasuremenetDataSet(CellMeasurementDataSet)
+	 * @see datamodel.DatamodelPackage#getCellResult_DarkMeasuremenetDataSet()
+	 * @model containment="true"
+	 * @generated
+	 */
+	CellMeasurementDataSet getDarkMeasuremenetDataSet();
+
+	/**
+	 * Sets the value of the '{@link datamodel.CellResult#getDarkMeasuremenetDataSet <em>Dark Measuremenet Data Set</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Dark Measuremenet Data Set</em>' containment reference.
+	 * @see #getDarkMeasuremenetDataSet()
+	 * @generated
+	 */
+	void setDarkMeasuremenetDataSet(CellMeasurementDataSet value);
 
 } // CellResult

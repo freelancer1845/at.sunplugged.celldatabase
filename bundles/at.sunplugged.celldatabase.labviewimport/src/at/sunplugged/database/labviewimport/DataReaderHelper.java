@@ -10,7 +10,6 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +39,8 @@ public class DataReaderHelper {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DataReaderHelper.class);
 
-	public static CellResult readAndCalculateFile(File file) {
+	public static CellResult readAndCalculateFile(String name, File darkDataFile, File lightDataFile, double area,
+			double powerInput) {
 		Preferences preferences = ConfigurationScope.INSTANCE.getNode(PrefNodes.PYTHON);
 
 		String pythonLocation = preferences.get(PythonSettings.PYTHON_PATH, "D:\\Anaconda3\\python.exe");
@@ -62,13 +62,16 @@ public class DataReaderHelper {
 			return null;
 		}
 
-		map.put("file", file);
-		cmdLine.addArgument("${file}");
+		map.put("darkDataFile", darkDataFile);
+		map.put("lightDataFile", lightDataFile);
+		map.put("area", area);
+		map.put("powerInput", powerInput);
+		cmdLine.addArgument("${darkDataFile}");
+		cmdLine.addArgument("${lightDataFile}");
+		cmdLine.addArgument("${area}");
+		cmdLine.addArgument("${powerInput}");
 		cmdLine.addArgument(Paths.get(pluginLocation, String.valueOf(randomLoc)).toString());
 		cmdLine.setSubstitutionMap(map);
-
-		// DefaultExecuteResultHandler resultHandler = new
-		// DefaultExecuteResultHandler();
 
 		ExecuteWatchdog watchdog = new ExecuteWatchdog(60 * 1000);
 		Executor executor = new DefaultExecutor();
@@ -83,27 +86,31 @@ public class DataReaderHelper {
 		}
 
 		CellResult result = DatamodelFactory.eINSTANCE.createCellResult();
-		result.setName(file.getName() + " ... Failed...");
-		CellMeasurementDataSet dataSet = DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
+		result.setName(lightDataFile.getName() + " ... Failed...");
+		CellMeasurementDataSet lightDataSet = DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
+		CellMeasurementDataSet darkDataSet = DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
 		try (Reader reader = new InputStreamReader(
 				new FileInputStream(Paths.get(pluginLocation, String.valueOf(randomLoc), "/result.json").toFile()),
 				"UTF-8")) {
 			Gson gson = new GsonBuilder().create();
 			ResultJsonClass p = gson.fromJson(reader, ResultJsonClass.class);
-			result.setName(p.getID());
+			result.setName(name);
 			result.setOpenCircuitVoltage(p.getVoc());
 			result.setShortCircuitCurrent(p.getIsc());
 			result.setFillFactor(p.getFF());
 			result.setEfficiency(p.getEff());
-			result.setMaximumPower(p.getMaximumPower());
 			result.setMaximumPowerCurrent(p.getMaximumPowerI());
 			result.setMaximumPowerVoltage(p.getMaximumPowerV());
 			result.setDataEvaluated(new Date());
 			result.setParallelResistance(p.getRp());
+			result.setDarkParallelResistance(p.getRpDark());
 			result.setSeriesResistance(p.getRs());
-			dataSet.setName(p.getID());
-			dataSet.setPowerInput(p.getPowerInput());
-			dataSet.setArea(p.getArea());
+			result.setDarkSeriesResistance(p.getRsDark());
+			lightDataSet.setName(name + " (Light)");
+			lightDataSet.setPowerInput(p.getPowerInput());
+			lightDataSet.setArea(p.getArea());
+			darkDataSet.setName(name + " (Dark)");
+			darkDataSet.setArea(p.getArea());
 		} catch (UnsupportedEncodingException e) {
 			LOG.error("Failed to read results...", e);
 		} catch (FileNotFoundException e) {
@@ -117,14 +124,22 @@ public class DataReaderHelper {
 				"UTF-8")) {
 			Gson gson = new GsonBuilder().create();
 			DataJsonClass dataObject = gson.fromJson(reader, DataJsonClass.class);
-			List<List<Double>> data = dataObject.getData();
-			for (int i = 0; i < data.size(); i++) {
-				List<Double> pair = data.get(i);
+			List<List<Double>> lightData = dataObject.getLightData();
+			for (int i = 0; i < lightData.size(); i++) {
+				List<Double> pair = lightData.get(i);
 				UIDataPoint dataPoint = DatamodelFactory.eINSTANCE.createUIDataPoint();
 				dataPoint.setVoltage(pair.get(0));
 				dataPoint.setCurrent(pair.get(1));
-				dataSet.getData().add(dataPoint);
+				lightDataSet.getData().add(dataPoint);
 			}
+			List<List<Double>> darkData = dataObject.getDarkData();
+			darkData.stream().forEachOrdered(pair -> {
+				UIDataPoint dataPoint = DatamodelFactory.eINSTANCE.createUIDataPoint();
+				dataPoint.setVoltage(pair.get(0));
+				dataPoint.setCurrent(pair.get(1));
+				darkDataSet.getData().add(dataPoint);
+			});
+
 		} catch (UnsupportedEncodingException e) {
 			LOG.error("Failed to read results...", e);
 		} catch (FileNotFoundException e) {
@@ -136,18 +151,9 @@ public class DataReaderHelper {
 		resultFile.delete();
 		File dataFile = Paths.get(pluginLocation, String.valueOf(randomLoc), "/data.json").toFile();
 		dataFile.delete();
-		result.setCellMeasurementDataSet(dataSet);
+		result.setLightMeasurementDataSet(lightDataSet);
+		result.setDarkMeasuremenetDataSet(darkDataSet);
 		return result;
-	}
-
-	public static List<CellResult> readAndCalculateFile(Collection<File> files) {
-		List<CellResult> resultList = new ArrayList<>();
-
-		for (File file : files) {
-			resultList.add(readAndCalculateFile(file));
-		}
-
-		return resultList;
 	}
 
 	private final static class ResultJsonClass {
@@ -156,13 +162,13 @@ public class DataReaderHelper {
 		private double FF;
 		private String ID;
 		private double Isc;
-		private double Jsc;
-		private double MaximumPower;
 		private double MaximumPowerI;
 		private double MaximumPowerV;
 		private double PowerInput;
 		private double Rp;
+		private double RpDark;
 		private double Rs;
+		private double RsDark;
 		private double Voc;
 
 		public double getArea() {
@@ -185,14 +191,6 @@ public class DataReaderHelper {
 			return Isc;
 		}
 
-		public double getJsc() {
-			return Jsc;
-		}
-
-		public double getMaximumPower() {
-			return MaximumPower;
-		}
-
 		public double getMaximumPowerI() {
 			return MaximumPowerI;
 		}
@@ -209,8 +207,16 @@ public class DataReaderHelper {
 			return Rp;
 		}
 
+		public double getRpDark() {
+			return RpDark;
+		}
+
 		public double getRs() {
 			return Rs;
+		}
+
+		public double getRsDark() {
+			return RsDark;
 		}
 
 		public double getVoc() {
@@ -220,10 +226,15 @@ public class DataReaderHelper {
 	}
 
 	private final static class DataJsonClass {
-		private List<List<Double>> data = new ArrayList<>();
+		private List<List<Double>> darkData = new ArrayList<>();
+		private List<List<Double>> lightData = new ArrayList<>();
 
-		public List<List<Double>> getData() {
-			return data;
+		public List<List<Double>> getDarkData() {
+			return darkData;
+		}
+
+		public List<List<Double>> getLightData() {
+			return lightData;
 		}
 
 	}

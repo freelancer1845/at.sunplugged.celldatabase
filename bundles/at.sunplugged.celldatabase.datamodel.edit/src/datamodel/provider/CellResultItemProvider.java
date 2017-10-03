@@ -66,8 +66,9 @@ public class CellResultItemProvider
 			addOpenCircuitVoltagePropertyDescriptor(object);
 			addShortCircuitCurrentPropertyDescriptor(object);
 			addParallelResistancePropertyDescriptor(object);
+			addDarkParallelResistancePropertyDescriptor(object);
 			addSeriesResistancePropertyDescriptor(object);
-			addMaximumPowerPropertyDescriptor(object);
+			addDarkSeriesResistancePropertyDescriptor(object);
 			addMaximumPowerVoltagePropertyDescriptor(object);
 			addMaximumPowerCurrentPropertyDescriptor(object);
 			addEfficiencyPropertyDescriptor(object);
@@ -209,6 +210,28 @@ public class CellResultItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Dark Parallel Resistance feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDarkParallelResistancePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CellResult_darkParallelResistance_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CellResult_darkParallelResistance_feature", "_UI_CellResult_type"),
+				 DatamodelPackage.Literals.CELL_RESULT__DARK_PARALLEL_RESISTANCE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Series Resistance feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -231,19 +254,19 @@ public class CellResultItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Maximum Power feature.
+	 * This adds a property descriptor for the Dark Series Resistance feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addMaximumPowerPropertyDescriptor(Object object) {
+	protected void addDarkSeriesResistancePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_CellResult_maximumPower_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CellResult_maximumPower_feature", "_UI_CellResult_type"),
-				 DatamodelPackage.Literals.CELL_RESULT__MAXIMUM_POWER,
+				 getString("_UI_CellResult_darkSeriesResistance_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CellResult_darkSeriesResistance_feature", "_UI_CellResult_type"),
+				 DatamodelPackage.Literals.CELL_RESULT__DARK_SERIES_RESISTANCE,
 				 true,
 				 false,
 				 false,
@@ -352,7 +375,8 @@ public class CellResultItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(DatamodelPackage.Literals.CELL_RESULT__CELL_MEASUREMENT_DATA_SET);
+			childrenFeatures.add(DatamodelPackage.Literals.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET);
+			childrenFeatures.add(DatamodelPackage.Literals.CELL_RESULT__DARK_MEASUREMENET_DATA_SET);
 		}
 		return childrenFeatures;
 	}
@@ -414,15 +438,17 @@ public class CellResultItemProvider
 			case DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE:
 			case DatamodelPackage.CELL_RESULT__SHORT_CIRCUIT_CURRENT:
 			case DatamodelPackage.CELL_RESULT__PARALLEL_RESISTANCE:
+			case DatamodelPackage.CELL_RESULT__DARK_PARALLEL_RESISTANCE:
 			case DatamodelPackage.CELL_RESULT__SERIES_RESISTANCE:
-			case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER:
+			case DatamodelPackage.CELL_RESULT__DARK_SERIES_RESISTANCE:
 			case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER_VOLTAGE:
 			case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER_CURRENT:
 			case DatamodelPackage.CELL_RESULT__EFFICIENCY:
 			case DatamodelPackage.CELL_RESULT__FILL_FACTOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case DatamodelPackage.CELL_RESULT__CELL_MEASUREMENT_DATA_SET:
+			case DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET:
+			case DatamodelPackage.CELL_RESULT__DARK_MEASUREMENET_DATA_SET:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -442,8 +468,36 @@ public class CellResultItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DatamodelPackage.Literals.CELL_RESULT__CELL_MEASUREMENT_DATA_SET,
+				(DatamodelPackage.Literals.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET,
 				 DatamodelFactory.eINSTANCE.createCellMeasurementDataSet()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DatamodelPackage.Literals.CELL_RESULT__DARK_MEASUREMENET_DATA_SET,
+				 DatamodelFactory.eINSTANCE.createCellMeasurementDataSet()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == DatamodelPackage.Literals.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET ||
+			childFeature == DatamodelPackage.Literals.CELL_RESULT__DARK_MEASUREMENET_DATA_SET;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 	/**

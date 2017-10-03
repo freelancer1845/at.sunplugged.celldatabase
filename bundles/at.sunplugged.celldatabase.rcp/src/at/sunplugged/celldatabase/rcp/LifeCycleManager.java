@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import at.sunplugged.celldatabase.common.PrefNodes;
 import at.sunplugged.celldatabase.common.PythonSettings;
+import at.sunplugged.celldatabase.common.RegexPatterns;
 import at.sunplugged.celldatabase.common.topics.DatabaseTopics;
 import at.sunplugged.celldatabase.database.impl.DataStoreController;
 
@@ -45,6 +46,13 @@ public class LifeCycleManager {
 
 	private void createDefaultProperties() {
 		createPythonDefaultPrefs();
+		createRegexDefaultPrefs();
+	}
+
+	private void createRegexDefaultPrefs() {
+		IEclipsePreferences node = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS);
+		setPrefIfNotSet(node, RegexPatterns.LABVIEW_ENDING, "-[01]\\.txt$");
+		setPrefIfNotSet(node, RegexPatterns.LABVIEW_FILE, "^[0-9]+-[0-9]+[a-zA-Z]+_[0-9]+-[01]\\.txt$");
 	}
 
 	private void createPythonDefaultPrefs() {
@@ -55,12 +63,14 @@ public class LifeCycleManager {
 
 		String installPath = installLocation.getURL().getPath().replaceAll("^/", "");
 		System.out.println(installPath);
-		IEclipsePreferences pref = ConfigurationScope.INSTANCE.getNode(PrefNodes.PYTHON);
-		if (pref.get(PythonSettings.PLOT_SCRIPT_PATH, "noneValue").equals("noneValue")) {
-			pref.put(PythonSettings.PLOT_SCRIPT_PATH, installPath + "python/" + "plotScript.py");
-		}
-		if (pref.get(PythonSettings.LABVIEW_IMPORT_SCRIPT_PATH, "noneValue").equals("noneValue")) {
-			pref.put(PythonSettings.LABVIEW_IMPORT_SCRIPT_PATH, installPath + "python/" + "main.py");
+		IEclipsePreferences node = ConfigurationScope.INSTANCE.getNode(PrefNodes.PYTHON);
+		setPrefIfNotSet(node, PythonSettings.PLOT_SCRIPT_PATH, installPath + "python/" + "plotScript.py");
+		setPrefIfNotSet(node, PythonSettings.LABVIEW_IMPORT_SCRIPT_PATH, installPath + "python/" + "main.py");
+	}
+
+	private void setPrefIfNotSet(IEclipsePreferences node, String pref, String value) {
+		if (node.get(pref, "noneValue").equals("noneValue")) {
+			node.put(pref, value);
 		}
 	}
 

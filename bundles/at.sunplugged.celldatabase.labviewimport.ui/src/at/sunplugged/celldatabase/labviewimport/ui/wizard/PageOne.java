@@ -1,9 +1,14 @@
 package at.sunplugged.celldatabase.labviewimport.ui.wizard;
 
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.EditingSupport;
@@ -26,6 +31,9 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+
+import at.sunplugged.celldatabase.common.PrefNodes;
+import at.sunplugged.celldatabase.common.RegexPatterns;
 
 public class PageOne extends WizardPage {
 
@@ -101,13 +109,94 @@ public class PageOne extends WizardPage {
 				dialog.setFilterNames(new String[] { "Text Files", "All" });
 				if (dialog.open() != null) {
 
-					String[] paths = dialog.getFileNames();
+					String[] names = dialog.getFileNames();
 
-					for (String path : paths) {
-						dataFiles.add(new LabviewDataFile(Paths.get(dialog.getFilterPath(), path).toString(), path));
+					checkNamesForLabviewFiles(names);
+					names = filterNames(names);
+					Map<String, List<String>> groups = groupNames(names);
+					Map<String, List<String>> filteredGroups = verifyAndFilterGroups(groups);
+					filteredGroups.keySet().stream().forEach(group -> {
 
-					}
+						String absolutPathLight = Paths.get(dialog.getFilterPath(), filteredGroups.get(group).get(1))
+								.toString();
+						String absolutPathDark = Paths.get(dialog.getFilterPath(), filteredGroups.get(group).get(0))
+								.toString();
+
+						LabviewDataFile dataFile = new LabviewDataFile(group, absolutPathLight,
+								filteredGroups.get(group).get(1), absolutPathDark, filteredGroups.get(group).get(0));
+						dataFiles.add(dataFile);
+					});
+
 					viewer.refresh();
+				}
+			}
+
+			private Map<String, List<String>> verifyAndFilterGroups(Map<String, List<String>> groups) {
+				String lightRegex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
+						.get(RegexPatterns.LABVIEW_LIGHT, "");
+
+				final StringBuilder failedGroupsCollector = new StringBuilder();
+
+				Map<String, List<String>> filterdGroups = groups.keySet().stream().filter(name -> {
+					List<String> fileNames = groups.get(name);
+					if (fileNames.size() == 2) {
+						String first = fileNames.get(0);
+						String second = fileNames.get(1);
+						if (first.matches(lightRegex)) {
+							fileNames.set(0, second);
+							fileNames.set(1, first);
+						}
+						return true;
+					} else if (fileNames.size() < 2) {
+						failedGroupsCollector.append("Group: " + name + " does contain Light and Dark data...");
+						failedGroupsCollector.append("\n");
+						return false;
+					} else {
+						failedGroupsCollector.append("Group: " + name + " more than 2 files...");
+						failedGroupsCollector.append("\n");
+						return false;
+					}
+				}).collect(Collectors.toMap(String::toString, name -> groups.get(name)));
+
+				String errorMessage = failedGroupsCollector.toString();
+				if (errorMessage.isEmpty() == false) {
+					MessageDialog.openError(getShell(), "Error in Groups...",
+							"Provided data could not be interpreted correctly:\n" + errorMessage);
+				}
+
+				return filterdGroups;
+
+			}
+
+			private Map<String, List<String>> groupNames(String[] names) {
+				String regex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
+						.get(RegexPatterns.LABVIEW_ENDING, "");
+
+				return Arrays.stream(names).collect(Collectors.groupingBy(item -> item.replaceFirst(regex, "")));
+			}
+
+			private String[] filterNames(String[] names) {
+				final String fileRegex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
+						.get(RegexPatterns.LABVIEW_FILE, "");
+				return Arrays.stream(names).filter(name -> name.matches(fileRegex)).toArray(String[]::new);
+			}
+
+			private void checkNamesForLabviewFiles(String[] names) {
+				final String fileRegex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
+						.get(RegexPatterns.LABVIEW_FILE, "");
+
+				List<String> fails = Arrays.stream(names).filter(name -> !name.matches(fileRegex))
+						.collect(Collectors.toList());
+				if (fails.isEmpty() == false) {
+					StringBuilder errorMessage = new StringBuilder();
+					errorMessage.append("Filenames do not match expected pattern: ");
+					errorMessage.append("\n");
+					for (String fail : fails) {
+						errorMessage.append(fail);
+						errorMessage.append("\n");
+					}
+					errorMessage.append("These will be ignored...");
+					MessageDialog.openError(getShell(), "Wrong filenames...", errorMessage.toString());
 				}
 			}
 		});

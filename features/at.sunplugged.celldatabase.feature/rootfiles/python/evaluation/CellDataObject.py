@@ -36,13 +36,16 @@ class CellDataObject():
         self.Isc = None
         self.FF = None
         self.Rp = None
+        self.RpDark = None
         self.Rs = None
+        self.RsDark = None
         self.Eff = None
         self.MppU = None
         self.MppI = None
         self.Area = None
         self.powerInput = None
         self.data = None
+        self.darkData = None
         
     @property
     def Id(self):
@@ -76,21 +79,24 @@ class CellDataObject():
 
         
     @staticmethod
-    def createFromData(Id, data, area = None, powerInput = None):
+    def createFromData(Id, data, darkData, area = None, powerInput = None):
         """
         Creates a CellDataObject from U-I Data [V, A], area[cm^2] and powerInput[W]
         area and powerInput are required for Efficiency
         """
         cellDataObject = CellDataObject()
         cellDataObject.data = data
+        cellDataObject.darkData = darkData
         cellDataObject.Id = Id
         cellDataObject.Voc = findVoc(data)
         cellDataObject.Isc = findIsc(data)
         mppResult = findMpp(data)
         cellDataObject.MppU = mppResult[0]
         cellDataObject.MppI = mppResult[1]
-        cellDataObject.Rs = findRp(data)
-        cellDataObject.Rp = findRs(data)
+        cellDataObject.Rs = findRs(data)
+        cellDataObject.RsDark = findRs(darkData)
+        cellDataObject.Rp = findRp(data)
+        cellDataObject.RpDark = findRp(darkData);
         cellDataObject.FF = calculateFF(cellDataObject.Voc, cellDataObject.Isc, cellDataObject.Mpp)
         if area != None:
             cellDataObject.Area = area
