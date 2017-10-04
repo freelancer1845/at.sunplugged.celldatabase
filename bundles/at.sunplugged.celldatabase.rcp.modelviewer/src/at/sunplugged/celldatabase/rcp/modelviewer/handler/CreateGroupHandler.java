@@ -20,12 +20,10 @@ public class CreateGroupHandler {
 			ModelDatabaseService databaseService, @Named("editingDomain") EditingDomain editingDomain) {
 
 		Database database = databaseService.getDatabase();
-		
+
 		CellGroup cellGroup = DatamodelFactory.eINSTANCE.createCellGroup();
 		if (groupName != null) {
 			cellGroup.setName(groupName);
-		} else {
-			cellGroup.setName("Unkown Name");
 		}
 		Command cmd = AddCommand.create(editingDomain, database, null, cellGroup);
 		editingDomain.getCommandStack().execute(cmd);

@@ -294,13 +294,22 @@ public interface DatamodelPackage extends EPackage {
 	int CELL_GROUP__CELL_RESULTS = 2;
 
 	/**
+	 * The feature id for the '<em><b>Custom Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CELL_GROUP__CUSTOM_NAME = 3;
+
+	/**
 	 * The number of structural features of the '<em>Cell Group</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CELL_GROUP_FEATURE_COUNT = 3;
+	int CELL_GROUP_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Cell Group</em>' class.
@@ -679,6 +688,17 @@ public interface DatamodelPackage extends EPackage {
 	EReference getCellGroup_CellResults();
 
 	/**
+	 * Returns the meta object for the attribute '{@link datamodel.CellGroup#isCustomName <em>Custom Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Custom Name</em>'.
+	 * @see datamodel.CellGroup#isCustomName()
+	 * @see #getCellGroup()
+	 * @generated
+	 */
+	EAttribute getCellGroup_CustomName();
+
+	/**
 	 * Returns the meta object for class '{@link datamodel.CellMeasurementDataSet <em>Cell Measurement Data Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -990,6 +1010,14 @@ public interface DatamodelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CELL_GROUP__CELL_RESULTS = eINSTANCE.getCellGroup_CellResults();
+
+		/**
+		 * The meta object literal for the '<em><b>Custom Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CELL_GROUP__CUSTOM_NAME = eINSTANCE.getCellGroup_CustomName();
 
 		/**
 		 * The meta object literal for the '{@link datamodel.impl.CellMeasurementDataSetImpl <em>Cell Measurement Data Set</em>}' class.

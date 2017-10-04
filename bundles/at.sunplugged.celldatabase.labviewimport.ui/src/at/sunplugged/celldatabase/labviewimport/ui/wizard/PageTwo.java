@@ -72,6 +72,7 @@ public class PageTwo extends WizardPage {
 
 		container.setLayout(layout);
 
+		tempGroup.setName("LabviewImportGroup");
 		TreeViewer treeViewer = TreeViewerSWTFactory.fillDefaults(container, tempGroup).create();
 
 		treeViewer.addDoubleClickListener(new IDoubleClickListener() {

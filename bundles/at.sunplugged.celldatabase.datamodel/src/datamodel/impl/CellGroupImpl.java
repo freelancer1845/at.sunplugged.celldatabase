@@ -36,6 +36,8 @@ import datamodel.DatamodelPackage;
  * <em>Description</em>}</li>
  * <li>{@link datamodel.impl.CellGroupImpl#getCellResults <em>Cell
  * Results</em>}</li>
+ * <li>{@link datamodel.impl.CellGroupImpl#isCustomName <em>Custom
+ * Name</em>}</li>
  * </ul>
  *
  * @generated
@@ -82,6 +84,33 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 	protected EList<CellResult> cellResults;
 
 	/**
+	 * The default value of the '{@link #isCustomName() <em>Custom Name</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see #isCustomName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean CUSTOM_NAME_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isCustomName() <em>Custom Name</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see #isCustomName()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean customName = CUSTOM_NAME_EDEFAULT;
+
+	/**
+	 * The cached name.
+	 * 
+	 * @generated NOT
+	 */
+	protected String name = "";
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -106,18 +135,20 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 	 * @generated NOT
 	 */
 	public String getName() {
-		EList<CellResult> cellResults = getCellResults();
-		if (cellResults == null || cellResults.isEmpty()) {
-			return "Cannot be deduced...";
+		if (isCustomName() == false) {
+			EList<CellResult> cellResults = getCellResults();
+			if (cellResults == null || cellResults.isEmpty()) {
+				return "Cannot be deduced...";
+			}
+			String regex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
+					.get(RegexPatterns.LABVIEW_GROUP_COMPLEMENT, "");
+			Map<String, List<CellResult>> grouped = cellResults.stream()
+					.collect(Collectors.groupingBy(cellResult -> cellResult.getName().replaceAll(regex, "")));
+			return grouped.entrySet().stream().max((a, b) -> Integer.max(a.getValue().size(), b.getValue().size()))
+					.orElse(null).getKey();
+		} else {
+			return name;
 		}
-
-		String regex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
-				.get(RegexPatterns.LABVIEW_GROUP_COMPLEMENT, "");
-
-		Map<String, List<CellResult>> grouped = cellResults.stream()
-				.collect(Collectors.groupingBy(cellResult -> cellResult.getName().replace(regex, "")));
-		return grouped.entrySet().stream().max((a, b) -> Integer.max(a.getValue().size(), b.getValue().size()))
-				.orElse(null).getKey();
 
 	}
 
@@ -127,9 +158,14 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 	 * @generated NOT
 	 */
 	public void setName(String newName) {
-		// TODO: implement this method to set the 'Name' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		// throw new UnsupportedOperationException();
+		String oldName = name;
+		if (newName.isEmpty() == false) {
+			name = newName;
+		} else {
+			setCustomName(false);
+		}
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_GROUP__NAME, oldName, name));
 	}
 
 	/**
@@ -172,6 +208,28 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 	 * 
 	 * @generated
 	 */
+	public boolean isCustomName() {
+		return customName;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void setCustomName(boolean newCustomName) {
+		boolean oldCustomName = customName;
+		customName = newCustomName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_GROUP__CUSTOM_NAME,
+					oldCustomName, customName));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -195,6 +253,8 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 			return getDescription();
 		case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
 			return getCellResults();
+		case DatamodelPackage.CELL_GROUP__CUSTOM_NAME:
+			return isCustomName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -218,6 +278,9 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 			getCellResults().clear();
 			getCellResults().addAll((Collection<? extends CellResult>) newValue);
 			return;
+		case DatamodelPackage.CELL_GROUP__CUSTOM_NAME:
+			setCustomName((Boolean) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -239,6 +302,9 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 		case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
 			getCellResults().clear();
 			return;
+		case DatamodelPackage.CELL_GROUP__CUSTOM_NAME:
+			setCustomName(CUSTOM_NAME_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -257,6 +323,8 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 			return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 		case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
 			return cellResults != null && !cellResults.isEmpty();
+		case DatamodelPackage.CELL_GROUP__CUSTOM_NAME:
+			return customName != CUSTOM_NAME_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -274,6 +342,8 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (description: ");
 		result.append(description);
+		result.append(", customName: ");
+		result.append(customName);
 		result.append(')');
 		return result.toString();
 	}

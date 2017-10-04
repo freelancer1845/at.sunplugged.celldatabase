@@ -54,6 +54,7 @@
   <commands xmi:id="_OpnXMJU3Eeeha-ZlG6JHqQ" elementId="at.sunplugged.celldatabase.rcp.command.plotcellresults" commandName="Plot CellResults" category="_43OfgJOiEeejFq7KVcklQw"/>
   <commands xmi:id="_IKLmEJfeEeetk8NgRqyvog" elementId="at.sunplugged.celldatabase.rcp.command.refreshdatabase" commandName="Refresh Database" category="_Q_81MJOyEeejFq7KVcklQw"/>
   <commands xmi:id="_3s73EJgKEeetk8NgRqyvog" elementId="at.sunplugged.celldatabase.rcp.command.commit" commandName="Commit" category="_Q_81MJOyEeejFq7KVcklQw"/>
+  <commands xmi:id="_Wutu4KjnEeeXOcsHpelg_g" elementId="at.sunplugged.celldatabase.rcp.command.setname" commandName="Set Name" category="_XGpCoI78EeelnoB5mxxecg"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
