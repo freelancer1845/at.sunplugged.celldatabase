@@ -4,25 +4,38 @@ import java.util.Arrays;
 import java.util.EventObject;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.DeleteCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emfforms.spi.swt.treemasterdetail.MenuProvider;
 import org.eclipse.emfforms.spi.swt.treemasterdetail.TreeViewerBuilder;
 import org.eclipse.emfforms.spi.swt.treemasterdetail.TreeViewerSWTFactory;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
+import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
 
 import datamodel.CellGroup;
 import datamodel.CellResult;
 import datamodel.Database;
+import datamodel.DatamodelFactory;
 
 public class PageOne extends WizardPage {
 
@@ -38,6 +51,7 @@ public class PageOne extends WizardPage {
 		super(PAGE_NAME);
 		setTitle(PAGE_NAME);
 		setDescription(PAGE_DESCRIPTION);
+
 		this.database = database;
 		editingDomain = new AdapterFactoryEditingDomain(
 				new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE),
@@ -50,7 +64,7 @@ public class PageOne extends WizardPage {
 		Composite container = new Composite(parent, SWT.NONE);
 
 		GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
+		layout.numColumns = 1;
 		layout.makeColumnsEqualWidth = false;
 
 		container.setLayout(layout);
@@ -93,6 +107,7 @@ public class PageOne extends WizardPage {
 
 					@Override
 					public Object[] getElements(Object inputElement) {
+
 						return ((Database) inputElement).getCellGroups().toArray();
 					}
 
@@ -105,7 +120,7 @@ public class PageOne extends WizardPage {
 						}
 						return null;
 					};
-				}).create();
+				}).customizeMenu(createMenu()).create();
 
 		database.getCellGroups().forEach(group -> treeViewer.setSubtreeChecked(group, true));
 		treeViewer.addCheckStateListener(new ICheckStateListener() {
@@ -139,6 +154,22 @@ public class PageOne extends WizardPage {
 			}
 		});
 
+		treeViewer.setCheckStateProvider(new ICheckStateProvider() {
+
+			@Override
+			public boolean isChecked(Object element) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean isGrayed(Object element) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+		});
+
 		editingDomain.getCommandStack().addCommandStackListener(new CommandStackListener() {
 
 			@Override
@@ -149,6 +180,89 @@ public class PageOne extends WizardPage {
 
 		setControl(container);
 		setPageComplete(false);
+	}
+
+	private MenuProvider createMenu() {
+
+		return new MenuProvider() {
+
+			@Override
+			public Menu getMenu(TreeViewer treeViewer, EditingDomain editingDomain) {
+				MenuManager menuManager = new MenuManager();
+				menuManager.setRemoveAllWhenShown(true);
+				menuManager.addMenuListener(new IMenuListener() {
+
+					@Override
+					public void menuAboutToShow(IMenuManager manager) {
+						Action addCellGroup = new Action() {
+							@Override
+							public void run() {
+								Command cmd = AddCommand.create(editingDomain, database, null,
+										DatamodelFactory.eINSTANCE.createCellGroup());
+								editingDomain.getCommandStack().execute(cmd);
+							}
+
+							@Override
+							public String getText() {
+								return "Add Cell Group";
+							}
+
+						};
+						manager.add(addCellGroup);
+
+						Object selectedElement = treeViewer.getStructuredSelection().getFirstElement();
+						if (selectedElement instanceof CellGroup) {
+
+							Action deleteCellGroup = new Action() {
+								public void run() {
+									Command cmd = DeleteCommand.create(editingDomain, selectedElement);
+									editingDomain.getCommandStack().execute(cmd);
+
+								}
+
+								public String getText() {
+									return "Delete Cell Group";
+								}
+							};
+							manager.add(deleteCellGroup);
+
+						} else if (selectedElement instanceof CellResult) {
+							Action cloneCellResult = new Action() {
+								public void run() {
+									CellResult copy = (CellResult) EcoreUtil.copy((EObject) selectedElement);
+									Command cmd = AddCommand.create(editingDomain,
+											((ITreeContentProvider) treeViewer.getContentProvider())
+													.getParent(selectedElement),
+											null, copy);
+									editingDomain.getCommandStack().execute(cmd);
+
+								}
+
+								public String getText() {
+									return "Clone CellResult";
+								}
+							};
+							Action deleteCellResult = new Action() {
+								public void run() {
+									Command cmd = DeleteCommand.create(editingDomain, selectedElement);
+									editingDomain.getCommandStack().execute(cmd);
+								}
+
+								public String getText() {
+									return "Delete CellResult";
+								}
+							};
+
+							manager.add(cloneCellResult);
+							manager.add(deleteCellResult);
+						}
+
+					}
+				});
+				return menuManager.createContextMenu(treeViewer.getControl());
+			}
+
+		};
 	}
 
 }
