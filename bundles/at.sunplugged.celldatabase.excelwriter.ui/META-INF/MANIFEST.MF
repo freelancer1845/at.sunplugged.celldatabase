@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Ui
+Bundle-SymbolicName: at.sunplugged.celldatabase.excelwriter.ui
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.jface,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.edit
+Import-Package: datamodel,
+ org.eclipse.emfforms.spi.swt.treemasterdetail;version="1.13.1"
+Export-Package: at.sunplugged.celldatabase.excelwriter.ui.wizards.summary
