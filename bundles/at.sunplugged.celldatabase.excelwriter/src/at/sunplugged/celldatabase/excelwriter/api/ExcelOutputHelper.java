@@ -7,10 +7,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
-import org.apache.poi.hssf.util.CellReference;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -21,11 +22,16 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EcorePackage;
+import at.sunplugged.celldatabase.excelwriter.internal.GroupSummary;
+import at.sunplugged.celldatabase.excelwriter.internal.PostCalculator;
 import datamodel.CellGroup;
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
 import datamodel.DatamodelPackage;
+import datamodel.DatamodelPackage.Literals;
 import datamodel.UIDataPoint;
+
+
 
 public class ExcelOutputHelper {
 
@@ -41,12 +47,14 @@ public class ExcelOutputHelper {
 
   private final List<CellGroup> cellGroups;
 
+  private final Map<CellGroup, GroupSummary> groupSummarys;
+
   private final Path path;
 
   private final String fileName;
 
-  private List<EAttribute> resAttribs = DatamodelPackage.eINSTANCE.getCellResult()
-      .getEAllAttributes();
+  private List<EAttribute> resAttribs =
+      DatamodelPackage.eINSTANCE.getCellResult().getEAllAttributes();
 
   private XSSFWorkbook workbook = new XSSFWorkbook();
 
@@ -56,8 +64,7 @@ public class ExcelOutputHelper {
   {
     CellStyle cellStyle = workbook.createCellStyle();
     CreationHelper createHelper = workbook.getCreationHelper();
-    cellStyle.setDataFormat(createHelper.createDataFormat()
-        .getFormat("m/d/yy h:mm"));
+    cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("m/d/yy h:mm"));
     dateCellStyle = cellStyle;
     headerCellStyle = workbook.createCellStyle();
 
@@ -74,12 +81,17 @@ public class ExcelOutputHelper {
     this.fileName = fileName;
 
     this.cellGroups = null;
+    this.groupSummarys = null;
     this.path = null;
   }
 
   public ExcelOutputHelper(List<CellGroup> cellGroups, Path path) {
     this.cellGroups = cellGroups;
     this.path = path;
+
+    this.groupSummarys = cellGroups.stream()
+        .collect(Collectors.toMap(group -> group, group -> new GroupSummary(group)));
+
     this.fileName = null;
     this.cellResults = null;
   }
@@ -92,7 +104,6 @@ public class ExcelOutputHelper {
     executed = true;
     Job job = new Job("ExcelOutput Job") {
       protected IStatus run(IProgressMonitor monitor) {
-        monitor.beginTask("Writing Excel file...", cellResults.size() + 2);
 
         if (cellGroups != null) {
           createGroupsSummaryFile(monitor);
@@ -114,6 +125,7 @@ public class ExcelOutputHelper {
   }
 
   private void createGroupsSummaryFile(IProgressMonitor monitor) {
+    monitor.beginTask("Export Group Summarys", 5);
 
     String[] rowNames = new String[] {"Group", "Voc[V]", "VocSTD[V]", "Jsc[A/mm^2]",
         "JscSTD[A/mm^2]", "Rp[ohm/mm^2]", "RpSTD[ohm/mm^2]", "RpDark[ohm/mm^2]",
@@ -148,11 +160,9 @@ public class ExcelOutputHelper {
 
       cRow = summarySheet.createRow(rowId++);
 
-      cRow.createCell(colId++)
-          .setCellValue(group.getName());
+      cRow.createCell(colId++).setCellValue(group.getName());
 
-      int averageRowIndex = group.getCellResults()
-          .size() + 3;
+      int averageRowIndex = group.getCellResults().size() + 3;
       int stdRowIndex = averageRowIndex + 1;
 
 
@@ -161,11 +171,10 @@ public class ExcelOutputHelper {
 
         CellReference cr = new CellReference(groupSheet.getSheetName(), averageRowIndex,
             groupColIndex, false, false);
-        cRow.createCell(colId++)
-            .setCellValue("=" + cr.formatAsString());
+
+        cRow.createCell(colId++).setCellValue("=" + cr.formatAsString());
         cr = new CellReference(groupSheet.getSheetName(), stdRowIndex, groupColIndex, false, false);
-        cRow.createCell(colId++)
-            .setCellValue("=" + cr.formatAsString());
+        cRow.createCell(colId++).setCellValue("=" + cr.formatAsString());
       }
 
     }
@@ -187,62 +196,75 @@ public class ExcelOutputHelper {
     for (String rowName : GROUP_ROW_NAMES) {
       cCell = cRow.createCell(colId++);
       cCell.setCellValue(rowName);
+      cCell.setCellStyle(headerCellStyle);
     }
 
-    int valueRowsStart = rowId;
     for (CellResult result : cellGroup.getCellResults()) {
       cRow = sheet.createRow(rowId++);
       colId = 0;
-      cRow.createCell(colId++)
-          .setCellValue(result.getName());
-      cRow.createCell(colId++)
-          .setCellValue(result.getOpenCircuitVoltage());
-      cRow.createCell(colId++)
-          .setCellValue(result.getShortCircuitCurrent() / result.getLightMeasurementDataSet()
-              .getArea());
-      cRow.createCell(colId++)
-          .setCellValue(result.getParallelResistance() / result.getLightMeasurementDataSet()
-              .getArea());
-      cRow.createCell(colId++)
-          .setCellValue(result.getDarkParallelResistance() / result.getLightMeasurementDataSet()
-              .getArea());
-      cRow.createCell(colId++)
-          .setCellValue(result.getSeriesResistance() / result.getLightMeasurementDataSet()
-              .getArea());
-      cRow.createCell(colId++)
-          .setCellValue(result.getDarkSeriesResistance() / result.getLightMeasurementDataSet()
-              .getArea());
-      cRow.createCell(colId++)
-          .setCellValue(result.getMaximumPowerVoltage() * result.getMaximumPowerCurrent()
-              / result.getLightMeasurementDataSet()
-                  .getArea());
-      cRow.createCell(colId++)
-          .setCellValue(result.getEfficiency());
-      cRow.createCell(colId++)
-          .setCellValue(result.getFillFactor());
+      writeValueToCell(cRow.createCell(colId++), result.getName());
+      writeValueToCell(cRow.createCell(colId++), result.getOpenCircuitVoltage(),
+          Literals.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE);
+      writeValueToCell(cRow.createCell(colId++),
+          result.getShortCircuitCurrent() / result.getLightMeasurementDataSet().getArea(),
+          Literals.CELL_RESULT__SHORT_CIRCUIT_CURRENT);
+      writeValueToCell(cRow.createCell(colId++),
+          result.getParallelResistance() / result.getLightMeasurementDataSet().getArea(),
+          Literals.CELL_RESULT__PARALLEL_RESISTANCE);
+      writeValueToCell(cRow.createCell(colId++),
+          result.getDarkParallelResistance() / result.getLightMeasurementDataSet().getArea(),
+          Literals.CELL_RESULT__DARK_PARALLEL_RESISTANCE);
+      writeValueToCell(cRow.createCell(colId++),
+          result.getSeriesResistance() / result.getLightMeasurementDataSet().getArea(),
+          Literals.CELL_RESULT__SERIES_RESISTANCE);
+      writeValueToCell(cRow.createCell(colId++),
+          result.getDarkSeriesResistance() / result.getLightMeasurementDataSet().getArea(),
+          Literals.CELL_RESULT__DARK_SERIES_RESISTANCE);
+      writeValueToCell(cRow.createCell(colId++),
+          result.getMaximumPower() / result.getLightMeasurementDataSet().getArea(),
+          Literals.CELL_RESULT__MAXIMUM_POWER);
+      writeValueToCell(cRow.createCell(colId++), result.getEfficiency(),
+          Literals.CELL_RESULT__EFFICIENCY);
+      writeValueToCell(cRow.createCell(colId++), result.getFillFactor(),
+          Literals.CELL_RESULT__FILL_FACTOR);
     }
-    int valueRowsStop = rowId;
     cRow = sheet.createRow(rowId++);
     XSSFRow averageRow = sheet.createRow(rowId++);
     XSSFRow stdRow = sheet.createRow(rowId++);
 
-    averageRow.createCell(0)
-        .setCellValue("Average");
-    stdRow.createCell(0)
-        .setCellValue("Std");
-    colId = 1;
-    while (colId < GROUP_ROW_NAMES.length) {
-      cCell = averageRow.createCell(colId);
-      CellRangeAddress address = new CellRangeAddress(valueRowsStart, valueRowsStop, colId, colId);
-      cCell.setCellValue("=AVERAGE(" + address.formatAsString() + ")");
-      cCell = stdRow.createCell(colId);
-      cCell.setCellValue("=STDEV.P(" + address.formatAsString() + ")");
+    colId = 0;
+    averageRow.createCell(colId).setCellValue("Average");
+    stdRow.createCell(colId++).setCellValue("Std");
 
-      colId++;
+    GroupSummary summary = groupSummarys.get(cellGroup);
+
+    EAttribute[] literals = new EAttribute[] {Literals.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE,
+        Literals.CELL_RESULT__SHORT_CIRCUIT_CURRENT, Literals.CELL_RESULT__PARALLEL_RESISTANCE,
+        Literals.CELL_RESULT__DARK_PARALLEL_RESISTANCE, Literals.CELL_RESULT__SERIES_RESISTANCE,
+        Literals.CELL_RESULT__DARK_SERIES_RESISTANCE, Literals.CELL_RESULT__MAXIMUM_POWER,
+        Literals.CELL_RESULT__EFFICIENCY, Literals.CELL_RESULT__FILL_FACTOR};
+
+    for (EAttribute literal : literals) {
+      if (literal == Literals.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE
+          || literal == Literals.CELL_RESULT__EFFICIENCY
+          || literal == Literals.CELL_RESULT__FILL_FACTOR) {
+        createAverageAndStdRowForLiteral(averageRow, stdRow, colId++, summary, literal,
+            (value, result) -> value);
+      } else {
+        createAverageAndStdRowForLiteral(averageRow, stdRow, colId++, summary, literal,
+            (value, result) -> value / result.getLightMeasurementDataSet().getArea());
+      }
+
     }
+  }
 
+  private void createAverageAndStdRowForLiteral(XSSFRow averageRow, XSSFRow stdRow, int colId,
+      GroupSummary summary, EAttribute attribute, PostCalculator postCalculator) {
 
-
+    writeValueToCell(averageRow.createCell(colId), summary.getAverage(attribute, postCalculator),
+        attribute);
+    writeValueToCell(stdRow.createCell(colId), summary.getStd(attribute, postCalculator),
+        attribute);
   }
 
 
@@ -256,11 +278,10 @@ public class ExcelOutputHelper {
 
     monitor.subTask("Creating Result Sheets");
 
-    cellResults.stream()
-        .forEach(res -> {
-          createCellResultSheet(res);
-          monitor.worked(1);
-        });
+    cellResults.stream().forEach(res -> {
+      createCellResultSheet(res);
+      monitor.worked(1);
+    });
 
     monitor.subTask("Writing to hard drive...");
 
@@ -298,8 +319,7 @@ public class ExcelOutputHelper {
     }
 
     for (int i = 0; i < 15; i++) {
-      summarySheet.getColumnHelper()
-          .setColWidth(i, 18);
+      summarySheet.getColumnHelper().setColWidth(i, 18);
     }
   }
 
@@ -372,8 +392,7 @@ public class ExcelOutputHelper {
     }
 
     for (int i = 0; i < 15; i++) {
-      sheet.getColumnHelper()
-          .setColWidth(i, 18);
+      sheet.getColumnHelper().setColWidth(i, 18);
     }
 
   }
@@ -399,11 +418,9 @@ public class ExcelOutputHelper {
   private void writeValueToCell(XSSFCell cell, Object value, EAttribute attr) {
     if (value != null) {
       if (attr != null) {
-        if (attr.getEAttributeType()
-            .equals(EcorePackage.Literals.EDOUBLE)) {
+        if (attr.getEAttributeType().equals(EcorePackage.Literals.EDOUBLE)) {
           cell.setCellValue((double) value);
-        } else if (attr.getEAttributeType()
-            .equals(EcorePackage.Literals.EDATE)) {
+        } else if (attr.getEAttributeType().equals(EcorePackage.Literals.EDATE)) {
 
           Date date = (Date) value;
           cell.setCellValue((Date) date);

@@ -24,19 +24,19 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Database extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Cell Groups</b></em>' containment reference list.
-	 * The list contents are of type {@link datamodel.CellGroup}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Cell Groups</b></em>' containment reference list.
+   * The list contents are of type {@link datamodel.CellGroup}.
+   * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Cell Groups</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Cell Groups</em>' containment reference list.
-	 * @see datamodel.DatamodelPackage#getDatabase_CellGroups()
-	 * @model containment="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Cell Groups</em>' containment reference list.
+   * @see datamodel.DatamodelPackage#getDatabase_CellGroups()
+   * @model containment="true"
+   * @generated
+   */
 	EList<CellGroup> getCellGroups();
 
 } // Database

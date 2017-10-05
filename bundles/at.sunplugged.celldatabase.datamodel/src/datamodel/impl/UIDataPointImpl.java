@@ -28,190 +28,190 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  */
 public class UIDataPointImpl extends MinimalEObjectImpl.Container implements UIDataPoint {
 	/**
-	 * The default value of the '{@link #getVoltage() <em>Voltage</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #getVoltage() <em>Voltage</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getVoltage()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getVoltage()
+   * @generated
+   * @ordered
+   */
 	protected static final double VOLTAGE_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getVoltage() <em>Voltage</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getVoltage() <em>Voltage</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getVoltage()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getVoltage()
+   * @generated
+   * @ordered
+   */
 	protected double voltage = VOLTAGE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getCurrent() <em>Current</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #getCurrent() <em>Current</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCurrent()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getCurrent()
+   * @generated
+   * @ordered
+   */
 	protected static final double CURRENT_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getCurrent() <em>Current</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getCurrent() <em>Current</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCurrent()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getCurrent()
+   * @generated
+   * @ordered
+   */
 	protected double current = CURRENT_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected UIDataPointImpl() {
-		super();
-	}
+    super();
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	protected EClass eStaticClass() {
-		return DatamodelPackage.Literals.UI_DATA_POINT;
-	}
+    return DatamodelPackage.Literals.UI_DATA_POINT;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public double getVoltage() {
-		return voltage;
-	}
+    return voltage;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public void setVoltage(double newVoltage) {
-		double oldVoltage = voltage;
-		voltage = newVoltage;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.UI_DATA_POINT__VOLTAGE, oldVoltage, voltage));
-	}
+    double oldVoltage = voltage;
+    voltage = newVoltage;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.UI_DATA_POINT__VOLTAGE, oldVoltage, voltage));
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public double getCurrent() {
-		return current;
-	}
+    return current;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public void setCurrent(double newCurrent) {
-		double oldCurrent = current;
-		current = newCurrent;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.UI_DATA_POINT__CURRENT, oldCurrent, current));
-	}
+    double oldCurrent = current;
+    current = newCurrent;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.UI_DATA_POINT__CURRENT, oldCurrent, current));
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case DatamodelPackage.UI_DATA_POINT__VOLTAGE:
-				return getVoltage();
-			case DatamodelPackage.UI_DATA_POINT__CURRENT:
-				return getCurrent();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID) {
+      case DatamodelPackage.UI_DATA_POINT__VOLTAGE:
+        return getVoltage();
+      case DatamodelPackage.UI_DATA_POINT__CURRENT:
+        return getCurrent();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case DatamodelPackage.UI_DATA_POINT__VOLTAGE:
-				setVoltage((Double)newValue);
-				return;
-			case DatamodelPackage.UI_DATA_POINT__CURRENT:
-				setCurrent((Double)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID) {
+      case DatamodelPackage.UI_DATA_POINT__VOLTAGE:
+        setVoltage((Double)newValue);
+        return;
+      case DatamodelPackage.UI_DATA_POINT__CURRENT:
+        setCurrent((Double)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case DatamodelPackage.UI_DATA_POINT__VOLTAGE:
-				setVoltage(VOLTAGE_EDEFAULT);
-				return;
-			case DatamodelPackage.UI_DATA_POINT__CURRENT:
-				setCurrent(CURRENT_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID) {
+      case DatamodelPackage.UI_DATA_POINT__VOLTAGE:
+        setVoltage(VOLTAGE_EDEFAULT);
+        return;
+      case DatamodelPackage.UI_DATA_POINT__CURRENT:
+        setCurrent(CURRENT_EDEFAULT);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case DatamodelPackage.UI_DATA_POINT__VOLTAGE:
-				return voltage != VOLTAGE_EDEFAULT;
-			case DatamodelPackage.UI_DATA_POINT__CURRENT:
-				return current != CURRENT_EDEFAULT;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID) {
+      case DatamodelPackage.UI_DATA_POINT__VOLTAGE:
+        return voltage != VOLTAGE_EDEFAULT;
+      case DatamodelPackage.UI_DATA_POINT__CURRENT:
+        return current != CURRENT_EDEFAULT;
+    }
+    return super.eIsSet(featureID);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+    if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (Voltage: ");
-		result.append(voltage);
-		result.append(", Current: ");
-		result.append(current);
-		result.append(')');
-		return result.toString();
-	}
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (Voltage: ");
+    result.append(voltage);
+    result.append(", Current: ");
+    result.append(current);
+    result.append(')');
+    return result.toString();
+  }
 
 } //UIDataPointImpl

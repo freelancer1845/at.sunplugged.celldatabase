@@ -157,15 +157,24 @@ public class PageOne extends WizardPage {
       @Override
       public boolean isChecked(Object element) {
         ITreeContentProvider provider = (ITreeContentProvider) treeViewer.getContentProvider();
-        return Arrays.stream(provider.getChildren(element))
-            .anyMatch(child -> treeViewer.getChecked(child));
+        if (provider.hasChildren(element)) {
+          return Arrays.stream(provider.getChildren(element))
+              .anyMatch(child -> treeViewer.getChecked(child));
+        } else {
+          return treeViewer.getChecked(element);
+        }
       }
 
       @Override
       public boolean isGrayed(Object element) {
         ITreeContentProvider provider = (ITreeContentProvider) treeViewer.getContentProvider();
-        return Arrays.stream(provider.getChildren(element))
-            .anyMatch(child -> treeViewer.getChecked(child) == false);
+        if (provider.hasChildren(element)) {
+          return Arrays.stream(provider.getChildren(element))
+              .anyMatch(child -> treeViewer.getChecked(child) == false);
+
+        } else {
+          return treeViewer.getGrayed(element);
+        }
 
       }
 
