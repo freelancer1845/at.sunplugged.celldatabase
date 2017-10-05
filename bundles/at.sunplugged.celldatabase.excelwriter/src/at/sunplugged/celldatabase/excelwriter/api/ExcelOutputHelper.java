@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
-
+import org.apache.poi.hssf.util.CellReference;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -19,7 +21,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EcorePackage;
-
+import datamodel.CellGroup;
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
 import datamodel.DatamodelPackage;
@@ -27,219 +29,395 @@ import datamodel.UIDataPoint;
 
 public class ExcelOutputHelper {
 
-	private static final String SHEET_NAME_SUMMARY = "Summary";
+  private static final String SHEET_NAME_SUMMARY = "Summary";
 
-	private boolean executed = false;
+  private static final String[] GROUP_ROW_NAMES =
+      new String[] {"Cell", "Voc[V]", "Jsc[A/mm^2]", "Rp[ohm/mm^2]", "RpDark[ohm/mm^2]",
+          "Rs[ohm/mm^2]", "RsDark[ohm/mm^2]", "MP[W/mm^2]", "Efficency[%]", "FillFactor",};
 
-	private final List<CellResult> cellResults;
+  private boolean executed = false;
 
-	private final String fileName;
+  private final List<CellResult> cellResults;
 
-	private List<EAttribute> resAttribs = DatamodelPackage.eINSTANCE.getCellResult().getEAllAttributes();
+  private final List<CellGroup> cellGroups;
 
-	private XSSFWorkbook workbook = new XSSFWorkbook();
+  private final Path path;
 
-	private CellStyle dateCellStyle;
+  private final String fileName;
 
-	private CellStyle headerCellStyle;
-	{
-		CellStyle cellStyle = workbook.createCellStyle();
-		CreationHelper createHelper = workbook.getCreationHelper();
-		cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("m/d/yy h:mm"));
-		dateCellStyle = cellStyle;
-		headerCellStyle = workbook.createCellStyle();
+  private List<EAttribute> resAttribs = DatamodelPackage.eINSTANCE.getCellResult()
+      .getEAllAttributes();
 
-		headerCellStyle.setBorderBottom(CellStyle.BORDER_THIN);
-		headerCellStyle.setBorderTop(CellStyle.BORDER_THIN);
-		headerCellStyle.setBorderLeft(CellStyle.BORDER_THIN);
-		headerCellStyle.setBorderRight(CellStyle.BORDER_THIN);
-	}
+  private XSSFWorkbook workbook = new XSSFWorkbook();
 
-	private XSSFSheet summarySheet;
+  private CellStyle dateCellStyle;
 
-	public ExcelOutputHelper(List<CellResult> cellResults, String fileName) {
-		this.cellResults = cellResults;
-		this.fileName = fileName;
-	}
+  private CellStyle headerCellStyle;
+  {
+    CellStyle cellStyle = workbook.createCellStyle();
+    CreationHelper createHelper = workbook.getCreationHelper();
+    cellStyle.setDataFormat(createHelper.createDataFormat()
+        .getFormat("m/d/yy h:mm"));
+    dateCellStyle = cellStyle;
+    headerCellStyle = workbook.createCellStyle();
 
-	public void execute() {
-		if (executed == true) {
-			throw new IllegalStateException("Use a new instance of ExcelOutputHelper!!! Already executed...");
-		}
-		executed = true;
-		Job job = new Job("ExcelOutput Job") {
-			protected IStatus run(IProgressMonitor monitor) {
-				monitor.beginTask("Writing Excel file...", cellResults.size() + 2);
-				monitor.subTask("Creating Summary Sheet");
+    headerCellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+    headerCellStyle.setBorderTop(CellStyle.BORDER_THIN);
+    headerCellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+    headerCellStyle.setBorderRight(CellStyle.BORDER_THIN);
+  }
 
-				createSummarySheet();
+  private XSSFSheet summarySheet;
 
-				monitor.worked(1);
+  public ExcelOutputHelper(List<CellResult> cellResults, String fileName) {
+    this.cellResults = cellResults;
+    this.fileName = fileName;
 
-				monitor.subTask("Creating Result Sheets");
+    this.cellGroups = null;
+    this.path = null;
+  }
 
-				cellResults.stream().forEach(res -> {
-					createCellResultSheet(res);
-					monitor.worked(1);
-				});
+  public ExcelOutputHelper(List<CellGroup> cellGroups, Path path) {
+    this.cellGroups = cellGroups;
+    this.path = path;
+    this.fileName = null;
+    this.cellResults = null;
+  }
 
-				monitor.subTask("Writing to hard drive...");
+  public void execute() {
+    if (executed == true) {
+      throw new IllegalStateException(
+          "Use a new instance of ExcelOutputHelper!!! Already executed...");
+    }
+    executed = true;
+    Job job = new Job("ExcelOutput Job") {
+      protected IStatus run(IProgressMonitor monitor) {
+        monitor.beginTask("Writing Excel file...", cellResults.size() + 2);
 
-				writeWorkbook(fileName, workbook);
-				monitor.worked(1);
+        if (cellGroups != null) {
+          createGroupsSummaryFile(monitor);
+        } else if (cellResults != null) {
+          createResultsSummaryFile(monitor);
+        }
 
-				monitor.done();
-				return Status.OK_STATUS;
 
-			};
-		};
+        return Status.OK_STATUS;
 
-		job.setPriority(Job.INTERACTIVE);
-		job.schedule();
-	}
+      }
 
-	private void createSummarySheet() {
-		summarySheet = workbook.createSheet(SHEET_NAME_SUMMARY);
 
-		XSSFRow cRow;
-		XSSFCell cCell;
 
-		int rowId = 0;
-		int colId = 0;
+    };
 
-		cRow = summarySheet.createRow(rowId++);
+    job.setPriority(Job.INTERACTIVE);
+    job.schedule();
+  }
 
-		for (EAttribute attrib : resAttribs) {
-			cCell = cRow.createCell(colId++);
-			cCell.setCellValue(attrib.getName());
-		}
+  private void createGroupsSummaryFile(IProgressMonitor monitor) {
 
-		for (CellResult res : cellResults) {
-			cRow = summarySheet.createRow(rowId++);
-			colId = 0;
-			for (EAttribute attrib : resAttribs) {
-				cCell = cRow.createCell(colId++);
-				writeValueToCell(cCell, res.eGet(attrib), attrib);
+    String[] rowNames = new String[] {"Group", "Voc[V]", "VocSTD[V]", "Jsc[A/mm^2]",
+        "JscSTD[A/mm^2]", "Rp[ohm/mm^2]", "RpSTD[ohm/mm^2]", "RpDark[ohm/mm^2]",
+        "RpDarkSTD[ohm/mm^2]", "Rs[ohm/mm^2]", "RsSTD[ohm/mm^2]", "RsDark[ohm/mm^2]",
+        "RsDarkSTD[ohm/mm^2]", "MP[W/mm^2]", "MPSTD[W/mm^2]", "Efficency[%]", "EfficencySTD[%]",
+        "FillFactor", "FillFactorSTD"};
 
-			}
-		}
 
-		for (int i = 0; i < 15; i++) {
-			summarySheet.getColumnHelper().setColWidth(i, 18);
-		}
-	}
+    monitor.subTask("Creating Summary Sheet");
 
-	private void createCellResultSheet(CellResult res) {
+    summarySheet = workbook.createSheet(SHEET_NAME_SUMMARY);
 
-		XSSFSheet sheet = workbook.createSheet(res.getName());
+    XSSFRow cRow;
+    XSSFCell cCell;
+    int rowId = 0;
+    int colId = 0;
 
-		int rowId = 0;
-		int colId = 0;
-		XSSFRow nameRow = sheet.createRow(rowId++);
-		XSSFRow valueRow = sheet.createRow(rowId++);
+    cRow = summarySheet.createRow(rowId++);
 
-		XSSFCell cCell;
+    for (String row : rowNames) {
+      cCell = cRow.createCell(colId++);
+      cCell.setCellValue(row);
+    }
+    colId = 0;
 
-		for (EAttribute attr : resAttribs) {
-			cCell = nameRow.createCell(colId);
-			cCell.setCellStyle(headerCellStyle);
-			writeValueToCell(cCell, attr.getName());
-			cCell = valueRow.createCell(colId++);
-			writeValueToCell(cCell, res.eGet(attr), attr);
-		}
+    for (CellGroup group : cellGroups) {
+      colId = 0;
+      XSSFSheet groupSheet = workbook.createSheet(group.getName());
+      createSingleGroupSheet(groupSheet, group);
 
-		colId = 0;
 
-		CellMeasurementDataSet dataSet = res.getLightMeasurementDataSet();
-		if (dataSet == null) {
-			return;
-		}
 
-		rowId++;
-		XSSFRow seperatorRow = sheet.createRow(rowId++);
-		cCell = seperatorRow.createCell(0);
-		cCell.setCellValue("Measurement Data");
-		cCell.setCellStyle(headerCellStyle);
+      cRow = summarySheet.createRow(rowId++);
 
-		nameRow = sheet.createRow(rowId++);
-		valueRow = sheet.createRow(rowId++);
-		for (EAttribute attr : DatamodelPackage.eINSTANCE.getCellMeasurementDataSet().getEAttributes()) {
-			cCell = nameRow.createCell(colId);
-			cCell.setCellStyle(headerCellStyle);
-			writeValueToCell(cCell, attr.getName());
-			cCell = valueRow.createCell(colId++);
-			writeValueToCell(cCell, dataSet.eGet(attr), attr);
+      cRow.createCell(colId++)
+          .setCellValue(group.getName());
 
-		}
+      int averageRowIndex = group.getCellResults()
+          .size() + 3;
+      int stdRowIndex = averageRowIndex + 1;
 
-		rowId++;
-		XSSFRow seperatorRow2 = sheet.createRow(rowId++);
-		cCell = seperatorRow2.createCell(0);
-		cCell.setCellValue("Measured Data");
-		cCell.setCellStyle(headerCellStyle);
 
-		XSSFRow dataNameRow = sheet.createRow(rowId++);
 
-		cCell = dataNameRow.createCell(0);
-		cCell.setCellStyle(headerCellStyle);
-		cCell.setCellValue("Voltage[V]");
-		cCell = dataNameRow.createCell(1);
-		cCell.setCellStyle(headerCellStyle);
-		cCell.setCellValue("Current [A]");
+      for (int groupColIndex = 1; groupColIndex < GROUP_ROW_NAMES.length; groupColIndex++) {
 
-		XSSFRow cRow;
-		for (UIDataPoint dataPoint : dataSet.getData()) {
-			cRow = sheet.createRow(rowId++);
-			cCell = cRow.createCell(0);
-			cCell.setCellValue(dataPoint.getVoltage());
-			cCell = cRow.createCell(1);
-			cCell.setCellValue(dataPoint.getCurrent());
-		}
+        CellReference cr = new CellReference(groupSheet.getSheetName(), averageRowIndex,
+            groupColIndex, false, false);
+        cRow.createCell(colId++)
+            .setCellValue("=" + cr.formatAsString());
+        cr = new CellReference(groupSheet.getSheetName(), stdRowIndex, groupColIndex, false, false);
+        cRow.createCell(colId++)
+            .setCellValue("=" + cr.formatAsString());
+      }
 
-		for (int i = 0; i < 15; i++) {
-			sheet.getColumnHelper().setColWidth(i, 18);
-		}
+    }
 
-	}
 
-	private void writeWorkbook(String filePath, XSSFWorkbook workbook) {
-		try (FileOutputStream out = new FileOutputStream(new File(filePath))) {
+    writeWorkbook(path.toString(), workbook);
+  };
 
-			workbook.write(out);
+  private void createSingleGroupSheet(XSSFSheet sheet, CellGroup cellGroup) {
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
-	private void writeValueToCell(XSSFCell cell, Object value) {
-		writeValueToCell(cell, value, null);
-	}
+    XSSFRow cRow;
+    XSSFCell cCell;
+    int rowId = 0;
+    int colId = 0;
 
-	private void writeValueToCell(XSSFCell cell, Object value, EAttribute attr) {
-		if (value != null) {
-			if (attr != null) {
-				if (attr.getEAttributeType().equals(EcorePackage.Literals.EDOUBLE)) {
-					cell.setCellValue((double) value);
-				} else if (attr.getEAttributeType().equals(EcorePackage.Literals.EDATE)) {
 
-					Date date = (Date) value;
-					cell.setCellValue((Date) date);
-					cell.setCellStyle(dateCellStyle);
-				} else {
-					cell.setCellValue(value.toString());
-				}
-			} else {
-				cell.setCellValue(value.toString());
-			}
+    cRow = sheet.createRow(rowId++);
+    for (String rowName : GROUP_ROW_NAMES) {
+      cCell = cRow.createCell(colId++);
+      cCell.setCellValue(rowName);
+    }
 
-		} else {
-			cell.setCellValue("");
-		}
-	}
+    int valueRowsStart = rowId;
+    for (CellResult result : cellGroup.getCellResults()) {
+      cRow = sheet.createRow(rowId++);
+      colId = 0;
+      cRow.createCell(colId++)
+          .setCellValue(result.getName());
+      cRow.createCell(colId++)
+          .setCellValue(result.getOpenCircuitVoltage());
+      cRow.createCell(colId++)
+          .setCellValue(result.getShortCircuitCurrent() / result.getLightMeasurementDataSet()
+              .getArea());
+      cRow.createCell(colId++)
+          .setCellValue(result.getParallelResistance() / result.getLightMeasurementDataSet()
+              .getArea());
+      cRow.createCell(colId++)
+          .setCellValue(result.getDarkParallelResistance() / result.getLightMeasurementDataSet()
+              .getArea());
+      cRow.createCell(colId++)
+          .setCellValue(result.getSeriesResistance() / result.getLightMeasurementDataSet()
+              .getArea());
+      cRow.createCell(colId++)
+          .setCellValue(result.getDarkSeriesResistance() / result.getLightMeasurementDataSet()
+              .getArea());
+      cRow.createCell(colId++)
+          .setCellValue(result.getMaximumPowerVoltage() * result.getMaximumPowerCurrent()
+              / result.getLightMeasurementDataSet()
+                  .getArea());
+      cRow.createCell(colId++)
+          .setCellValue(result.getEfficiency());
+      cRow.createCell(colId++)
+          .setCellValue(result.getFillFactor());
+    }
+    int valueRowsStop = rowId;
+    cRow = sheet.createRow(rowId++);
+    XSSFRow averageRow = sheet.createRow(rowId++);
+    XSSFRow stdRow = sheet.createRow(rowId++);
+
+    averageRow.createCell(0)
+        .setCellValue("Average");
+    stdRow.createCell(0)
+        .setCellValue("Std");
+    colId = 1;
+    while (colId < GROUP_ROW_NAMES.length) {
+      cCell = averageRow.createCell(colId);
+      CellRangeAddress address = new CellRangeAddress(valueRowsStart, valueRowsStop, colId, colId);
+      cCell.setCellValue("=AVERAGE(" + address.formatAsString() + ")");
+      cCell = stdRow.createCell(colId);
+      cCell.setCellValue("=STDEV.P(" + address.formatAsString() + ")");
+
+      colId++;
+    }
+
+
+
+  }
+
+
+
+  private void createResultsSummaryFile(IProgressMonitor monitor) {
+    monitor.subTask("Creating Summary Sheet");
+
+    createSummarySheet();
+
+    monitor.worked(1);
+
+    monitor.subTask("Creating Result Sheets");
+
+    cellResults.stream()
+        .forEach(res -> {
+          createCellResultSheet(res);
+          monitor.worked(1);
+        });
+
+    monitor.subTask("Writing to hard drive...");
+
+    writeWorkbook(fileName, workbook);
+    monitor.worked(1);
+
+    monitor.done();
+
+  }
+
+  private void createSummarySheet() {
+    summarySheet = workbook.createSheet(SHEET_NAME_SUMMARY);
+
+    XSSFRow cRow;
+    XSSFCell cCell;
+
+    int rowId = 0;
+    int colId = 0;
+
+    cRow = summarySheet.createRow(rowId++);
+
+    for (EAttribute attrib : resAttribs) {
+      cCell = cRow.createCell(colId++);
+      cCell.setCellValue(attrib.getName());
+    }
+
+    for (CellResult res : cellResults) {
+      cRow = summarySheet.createRow(rowId++);
+      colId = 0;
+      for (EAttribute attrib : resAttribs) {
+        cCell = cRow.createCell(colId++);
+        writeValueToCell(cCell, res.eGet(attrib), attrib);
+
+      }
+    }
+
+    for (int i = 0; i < 15; i++) {
+      summarySheet.getColumnHelper()
+          .setColWidth(i, 18);
+    }
+  }
+
+  private void createCellResultSheet(CellResult res) {
+
+    XSSFSheet sheet = workbook.createSheet(res.getName());
+
+    int rowId = 0;
+    int colId = 0;
+    XSSFRow nameRow = sheet.createRow(rowId++);
+    XSSFRow valueRow = sheet.createRow(rowId++);
+
+    XSSFCell cCell;
+
+    for (EAttribute attr : resAttribs) {
+      cCell = nameRow.createCell(colId);
+      cCell.setCellStyle(headerCellStyle);
+      writeValueToCell(cCell, attr.getName());
+      cCell = valueRow.createCell(colId++);
+      writeValueToCell(cCell, res.eGet(attr), attr);
+    }
+
+    colId = 0;
+
+    CellMeasurementDataSet dataSet = res.getLightMeasurementDataSet();
+    if (dataSet == null) {
+      return;
+    }
+
+    rowId++;
+    XSSFRow seperatorRow = sheet.createRow(rowId++);
+    cCell = seperatorRow.createCell(0);
+    cCell.setCellValue("Measurement Data");
+    cCell.setCellStyle(headerCellStyle);
+
+    nameRow = sheet.createRow(rowId++);
+    valueRow = sheet.createRow(rowId++);
+    for (EAttribute attr : DatamodelPackage.eINSTANCE.getCellMeasurementDataSet()
+        .getEAttributes()) {
+      cCell = nameRow.createCell(colId);
+      cCell.setCellStyle(headerCellStyle);
+      writeValueToCell(cCell, attr.getName());
+      cCell = valueRow.createCell(colId++);
+      writeValueToCell(cCell, dataSet.eGet(attr), attr);
+
+    }
+
+    rowId++;
+    XSSFRow seperatorRow2 = sheet.createRow(rowId++);
+    cCell = seperatorRow2.createCell(0);
+    cCell.setCellValue("Measured Data");
+    cCell.setCellStyle(headerCellStyle);
+
+    XSSFRow dataNameRow = sheet.createRow(rowId++);
+
+    cCell = dataNameRow.createCell(0);
+    cCell.setCellStyle(headerCellStyle);
+    cCell.setCellValue("Voltage[V]");
+    cCell = dataNameRow.createCell(1);
+    cCell.setCellStyle(headerCellStyle);
+    cCell.setCellValue("Current [A]");
+
+    XSSFRow cRow;
+    for (UIDataPoint dataPoint : dataSet.getData()) {
+      cRow = sheet.createRow(rowId++);
+      cCell = cRow.createCell(0);
+      cCell.setCellValue(dataPoint.getVoltage());
+      cCell = cRow.createCell(1);
+      cCell.setCellValue(dataPoint.getCurrent());
+    }
+
+    for (int i = 0; i < 15; i++) {
+      sheet.getColumnHelper()
+          .setColWidth(i, 18);
+    }
+
+  }
+
+  private void writeWorkbook(String filePath, XSSFWorkbook workbook) {
+    try (FileOutputStream out = new FileOutputStream(new File(filePath))) {
+
+      workbook.write(out);
+
+    } catch (FileNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
+  private void writeValueToCell(XSSFCell cell, Object value) {
+    writeValueToCell(cell, value, null);
+  }
+
+  private void writeValueToCell(XSSFCell cell, Object value, EAttribute attr) {
+    if (value != null) {
+      if (attr != null) {
+        if (attr.getEAttributeType()
+            .equals(EcorePackage.Literals.EDOUBLE)) {
+          cell.setCellValue((double) value);
+        } else if (attr.getEAttributeType()
+            .equals(EcorePackage.Literals.EDATE)) {
+
+          Date date = (Date) value;
+          cell.setCellValue((Date) date);
+          cell.setCellStyle(dateCellStyle);
+        } else {
+          cell.setCellValue(value.toString());
+        }
+      } else {
+        cell.setCellValue(value.toString());
+      }
+
+    } else {
+      cell.setCellValue("");
+    }
+  }
 
 }
