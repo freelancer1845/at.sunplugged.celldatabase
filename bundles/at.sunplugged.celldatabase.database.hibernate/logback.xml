@@ -12,7 +12,7 @@
 
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>c:/celldatabase.log</file>
+		<file>/log.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} -
 				%msg%n
@@ -20,7 +20,7 @@
 		</encoder>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<FileNamePattern>c:/celldatabase.%i.log.zip</FileNamePattern>
+			<FileNamePattern>/log.%i.log.zip</FileNamePattern>
 			<MinIndex>1</MinIndex>
 			<MaxIndex>10</MaxIndex>
 		</rollingPolicy>
@@ -32,12 +32,15 @@
 
 	</appender>
 
-	<logger name="at.sunplugged.celldatabase.logger" level="INFO" additivity="false"/>
-	<logger name="org.hibernate.SQL" level="DEBUG"/>
-	<logger name="org.hibernate.type" level="DEBUG"/>
-	<logger name="org.hibernate" level="DEBUG"/>
+	<logger name="at.sunplugged.celldatabase.logger" level="debug"
+		additivity="false">
+		<appender-ref ref="STDOUT" />
+	</logger>
 
-	<root level="DEBUG">
+	<logger name="org.hibernate.type" level="info" />
+	<logger name="org.hibernate" level="info" />
+
+	<root level="debug">
 		<appender-ref ref="FILE" />
 		<appender-ref ref="STDOUT" />
 	</root>

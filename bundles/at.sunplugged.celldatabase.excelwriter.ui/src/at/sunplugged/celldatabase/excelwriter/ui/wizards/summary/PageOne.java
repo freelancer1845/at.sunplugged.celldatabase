@@ -1,7 +1,9 @@
 package at.sunplugged.celldatabase.excelwriter.ui.wizards.summary;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EventObject;
+import java.util.List;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStackListener;
@@ -45,6 +47,8 @@ public class PageOne extends WizardPage {
 
   private EditingDomain editingDomain;
 
+  private CheckboxTreeViewer treeViewer;
+
   protected PageOne(Database database) {
     super(PAGE_NAME);
     setTitle(PAGE_NAME);
@@ -57,6 +61,21 @@ public class PageOne extends WizardPage {
     editingDomain.createResource("tempResource").getContents().add(this.database);
   }
 
+  public Database getReducedDatabase() {
+    List<EObject> toRemove = new ArrayList<>();
+    EcoreUtil.getAllContents(database, true).forEachRemaining(object -> {
+      if (object instanceof CellGroup || object instanceof CellResult) {
+        if (treeViewer.getChecked(object) == false) {
+          toRemove.add((EObject) object);
+        }
+      }
+    });
+
+    EcoreUtil.removeAll(toRemove);
+
+    return database;
+  }
+
   @Override
   public void createControl(Composite parent) {
     Composite container = new Composite(parent, SWT.NONE);
@@ -67,8 +86,8 @@ public class PageOne extends WizardPage {
 
     container.setLayout(layout);
 
-    CheckboxTreeViewer treeViewer = (CheckboxTreeViewer) TreeViewerSWTFactory
-        .fillDefaults(container, database).customizeTree(new TreeViewerBuilder() {
+    treeViewer = (CheckboxTreeViewer) TreeViewerSWTFactory.fillDefaults(container, database)
+        .customizeTree(new TreeViewerBuilder() {
 
           @Override
           public TreeViewer createTree(Composite parent) {
@@ -76,7 +95,8 @@ public class PageOne extends WizardPage {
             treeViewer.setAutoExpandLevel(2);
             return treeViewer;
           }
-        }).customizeContentProvider(new ITreeContentProvider() {
+        })
+        .customizeContentProvider(new ITreeContentProvider() {
           @Override
           public boolean hasChildren(Object element) {
             if (element instanceof Database) {
@@ -96,8 +116,10 @@ public class PageOne extends WizardPage {
             } else if (element instanceof CellGroup) {
               return database;
             } else if (element instanceof CellResult) {
-              return database.getCellGroups().stream()
-                  .filter(cellGroup -> cellGroup.getCellResults().contains(element)).findAny()
+              return database.getCellGroups()
+                  .stream()
+                  .filter(cellGroup -> cellGroup.getCellResults().contains(element))
+                  .findAny()
                   .orElse(null);
             }
             return false;
@@ -118,7 +140,9 @@ public class PageOne extends WizardPage {
             }
             return null;
           };
-        }).customizeMenu(createMenu()).create();
+        })
+        .customizeMenu(createMenu())
+        .create();
 
     database.getCellGroups().forEach(group -> treeViewer.setSubtreeChecked(group, true));
     treeViewer.addCheckStateListener(new ICheckStateListener() {

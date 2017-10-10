@@ -773,12 +773,10 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * 
-   * @generated
+   * @generated NOT
    */
   public void setMaximumPower(double newMaximumPower) {
-    // TODO: implement this method to set the 'Maximum Power' attribute
-    // Ensure that you remove @generated or mark it @generated NOT
-    throw new UnsupportedOperationException();
+
   }
 
   /**

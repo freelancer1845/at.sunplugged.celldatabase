@@ -250,7 +250,7 @@
    </features>
 
    <configurations>
-      <plugin id="at.sunplugged.celldatabase.logging.config" autoStart="true" startLevel="0" />
+      <plugin id="at.sunplugged.celldatabase.logging.config" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />

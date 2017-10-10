@@ -44,12 +44,13 @@ public class SummaryExportWizard extends Wizard {
 
     if (dialog.open() != null) {
       Path filePath = Paths.get(dialog.getFilterPath(), dialog.getFileName());
-      ExcelOutputHelper helper = new ExcelOutputHelper(database.getCellGroups(), filePath);
+      ExcelOutputHelper helper =
+          new ExcelOutputHelper(pageOne.getReducedDatabase().getCellGroups(), filePath);
       helper.execute();
 
     }
 
-    return false;
+    return true;
   }
 
 }

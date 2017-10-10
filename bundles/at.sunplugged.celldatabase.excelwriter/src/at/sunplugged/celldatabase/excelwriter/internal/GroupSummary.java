@@ -13,9 +13,6 @@ public class GroupSummary {
     this.group = group;
   }
 
-  public double getAverage(EAttribute attribute) {
-    return getAverage(attribute, (value, result) -> value);
-  }
 
   public double getAverage(EAttribute attribute, PostCalculator postCalculator) {
     return calculateAverage(attribute, postCalculator);
@@ -56,7 +53,7 @@ public class GroupSummary {
           .stream()
           .mapToDouble(result -> postCalculator.calc((double) result.eGet(attribute), result))
           .toArray();
-      double value = std.evaluate(values, getAverage(attribute));
+      double value = std.evaluate(values, getAverage(attribute, postCalculator));
       return value;
     } else if (DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET.getEStructuralFeatures()
         .contains(attribute)) {
@@ -67,7 +64,7 @@ public class GroupSummary {
           .mapToDouble(result -> postCalculator
               .calc((double) result.getLightMeasurementDataSet().eGet(attribute), result))
           .toArray();
-      double value = std.evaluate(values, getAverage(attribute));
+      double value = std.evaluate(values, getAverage(attribute, postCalculator));
       return value;
     } else {
       throw new IllegalArgumentException(

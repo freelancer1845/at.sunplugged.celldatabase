@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -40,6 +39,13 @@ public class ExcelOutputHelper {
   private static final String[] GROUP_ROW_NAMES =
       new String[] {"Cell", "Voc[V]", "Jsc[A/mm^2]", "Rp[ohm/mm^2]", "RpDark[ohm/mm^2]",
           "Rs[ohm/mm^2]", "RsDark[ohm/mm^2]", "MP[W/mm^2]", "Efficency[%]", "FillFactor",};
+
+  private static final EAttribute[] LITERALS =
+      new EAttribute[] {Literals.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE,
+          Literals.CELL_RESULT__SHORT_CIRCUIT_CURRENT, Literals.CELL_RESULT__PARALLEL_RESISTANCE,
+          Literals.CELL_RESULT__DARK_PARALLEL_RESISTANCE, Literals.CELL_RESULT__SERIES_RESISTANCE,
+          Literals.CELL_RESULT__DARK_SERIES_RESISTANCE, Literals.CELL_RESULT__MAXIMUM_POWER,
+          Literals.CELL_RESULT__EFFICIENCY, Literals.CELL_RESULT__FILL_FACTOR};
 
   private boolean executed = false;
 
@@ -161,20 +167,28 @@ public class ExcelOutputHelper {
       cRow = summarySheet.createRow(rowId++);
 
       cRow.createCell(colId++).setCellValue(group.getName());
+      GroupSummary summary = groupSummarys.get(group);
 
-      int averageRowIndex = group.getCellResults().size() + 3;
-      int stdRowIndex = averageRowIndex + 1;
+      for (EAttribute literal : LITERALS) {
+        if (literal == Literals.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE
+            || literal == Literals.CELL_RESULT__EFFICIENCY
+            || literal == Literals.CELL_RESULT__FILL_FACTOR) {
+          writeValueToCell(cRow.createCell(colId++),
+              summary.getAverage(literal, (value, result) -> value), literal);
 
+          writeValueToCell(cRow.createCell(colId++),
+              summary.getStd(literal, (value, result) -> value), literal);
 
-
-      for (int groupColIndex = 1; groupColIndex < GROUP_ROW_NAMES.length; groupColIndex++) {
-
-        CellReference cr = new CellReference(groupSheet.getSheetName(), averageRowIndex,
-            groupColIndex, false, false);
-
-        cRow.createCell(colId++).setCellValue("=" + cr.formatAsString());
-        cr = new CellReference(groupSheet.getSheetName(), stdRowIndex, groupColIndex, false, false);
-        cRow.createCell(colId++).setCellValue("=" + cr.formatAsString());
+        } else {
+          writeValueToCell(cRow.createCell(colId++),
+              summary.getAverage(literal,
+                  (value, result) -> value / result.getLightMeasurementDataSet().getArea()),
+              literal);
+          writeValueToCell(cRow.createCell(colId++),
+              summary.getStd(literal,
+                  (value, result) -> value / result.getLightMeasurementDataSet().getArea()),
+              literal);
+        }
       }
 
     }
@@ -238,13 +252,9 @@ public class ExcelOutputHelper {
 
     GroupSummary summary = groupSummarys.get(cellGroup);
 
-    EAttribute[] literals = new EAttribute[] {Literals.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE,
-        Literals.CELL_RESULT__SHORT_CIRCUIT_CURRENT, Literals.CELL_RESULT__PARALLEL_RESISTANCE,
-        Literals.CELL_RESULT__DARK_PARALLEL_RESISTANCE, Literals.CELL_RESULT__SERIES_RESISTANCE,
-        Literals.CELL_RESULT__DARK_SERIES_RESISTANCE, Literals.CELL_RESULT__MAXIMUM_POWER,
-        Literals.CELL_RESULT__EFFICIENCY, Literals.CELL_RESULT__FILL_FACTOR};
 
-    for (EAttribute literal : literals) {
+
+    for (EAttribute literal : LITERALS) {
       if (literal == Literals.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE
           || literal == Literals.CELL_RESULT__EFFICIENCY
           || literal == Literals.CELL_RESULT__FILL_FACTOR) {
