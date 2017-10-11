@@ -19,4 +19,4 @@ def findRs(data, indexRange = 10):
     firstPositiveVoltage = np.where((data[:, 0] > 0) == True)[0][0]
     fitRange = range(firstPositiveVoltage-indexRange, firstPositiveVoltage+indexRange)
 
-    return 1 / np.polyfit(data[fitRange, 0], data[fitRange, 1], 1)[0]
+    return 1 / np.polyfit(data[fitRange, 0], data[fitRange, 1], 1)[0] * -1

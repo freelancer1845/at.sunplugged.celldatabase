@@ -76,7 +76,7 @@ class PlotHelper():
         cellData.MppU = cellResult['maximumPowerVoltage']
         cellData.FF = cellResult['fillFactor']
         cellData.Eff = cellResult['efficiency']
-        dataSet = cellResult['cellMeasurementDataSet']
+        dataSet = cellResult['lightMeasurementDataSet']
         cellData.Area = dataSet['area']
         cellData.powerInput = dataSet['powerInput']
         dataArray = np.array(dataSet['data'])

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_c3AF0MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.application" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ">
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmlns:ui="http://www.eclipse.org/ui/2010/UIModel/application/ui" xmi:id="_c3AF0MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.application" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ">
   <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" selectedElement="_RkzywI7xEeelnoB5mxxecg" label="Empty E4 Application" width="1000" height="600">
     <children xsi:type="basic:PartSashContainer" xmi:id="_RkzywI7xEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.partsashcontainer.0" horizontal="true">
       <children xsi:type="basic:PartSashContainer" xmi:id="_IqzEAJVmEeeha-ZlG6JHqQ" elementId="at.sunplugged.celldatabase.rcp.partsashcontainer.1" containerData="4000">
@@ -27,6 +27,9 @@
         <children xsi:type="menu:HandledToolItem" xmi:id="_efmI4JfeEeetk8NgRqyvog" elementId="at.sunplugged.celldatabase.rcp.handledtoolitem.refresh" label="Refresh" command="_IKLmEJfeEeetk8NgRqyvog"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_5TgzUJgKEeetk8NgRqyvog" elementId="at.sunplugged.celldatabase.rcp.handledtoolitem.commit" label="Commit" command="_3s73EJgKEeetk8NgRqyvog"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_F7vusKjsEeeXOcsHpelg_g" elementId="at.sunplugged.celldatabase.rcp.handledtoolitem.exportsummary" label="Export Summary" command="_jJge0KjrEeeXOcsHpelg_g"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_EQJXAK5nEeeozf3mVxZ5lw" elementId="at.sunplugged.celldatabase.rcp.handledtoolitem.importfromsprod" label="Import From Sprod" command="_929nYK5mEeeozf3mVxZ5lw">
+          <visibleWhen xsi:type="ui:ImperativeExpression" xmi:id="_FgVykK5yEeeozf3mVxZ5lw" contributionURI="bundleclass://at.sunplugged.celldatabase.common.ui/at.sunplugged.celldatabase.common.ui.imperativeexpressions.CellGroupSelectedImperativeExpression"/>
+        </children>
       </children>
     </trimBars>
     <trimBars xmi:id="_4hQ8AJViEeeha-ZlG6JHqQ" elementId="at.sunplugged.celldatabase.rcp.trimbar.1" side="Bottom">
@@ -38,6 +41,7 @@
   <handlers xmi:id="_KIqE8JfeEeetk8NgRqyvog" elementId="at.sunplugged.celldatabase.rcp.handler.2" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.RefreshDatabaseHandler" command="_IKLmEJfeEeetk8NgRqyvog"/>
   <handlers xmi:id="_9jCu0JgKEeetk8NgRqyvog" elementId="at.sunplugged.celldatabase.rcp.handler.3" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.CommitHandler" command="_3s73EJgKEeetk8NgRqyvog"/>
   <handlers xmi:id="_nDN7UKjrEeeXOcsHpelg_g" elementId="at.sunplugged.celldatabase.rcp.handler.4" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.ExportSummaryToExcel" command="_jJge0KjrEeeXOcsHpelg_g"/>
+  <handlers xmi:id="_Amg94K5nEeeozf3mVxZ5lw" elementId="at.sunplugged.celldatabase.rcp.handler.5" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.ImprotFromSprodHandler" command="_929nYK5mEeeozf3mVxZ5lw"/>
   <rootContext xmi:id="_c3AF2cjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
@@ -58,6 +62,7 @@
   <commands xmi:id="_IKLmEJfeEeetk8NgRqyvog" elementId="at.sunplugged.celldatabase.rcp.command.refreshdatabase" commandName="Refresh Database" category="_Q_81MJOyEeejFq7KVcklQw"/>
   <commands xmi:id="_3s73EJgKEeetk8NgRqyvog" elementId="at.sunplugged.celldatabase.rcp.command.commit" commandName="Commit" category="_Q_81MJOyEeejFq7KVcklQw"/>
   <commands xmi:id="_Wutu4KjnEeeXOcsHpelg_g" elementId="at.sunplugged.celldatabase.rcp.command.setname" commandName="Set Name" category="_XGpCoI78EeelnoB5mxxecg"/>
+  <commands xmi:id="_929nYK5mEeeozf3mVxZ5lw" elementId="at.sunplugged.celldatabase.rcp.command.importfromsprod" commandName="Import from Sprod" category="_43OfgJOiEeejFq7KVcklQw"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

@@ -6,11 +6,9 @@ import java.util.EventObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -26,6 +24,7 @@ import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.URI;
@@ -39,195 +38,278 @@ import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelDecorator;
 import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-
 import at.sunplugged.celldatabase.database.api.ModelDatabaseService;
+import datamodel.CellGroup;
+import datamodel.CellMeasurementDataSet;
+import datamodel.CellResult;
 import datamodel.Database;
 import datamodel.DatamodelPackage;
 
 public class ModelViewerPart {
 
-	@Inject
-	private MDirtyable dirtyable;
+  @Inject
+  private MDirtyable dirtyable;
 
-	private List<Object> dirtyTreeElements = new ArrayList<Object>() {
-		@Override
-		public boolean add(Object arg0) {
-			dirtyable.setDirty(true);
-			return super.add(arg0);
-		}
-	};
+  @Inject
+  private ESelectionService selectionService;
 
-	private Map<URI, MPart> createdEditors = new HashMap<>();
 
-	@Persist
-	private void doSave(ModelDatabaseService databaseService, @Named("TreeViewer") @Optional TreeViewer treeViewer) {
+  private List<Object> dirtyTreeElements = new ArrayList<Object>() {
+    @Override
+    public boolean add(Object arg0) {
+      dirtyable.setDirty(true);
+      return super.add(arg0);
+    }
+  };
 
-		Job saveJob = new Job("Saving Database...") {
+  private Map<URI, MPart> createdEditors = new HashMap<>();
 
-			@Override
-			protected IStatus run(IProgressMonitor monitor) {
-				databaseService.save();
-				Display.getDefault().asyncExec(() -> {
-					dirtyTreeElements.clear();
-					dirtyable.setDirty(false);
-					if (treeViewer != null) {
-						treeViewer.refresh();
-					}
-				});
+  @Persist
+  private void doSave(ModelDatabaseService databaseService,
+      @Named("TreeViewer") @Optional TreeViewer treeViewer) {
 
-				return Status.OK_STATUS;
-			}
+    Job saveJob = new Job("Saving Database...") {
 
-		};
-		saveJob.setPriority(Job.LONG);
-		saveJob.schedule();
-	}
+      @Override
+      protected IStatus run(IProgressMonitor monitor) {
+        databaseService.save();
+        Display.getDefault().asyncExec(() -> {
+          dirtyTreeElements.clear();
+          dirtyable.setDirty(false);
+          if (treeViewer != null) {
+            treeViewer.refresh();
+          }
+        });
 
-	@PostConstruct
-	public void postConstruct(Composite parent, ModelDatabaseService databaseService, EMenuService menuService,
-			IEclipseContext ctx, EPartService partService, EModelService modelService, MApplication app,
-			@Named("editingDomain") EditingDomain editingDomain) {
+        return Status.OK_STATUS;
+      }
 
-		Database database = (Database) databaseService.getDatabase();
+    };
+    saveJob.setPriority(Job.LONG);
+    saveJob.schedule();
+  }
 
-		editingDomain.getCommandStack().addCommandStackListener(new CommandStackListener() {
+  @PostConstruct
+  public void postConstruct(Composite parent, ModelDatabaseService databaseService,
+      EMenuService menuService, IEclipseContext ctx, EPartService partService,
+      EModelService modelService, MApplication app,
+      @Named("editingDomain") EditingDomain editingDomain) {
 
-			@Override
-			public void commandStackChanged(EventObject event) {
-				if (editingDomain.getCommandStack().canUndo() == false) {
-					dirtyable.setDirty(false);
-					dirtyTreeElements.clear();
-				}
-			}
-		});
+    Database database = (Database) databaseService.getDatabase();
 
-		// TreeViewer treeViewer = TreeViewerSWTFactory.createTreeViewer(parent,
-		// databaseService.getDatabase());
+    editingDomain.getCommandStack().addCommandStackListener(new CommandStackListener() {
 
-		TreeViewer treeViewer = TreeViewerSWTFactory.fillDefaults(parent, databaseService.getDatabase())
-				.customizeLabelDecorator(new ILabelDecorator() {
+      @Override
+      public void commandStackChanged(EventObject event) {
+        if (editingDomain.getCommandStack().canUndo() == false) {
+          dirtyable.setDirty(false);
+          dirtyTreeElements.clear();
+        }
+      }
+    });
 
-					@Override
-					public void removeListener(ILabelProviderListener listener) {
+    // TreeViewer treeViewer = TreeViewerSWTFactory.createTreeViewer(parent,
+    // databaseService.getDatabase());
 
-					}
+    TreeViewer treeViewer = TreeViewerSWTFactory
+        .fillDefaults(parent, databaseService.getDatabase())
+          .customizeLabelDecorator(new ILabelDecorator() {
 
-					@Override
-					public boolean isLabelProperty(Object element, String property) {
-						return false;
-					}
+            @Override
+            public void removeListener(ILabelProviderListener listener) {
 
-					@Override
-					public void dispose() {
-					}
+          }
 
-					@Override
-					public void addListener(ILabelProviderListener listener) {
-					}
+            @Override
+            public boolean isLabelProperty(Object element, String property) {
+              return false;
+            }
 
-					@Override
-					public String decorateText(String text, Object element) {
-						if (dirtyTreeElements.contains(element)) {
-							return "*" + text;
-						}
-						return text;
-					}
+            @Override
+            public void dispose() {}
 
-					@Override
-					public Image decorateImage(Image image, Object element) {
-						return null;
-					}
-				}).create();
+            @Override
+            public void addListener(ILabelProviderListener listener) {}
 
-		EContentAdapter adpater = new EContentAdapter() {
-			@Override
-			public void notifyChanged(Notification notification) {
-				super.notifyChanged(notification);
-				dirtyable.setDirty(true);
-				dirtyTreeElements.add(notification.getNotifier());
-				if (DatamodelPackage.eINSTANCE.getCellResult_Name().equals(notification.getFeature())) {
-					URI uri = EcoreUtil.getURI((EObject) notification.getNotifier());
-					MPart editorPart = createdEditors.get(uri);
-					if (editorPart != null) {
-						String newLabel = notification.getNewStringValue();
-						if (newLabel.isEmpty() == false) {
-							editorPart.setLabel(newLabel);
-						}
-					}
-				}
+            @Override
+            public String decorateText(String text, Object element) {
+              if (dirtyTreeElements.contains(element)) {
+                return "*" + text;
+              }
+              return text;
+            }
 
-			}
-		};
-		database.eAdapters().add(adpater);
+            @Override
+            public Image decorateImage(Image image, Object element) {
+              return null;
+            }
+          })
+          .customizeContentProvider(new ITreeContentProvider() {
 
-		treeViewer.addDoubleClickListener(new IDoubleClickListener() {
+            @Override
+            public boolean hasChildren(Object element) {
+              if (element instanceof Database) {
+                return ((Database) element).getCellGroups().isEmpty() == false;
+              } else if (element instanceof CellGroup) {
+                return ((CellGroup) element).getCellResults().isEmpty() == false;
+              } else if (element instanceof CellResult) {
+                if (((CellResult) element).getDarkMeasuremenetDataSet() != null) {
+                  return true;
+                } else if (((CellResult) element).getLightMeasurementDataSet() != null) {
+                  return true;
+                } else {
+                  return false;
+                }
+              } else if (element instanceof CellMeasurementDataSet) {
+                return false;
+              }
+              return false;
+            }
 
-			@Override
-			public void doubleClick(DoubleClickEvent event) {
+            @Override
+            public Object getParent(Object element) {
+              return ((EObject) element).eContainer();
+            }
 
-				Object selectedElement = (EObject) treeViewer.getStructuredSelection().getFirstElement();
-				if (selectedElement instanceof EObject == false) {
-					return;
-				}
+            @Override
+            public Object[] getElements(Object inputElement) {
+              Database database = (Database) inputElement;
+              return database.getCellGroups().toArray();
+            }
 
-				String label = null;
-				if (selectedElement instanceof EObject) {
-					EObject eObject = (EObject) selectedElement;
-					EAttribute attribute = eObject.eClass().getEAttributes().stream()
-							.filter(attr -> attr.getName() == "name").findFirst().orElse(null);
-					if (attribute != null) {
-						label = (String) eObject.eGet(attribute);
-					}
+            @Override
+            public Object[] getChildren(Object parentElement) {
+              if (parentElement instanceof CellGroup) {
+                return ((CellGroup) parentElement).getCellResults().toArray();
+              } else if (parentElement instanceof CellResult) {
+                CellResult result = (CellResult) parentElement;
+                if (result.getDarkMeasuremenetDataSet() != null
+                    && result.getLightMeasurementDataSet() != null) {
+                  return new Object[] {result.getLightMeasurementDataSet(),
+                      result.getDarkMeasuremenetDataSet()};
+                } else if (result.getDarkMeasuremenetDataSet() == null) {
+                  return new Object[] {result.getLightMeasurementDataSet()};
+                } else if (result.getLightMeasurementDataSet() == null) {
+                  return new Object[] {result.getDarkMeasuremenetDataSet()};
+                }
+              }
+              return new Object[] {};
+            }
+          })
+          .create();
 
-				}
-				if (label == null) {
-					label = "Editor";
-				}
+    EContentAdapter adpater = new EContentAdapter() {
+      @Override
+      public void notifyChanged(Notification notification) {
+        super.notifyChanged(notification);
+        dirtyable.setDirty(true);
+        dirtyTreeElements.add(notification.getNotifier());
+        if (DatamodelPackage.eINSTANCE.getCellResult_Name().equals(notification.getFeature())) {
+          URI uri = EcoreUtil.getURI((EObject) notification.getNotifier());
+          MPart editorPart = createdEditors.get(uri);
+          if (editorPart != null) {
+            String newLabel = notification.getNewStringValue();
+            if (newLabel.isEmpty() == false) {
+              editorPart.setLabel(newLabel);
+            }
+          }
+        }
 
-				URI uri = EcoreUtil.getURI((EObject) selectedElement);
+      }
+    };
+    database.eAdapters().add(adpater);
 
-				MPart editorPart;
+    treeViewer.addDoubleClickListener(new IDoubleClickListener() {
 
-				editorPart = createdEditors.get(uri);
-				if (editorPart != null) {
-					partService.showPart(editorPart, PartState.ACTIVATE);
-					return;
-				}
-				editorPart = partService.getParts().stream()
-						.filter(part -> part.getElementId()
-								.equals("at.sunplugged.celldatabase.rcp.modeleditor.partdescriptor.modeleditor"))
-						.filter(part -> part.getTransientData().get("uri").equals(uri)).findAny().orElse(null);
-				if (editorPart != null) {
-					partService.showPart(editorPart, PartState.ACTIVATE);
-					return;
-				}
-				editorPart = partService
-						.createPart("at.sunplugged.celldatabase.rcp.modeleditor.partdescriptor.modeleditor");
+      @Override
+      public void doubleClick(DoubleClickEvent event) {
 
-				editorPart.setLabel(label);
-				editorPart.getTransientData().put("data", selectedElement);
+        Object selectedElement = (EObject) treeViewer.getStructuredSelection().getFirstElement();
+        if (selectedElement instanceof EObject == false) {
+          return;
+        }
 
-				editorPart.getTransientData().put("uri", uri);
-				createdEditors.put(uri, editorPart);
-				MPartStack partStack = (MPartStack) modelService.find("at.sunplugged.celldatabase.rcp.partstack.1",
-						app);
+        String label = null;
+        if (selectedElement instanceof EObject) {
+          EObject eObject = (EObject) selectedElement;
+          EAttribute attribute = eObject
+              .eClass()
+                .getEAttributes()
+                .stream()
+                .filter(attr -> attr.getName() == "name")
+                .findFirst()
+                .orElse(null);
+          if (attribute != null) {
+            label = (String) eObject.eGet(attribute);
+          }
 
-				partStack.getChildren().add(editorPart);
-				partService.showPart(editorPart, PartState.ACTIVATE);
+        }
+        if (label == null) {
+          label = "Editor";
+        }
 
-			}
-		});
+        URI uri = EcoreUtil.getURI((EObject) selectedElement);
 
-		treeViewer.collapseAll();
+        MPart editorPart;
 
-		menuService.registerContextMenu(treeViewer.getControl(),
-				"at.sunplugged.celldatabase.rcp.modelviewer.popupmenu.treepopupmenu");
-		ctx.set("TreeViewer", treeViewer);
+        editorPart = createdEditors.get(uri);
+        if (editorPart != null) {
+          partService.showPart(editorPart, PartState.ACTIVATE);
+          return;
+        }
+        editorPart = partService
+            .getParts()
+              .stream()
+              .filter(part -> part.getElementId().equals(
+                  "at.sunplugged.celldatabase.rcp.modeleditor.partdescriptor.modeleditor"))
+              .filter(part -> part.getTransientData().get("uri").equals(uri))
+              .findAny()
+              .orElse(null);
+        if (editorPart != null) {
+          partService.showPart(editorPart, PartState.ACTIVATE);
+          return;
+        }
+        editorPart = partService
+            .createPart("at.sunplugged.celldatabase.rcp.modeleditor.partdescriptor.modeleditor");
 
-	}
+        editorPart.setLabel(label);
+        editorPart.getTransientData().put("data", selectedElement);
+
+        editorPart.getTransientData().put("uri", uri);
+        createdEditors.put(uri, editorPart);
+        MPartStack partStack =
+            (MPartStack) modelService.find("at.sunplugged.celldatabase.rcp.partstack.1", app);
+
+        partStack.getChildren().add(editorPart);
+        partService.showPart(editorPart, PartState.ACTIVATE);
+
+      }
+    });
+
+    treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+
+      @Override
+      public void selectionChanged(SelectionChangedEvent event) {
+        IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+        selectionService.setSelection(
+            selection.size() == 1 ? selection.getFirstElement() : selection.toArray());
+      }
+    });
+
+    treeViewer.collapseAll();
+
+    menuService.registerContextMenu(treeViewer.getControl(),
+        "at.sunplugged.celldatabase.rcp.modelviewer.popupmenu.treepopupmenu");
+    ctx.set("TreeViewer", treeViewer);
+
+  }
 
 }

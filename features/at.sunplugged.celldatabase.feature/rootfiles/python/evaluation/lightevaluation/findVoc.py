@@ -15,8 +15,8 @@ def findVoc(data, epsilon = 0.001):
     '''
     
     #epsilon only uses data for fitting where -epsilon < I < epsilon
-    startRange = np.where(((data[:, 1] > -epsilon) == True) & (data[:,0] > 0))[0][0]
-    endRange = np.where(((data[:, 1] > epsilon) == True) & (data[:,0] > 0))[0][0]
+    startRange = np.where(((data[:, 1] < epsilon) == True) & (data[:,0] > 0))[0][0]
+    endRange = np.where(((data[:, 1] < -epsilon) == True) & (data[:,0] > 0))[0][0]
     if endRange <= startRange or (endRange - startRange < 10):
         return findVoc(data, epsilon * 2)
     

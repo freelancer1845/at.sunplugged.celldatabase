@@ -28,6 +28,9 @@
 		<module>at.sunplugged.celldatabase.database.hibernate</module>
 		<module>at.sunplugged.celldatabase.plotting</module>
 		<module>at.sunplugged.celldatabase.common</module>
+		<module>at.sunplugged.celldatabase.common.ui</module>
+		<module>at.sunplugged.celldatabase.sprodaccess</module>
+		<module>at.sunplugged.celldatabase.sprodaccess.ui</module>
 		<!-- 
 		<module>org.eclipse.emf.compare.ide.ui.e4</module>
 		<module>org.eclipse.compare</module>

@@ -10,7 +10,7 @@ from scipy.interpolate import interp1d
 
 def findMpp(data):
     '''
-        Finds Mpp by interpolating U*I*-1 in a cubic way.
+        Finds Mpp by interpolating U*I in a cubic way.
         Parameters:
             data: 2-D Array containing U-I data
         Returns:
@@ -23,7 +23,7 @@ def findMpp(data):
             if uniqueData[i,0] == uniqueData[i + 1,0]:
                 uniqueData[i,0] = uniqueData[i,0] - 1e-8
     
-    iF = interp1d(uniqueData[:,0],uniqueData[:,1] * uniqueData[:,0] * -1, 'cubic')
+    iF = interp1d(uniqueData[:,0],uniqueData[:,1] * uniqueData[:,0], 'cubic')
     x = scipy.optimize.fmin(lambda x: iF(x) * -1, 0, disp=False)
     uIInterp = interp1d(uniqueData[:,0], uniqueData[:,1], 'cubic')
     return np.array([x[0], uIInterp(x[0]),  iF(x)[0]])

@@ -6,45 +6,44 @@
     operationReflection="true" importOrganizing="true">
   <foreignModel>datamodel.ecore</foreignModel>
   <genPackages prefix="Datamodel" disposableProviderFactory="true" ecorePackage="datamodel.ecore#/">
-    <genDataTypes ecoreDataType="datamodel.ecore#//VoltageCurrentData"/>
     <genClasses ecoreClass="datamodel.ecore#//Database">
       <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference datamodel.ecore#//Database/cellGroups"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datamodel.ecore#//Database/cellMeasurementDataSets"/>
-      <genFeatures property="None" createChild="true" ecoreFeature="ecore:EReference datamodel.ecore#//Database/evluationMethods"/>
     </genClasses>
     <genClasses ecoreClass="datamodel.ecore#//CellResult">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/description"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datamodel.ecore#//CellResult/evaluationMethod"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/dataEvaluated"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datamodel.ecore#//CellResult/rawData"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/openCircuitVoltage"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/shortCircuitCurrent"/>
+      <genFeatures createChild="false" propertyDescription="" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/openCircuitVoltage"/>
+      <genFeatures createChild="false" propertyDescription="" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/shortCircuitCurrent"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/parallelResistance"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/darkParallelResistance"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/seriesResistance"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/maximumPower"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/darkSeriesResistance"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/maximumPowerVoltage"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/maximumPowerCurrent"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/efficency"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/efficiency"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/fillFactor"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datamodel.ecore#//CellResult/cellMeasurmenetDataSet"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datamodel.ecore#//CellResult/lightMeasurementDataSet"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datamodel.ecore#//CellResult/darkMeasuremenetDataSet"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/maximumPower"/>
     </genClasses>
     <genClasses ecoreClass="datamodel.ecore#//CellGroup">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellGroup/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellGroup/description"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datamodel.ecore#//CellGroup/cellResults"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellGroup/customName"/>
     </genClasses>
     <genClasses ecoreClass="datamodel.ecore#//CellMeasurementDataSet">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellMeasurementDataSet/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellMeasurementDataSet/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellMeasurementDataSet/dateMeasured"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellMeasurementDataSet/voltageCurrentData"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellMeasurementDataSet/area"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellMeasurementDataSet/powerInput"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datamodel.ecore#//CellMeasurementDataSet/data"/>
     </genClasses>
-    <genClasses ecoreClass="datamodel.ecore#//EvaluationMethod">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//EvaluationMethod/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//EvaluationMethod/description"/>
+    <genClasses ecoreClass="datamodel.ecore#//UIDataPoint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//UIDataPoint/Voltage"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//UIDataPoint/Current"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

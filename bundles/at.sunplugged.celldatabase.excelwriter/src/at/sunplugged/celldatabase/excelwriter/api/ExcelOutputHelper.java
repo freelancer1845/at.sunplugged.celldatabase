@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,11 +22,13 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import at.sunplugged.celldatabase.excelwriter.internal.GroupSummary;
 import at.sunplugged.celldatabase.excelwriter.internal.PostCalculator;
 import datamodel.CellGroup;
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
+import datamodel.DatamodelFactory;
 import datamodel.DatamodelPackage;
 import datamodel.DatamodelPackage.Literals;
 import datamodel.UIDataPoint;
@@ -83,20 +86,22 @@ public class ExcelOutputHelper {
   private XSSFSheet summarySheet;
 
   public ExcelOutputHelper(List<CellResult> cellResults, String fileName) {
-    this.cellResults = cellResults;
+    this.cellResults =
+        cellResults.stream().map(result -> EcoreUtil.copy(result)).collect(Collectors.toList());
     this.fileName = fileName;
 
     this.cellGroups = null;
-    this.groupSummarys = null;
+    this.groupSummarys = new HashMap<>();
     this.path = null;
   }
 
   public ExcelOutputHelper(List<CellGroup> cellGroups, Path path) {
-    this.cellGroups = cellGroups;
+    this.cellGroups =
+        cellGroups.stream().map(group -> EcoreUtil.copy(group)).collect(Collectors.toList());
     this.path = path;
 
-    this.groupSummarys = cellGroups.stream()
-        .collect(Collectors.toMap(group -> group, group -> new GroupSummary(group)));
+    this.groupSummarys = cellGroups.stream().collect(
+        Collectors.toMap(group -> group, group -> new GroupSummary(group)));
 
     this.fileName = null;
     this.cellResults = null;
@@ -180,13 +185,11 @@ public class ExcelOutputHelper {
               summary.getStd(literal, (value, result) -> value), literal);
 
         } else {
-          writeValueToCell(cRow.createCell(colId++),
-              summary.getAverage(literal,
-                  (value, result) -> value / result.getLightMeasurementDataSet().getArea()),
+          writeValueToCell(cRow.createCell(colId++), summary.getAverage(literal,
+              (value, result) -> value / result.getLightMeasurementDataSet().getArea() / 1000000),
               literal);
-          writeValueToCell(cRow.createCell(colId++),
-              summary.getStd(literal,
-                  (value, result) -> value / result.getLightMeasurementDataSet().getArea()),
+          writeValueToCell(cRow.createCell(colId++), summary.getStd(literal,
+              (value, result) -> value / result.getLightMeasurementDataSet().getArea() / 1000000),
               literal);
         }
       }
@@ -208,6 +211,7 @@ public class ExcelOutputHelper {
 
     cRow = sheet.createRow(rowId++);
     for (String rowName : GROUP_ROW_NAMES) {
+      sheet.getColumnHelper().setColWidth(colId, 18);
       cCell = cRow.createCell(colId++);
       cCell.setCellValue(rowName);
       cCell.setCellStyle(headerCellStyle);
@@ -220,22 +224,24 @@ public class ExcelOutputHelper {
       writeValueToCell(cRow.createCell(colId++), result.getOpenCircuitVoltage(),
           Literals.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE);
       writeValueToCell(cRow.createCell(colId++),
-          result.getShortCircuitCurrent() / result.getLightMeasurementDataSet().getArea(),
+          result.getShortCircuitCurrent() / result.getLightMeasurementDataSet().getArea() / 1000000,
           Literals.CELL_RESULT__SHORT_CIRCUIT_CURRENT);
       writeValueToCell(cRow.createCell(colId++),
-          result.getParallelResistance() / result.getLightMeasurementDataSet().getArea(),
+          result.getParallelResistance() / result.getLightMeasurementDataSet().getArea() / 1000000,
           Literals.CELL_RESULT__PARALLEL_RESISTANCE);
-      writeValueToCell(cRow.createCell(colId++),
-          result.getDarkParallelResistance() / result.getLightMeasurementDataSet().getArea(),
+      writeValueToCell(
+          cRow.createCell(colId++), result.getDarkParallelResistance()
+              / result.getLightMeasurementDataSet().getArea() / 1000000,
           Literals.CELL_RESULT__DARK_PARALLEL_RESISTANCE);
       writeValueToCell(cRow.createCell(colId++),
-          result.getSeriesResistance() / result.getLightMeasurementDataSet().getArea(),
+          result.getSeriesResistance() / result.getLightMeasurementDataSet().getArea() / 1000000,
           Literals.CELL_RESULT__SERIES_RESISTANCE);
-      writeValueToCell(cRow.createCell(colId++),
-          result.getDarkSeriesResistance() / result.getLightMeasurementDataSet().getArea(),
+      writeValueToCell(
+          cRow.createCell(colId++), result.getDarkSeriesResistance()
+              / result.getLightMeasurementDataSet().getArea() / 1000000,
           Literals.CELL_RESULT__DARK_SERIES_RESISTANCE);
       writeValueToCell(cRow.createCell(colId++),
-          result.getMaximumPower() / result.getLightMeasurementDataSet().getArea(),
+          result.getMaximumPower() / result.getLightMeasurementDataSet().getArea() / 1000000,
           Literals.CELL_RESULT__MAXIMUM_POWER);
       writeValueToCell(cRow.createCell(colId++), result.getEfficiency(),
           Literals.CELL_RESULT__EFFICIENCY);
@@ -282,7 +288,15 @@ public class ExcelOutputHelper {
   private void createResultsSummaryFile(IProgressMonitor monitor) {
     monitor.subTask("Creating Summary Sheet");
 
-    createSummarySheet();
+
+    CellGroup tempGroup = DatamodelFactory.eINSTANCE.createCellGroup();
+    tempGroup.setName("Summary");
+    tempGroup.getCellResults().addAll(cellResults);
+
+    groupSummarys.put(tempGroup, new GroupSummary(tempGroup));
+
+
+    createSingleGroupSheet(workbook.createSheet(SHEET_NAME_SUMMARY), tempGroup);
 
     monitor.worked(1);
 
@@ -367,8 +381,9 @@ public class ExcelOutputHelper {
 
     nameRow = sheet.createRow(rowId++);
     valueRow = sheet.createRow(rowId++);
-    for (EAttribute attr : DatamodelPackage.eINSTANCE.getCellMeasurementDataSet()
-        .getEAttributes()) {
+    for (EAttribute attr : DatamodelPackage.eINSTANCE
+        .getCellMeasurementDataSet()
+          .getEAttributes()) {
       cCell = nameRow.createCell(colId);
       cCell.setCellStyle(headerCellStyle);
       writeValueToCell(cCell, attr.getName());

@@ -57,6 +57,7 @@ public class DataStoreController {
 
   public static void cancel() {
     LOG.debug("Canceling is not implemented yet....");
+    HbDataStore dataStore = HbHelper.INSTANCE.getDataStore(DATA_STORE_NAME_LOCAL);
     // HbHelper.INSTANCE.getDataStore(DATA_STORE_NAME).close();
   }
 
@@ -83,9 +84,12 @@ public class DataStoreController {
     hibernateProperties.setProperty(Environment.PASS,
         pref.get(Settings.PASSWORD, "xsmnn2n78f67b2"));
 
-    hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_NON_CONTAINMENT, "ALL");
-    hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_CONTAINMENT, "ALL");
+    hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_NON_CONTAINMENT,
+        "REFRESH,PERSIST,MERGE");
     hibernateProperties.setProperty(PersistenceOptions.INHERITANCE_MAPPING, "JOINED");
+    // hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_NON_CONTAINMENT, "ALL");
+    // hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_CONTAINMENT, "ALL");
+    // hibernateProperties.setProperty(PersistenceOptions.INHERITANCE_MAPPING, "JOINED");
     final HbDataStore dataStore =
         HbHelper.INSTANCE.createRegisterDataStore(DataStoreController.DATA_STOE_NAME_REMOTE);
     dataStore.setDataStoreProperties(hibernateProperties);
@@ -131,9 +135,13 @@ public class DataStoreController {
 
     hibernateProperties.setProperty(Environment.PASS, "");
 
-    hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_NON_CONTAINMENT, "ALL");
-    hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_CONTAINMENT, "ALL");
+    hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_NON_CONTAINMENT,
+        "REFRESH,PERSIST,MERGE");
     hibernateProperties.setProperty(PersistenceOptions.INHERITANCE_MAPPING, "JOINED");
+    hibernateProperties.setProperty(Environment.SHOW_SQL, "true");
+    // hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_NON_CONTAINMENT, "ALL");
+    // hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_CONTAINMENT, "ALL");
+    // hibernateProperties.setProperty(PersistenceOptions.INHERITANCE_MAPPING, "JOINED");
 
     final HbDataStore dataStore =
         HbHelper.INSTANCE.createRegisterDataStore(DataStoreController.DATA_STORE_NAME_LOCAL);

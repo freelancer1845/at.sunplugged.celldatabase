@@ -11,4 +11,5 @@ def readLabViewFile(fileName):
         Reads a data file and returns a array (Voltage, Current)
     '''
     data = numpy.loadtxt(fileName, skiprows=2);
+    data = data * (1, -1)
     return data
