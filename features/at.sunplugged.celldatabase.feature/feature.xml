@@ -16,6 +16,64 @@
       [Enter License Description here.]
    </license>
 
+   <requires>
+      <import plugin="org.eclipse.e4.ui.model.workbench" version="2.0.0.v20170228-1842" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.swt"/>
+      <import plugin="org.eclipse.emf.ecp.ui.view.swt" version="1.13.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="javax.inject"/>
+      <import plugin="javax.annotation"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.emf.edit" version="2.12.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.common"/>
+      <import plugin="org.eclipse.osgi.services"/>
+      <import plugin="org.eclipse.e4.core.services" version="2.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.e4.core.contexts"/>
+      <import plugin="org.eclipse.e4.ui.workbench"/>
+      <import plugin="org.hsqldb" version="2.3.2" match="greaterOrEqual"/>
+      <import plugin="com.microsoft.sqlserver.jdbc" version="4.0.2206" match="greaterOrEqual"/>
+      <import plugin="org.slf4j.api"/>
+      <import plugin="org.eclipse.emf.teneo" version="2.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.teneo.hibernate" version="2.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.compare" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.app"/>
+      <import plugin="ch.qos.logback.classic" version="1.0.7" match="greaterOrEqual"/>
+      <import plugin="ch.qos.logback.core" version="1.0.7" match="greaterOrEqual"/>
+      <import plugin="org.slf4j.api" version="1.7.2" match="greaterOrEqual"/>
+      <import plugin="javax.persistence"/>
+      <import plugin="org.apache.poi" version="3.9.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.poi.ooxml" version="3.9.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.jobs"/>
+      <import plugin="org.eclipse.core.runtime" version="3.13.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.commons.math3" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jface"/>
+      <import plugin="org.eclipse.e4.ui.services"/>
+      <import plugin="org.eclipse.e4.core.di"/>
+      <import plugin="org.eclipse.e4.ui.di"/>
+      <import plugin="org.eclipse.e4.ui.progress" version="0.1.100" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.edit.ui"/>
+      <import plugin="at.sunplugged.celldatabase.common.ui" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emfforms.swt.core" version="1.13.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emfforms.swt.treemasterdetail" version="1.13.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.e4.core.di.annotations"/>
+      <import plugin="com.google.gson"/>
+      <import plugin="org.apache.commons.exec"/>
+      <import plugin="org.eclipse.emf.compare.ide.ui"/>
+      <import plugin="org.eclipse.emf.compare.edit"/>
+      <import plugin="org.eclipse.equinox.registry"/>
+      <import plugin="org.eclipse.emf.ecp.core"/>
+      <import plugin="com.google.gson" version="2.7.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.commons.exec" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.preferences"/>
+      <import plugin="org.eclipse.osgi.services" version="3.6.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.databinding.observable"/>
+      <import plugin="org.eclipse.jface.databinding" version="1.8.100" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.databinding" version="1.6.100" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emfforms.swt.table" version="1.13.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emfforms.common" version="1.13.1" match="greaterOrEqual"/>
+   </requires>
+
    <plugin
          id="at.sunplugged.celldatabase.rcp.modeleditor"
          download-size="0"
@@ -29,12 +87,6 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <plugin
-         id="at.sunplugged.celldatabase.database.hibernate"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
 
    <plugin
          id="at.sunplugged.celldatabase.excelwriter"

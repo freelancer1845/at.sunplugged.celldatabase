@@ -13,6 +13,11 @@
 
     <modules>
         <module>at.sunplugged.celldatabase.feature</module>
+        <!-- <module>at.sunplugged.celldatabase.feature.target</module> -->
+        <module>at.sunplugged.celldatabase.feature.logging</module>
+        <module>at.sunplugged.celldatabase.feature.apache</module>
+        <module>at.sunplugged.celldatabase.feature.google</module>
+        <module>at.sunplugged.celldatabase.feature.teneo</module>
         <module>at.sunplugged.celldatabase.feature.target</module>
     </modules>
 </project>

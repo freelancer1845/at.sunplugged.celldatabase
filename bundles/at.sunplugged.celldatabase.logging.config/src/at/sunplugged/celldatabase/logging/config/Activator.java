@@ -1,8 +1,12 @@
 package at.sunplugged.celldatabase.logging.config;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.osgi.service.datalocation.Location;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -52,7 +56,15 @@ public class Activator implements BundleActivator {
     // if (config.exists()) {
     // jc.doConfigure(config);
     // } else {
-    jc.doConfigure(FileLocator.openStream(bundle, new Path("logback.xml"), false));
+    Location installLocation = Platform.getInstallLocation();
+    String installPath = installLocation.getURL().getPath().replaceAll("^/", "");
+    File file = Paths.get(installPath, "logback.xml").toFile();
+    if (file.exists()) {
+      jc.doConfigure(file);
+    } else {
+      jc.doConfigure(FileLocator.openStream(bundle, new Path("logback.xml"), false));
+    }
+
     // }
 
   }

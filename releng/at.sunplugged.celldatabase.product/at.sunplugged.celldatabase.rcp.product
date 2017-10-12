@@ -8,6 +8,7 @@
 
    <launcherArgs>
       <programArgs>-clearPersistedState
+-console
       </programArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
@@ -246,12 +247,55 @@
 
    <features>
       <feature id="at.sunplugged.celldatabase.feature" version="1.0.0.qualifier"/>
+      <feature id="at.sunplugged.celldatabase.feature.apache" version="1.0.0.qualifier"/>
+      <feature id="at.sunplugged.celldatabase.feature.google" version="1.0.0.qualifier"/>
+      <feature id="at.sunplugged.celldatabase.feature.logging" version="1.0.0.qualifier"/>
+      <feature id="at.sunplugged.celldatabase.feature.teneo" version="1.0.0.qualifier"/>
       <feature id="at.sunplugged.celldatabase.feature.target" version="1.0.0.qualifier"/>
+      <feature id="org.eclipse.emf.ecore"/>
+      <feature id="org.eclipse.emf.common"/>
+      <feature id="com.microsoft.sqlserver.jdbc" version="4.0.2206.100"/>
+      <feature id="org.eclipse.emf.compare" version="3.3.2.201709090201"/>
+      <feature id="org.hsqldb" version="2.3.2"/>
+      <feature id="org.eclipse.emf.edit" version="2.12.0.v20170609-0928"/>
+      <feature id="org.eclipse.e4.ui.progress.feature" version="0.1.0.v20150731-0425"/>
+      <feature id="javax.persistence" version="2.1.0"/>
+      <feature id="org.eclipse.emf.compare.ide.ui" version="3.3.2.201709090201"/>
+      <feature id="org.eclipse.emf.ecp.view.treemasterdetail.feature" version="1.13.1.20170711-0730"/>
+      <feature id="org.eclipse.emf.ecp.feature" version="1.13.1.20170711-0730"/>
+      <feature id="org.eclipse.emf.ecp.viewmodel.feature" version="1.13.1.20170711-0730"/>
+      <feature id="org.eclipse.emf.edit.ui" version="2.13.0.v20170609-0928"/>
+      <feature id="org.eclipse.emf.ecp.view.table.feature" version="1.13.1.20170711-0730"/>
+      <feature id="org.eclipse.emfforms.editor.feature" version="1.13.1.20170711-0730"/>
+      <feature id="org.eclipse.emf.ecp.view.group.feature" version="1.13.1.20170711-0730"/>
+      <feature id="org.eclipse.emf.codegen.ecore.ui" version="2.13.0.v20170609-0928"/>
+      <feature id="org.eclipse.emf.codegen.ecore" version="2.13.0.v20170609-0928"/>
+      <feature id="org.eclipse.emf.codegen" version="2.12.0.v20170609-0928"/>
+      <feature id="org.eclipse.emf.ecp.emfforms.idetooling.feature" version="1.13.1.20170711-0730"/>
+      <feature id="org.eclipse.emf.ecp.workspace.feature" version="1.13.1.20170711-0730"/>
+      <feature id="org.eclipse.emf.ecp.emfforms.runtime.feature"/>
+      <feature id="org.eclipse.emf.ecp.view.vertical.feature"/>
+      <feature id="org.eclipse.emf.ecp.view.template.feature"/>
+      <feature id="org.eclipse.emf.ecp.view.label.feature"/>
+      <feature id="org.eclipse.emf.ecp.view.model.controls.feature"/>
+      <feature id="org.eclipse.emf.ecp.view.categorization.feature"/>
+      <feature id="org.eclipse.emf.ecp.view.model.editor.feature"/>
+      <feature id="org.eclipse.emf.ecp.view.custom.feature"/>
+      <feature id="org.eclipse.emf.ecp.view.stack.feature"/>
+      <feature id="org.eclipse.emf.ecp.view.compoundcontrol.feature"/>
+      <feature id="org.eclipse.emf.ecp.view.validation.feature"/>
+      <feature id="org.eclipse.emf.ecp.view.rule.feature"/>
+      <feature id="org.eclipse.emf.ecp.view.unset.feature"/>
+      <feature id="org.eclipse.emf.ecp.view.horizontal.feature"/>
+      <feature id="org.eclipse.emf.ecp.view.validation.initial.feature"/>
+      <feature id="org.eclipse.e4.rcp" version="1.6.1.v20170928-1359"/>
+      <feature id="org.eclipse.rcp" version="4.7.1.v20171009-0410"/>
+      <feature id="org.eclipse.equinox.core.feature" version="1.4.1.v20170928-1321"/>
    </features>
 
    <configurations>
-      <plugin id="at.sunplugged.celldatabase.logging.config" autoStart="true" startLevel="1" />
-      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="1" />
+      <plugin id="at.sunplugged.celldatabase.logging.config" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />

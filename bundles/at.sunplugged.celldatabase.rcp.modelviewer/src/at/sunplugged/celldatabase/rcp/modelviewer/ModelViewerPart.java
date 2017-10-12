@@ -199,7 +199,7 @@ public class ModelViewerPart {
                   return new Object[] {result.getLightMeasurementDataSet()};
                 } else if (result.getLightMeasurementDataSet() == null) {
                   return new Object[] {result.getDarkMeasuremenetDataSet()};
-                }
+                } 
               }
               return new Object[] {};
             }
