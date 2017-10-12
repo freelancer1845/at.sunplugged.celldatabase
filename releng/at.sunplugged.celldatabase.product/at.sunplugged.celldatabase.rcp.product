@@ -288,9 +288,21 @@
       <feature id="org.eclipse.emf.ecp.view.unset.feature"/>
       <feature id="org.eclipse.emf.ecp.view.horizontal.feature"/>
       <feature id="org.eclipse.emf.ecp.view.validation.initial.feature"/>
-      <feature id="org.eclipse.e4.rcp" version="1.6.1.v20170928-1359"/>
-      <feature id="org.eclipse.rcp" version="4.7.1.v20171009-0410"/>
       <feature id="org.eclipse.equinox.core.feature" version="1.4.1.v20170928-1321"/>
+      <feature id="org.eclipse.platform" version="4.7.1.v20171009-0410"/>
+      <feature id="org.eclipse.ecf.filetransfer.httpclient4.feature"/>
+      <feature id="org.eclipse.help"/>
+      <feature id="org.eclipse.equinox.p2.core.feature"/>
+      <feature id="org.eclipse.ecf.core.ssl.feature"/>
+      <feature id="org.eclipse.ecf.filetransfer.ssl.feature"/>
+      <feature id="org.eclipse.rcp"/>
+      <feature id="org.eclipse.equinox.p2.rcp.feature"/>
+      <feature id="org.eclipse.ecf.filetransfer.feature"/>
+      <feature id="org.eclipse.ecf.filetransfer.httpclient4.ssl.feature"/>
+      <feature id="org.eclipse.equinox.p2.user.ui"/>
+      <feature id="org.eclipse.equinox.p2.extras.feature"/>
+      <feature id="org.eclipse.ecf.core.feature"/>
+      <feature id="org.eclipse.e4.rcp"/>
    </features>
 
    <configurations>
