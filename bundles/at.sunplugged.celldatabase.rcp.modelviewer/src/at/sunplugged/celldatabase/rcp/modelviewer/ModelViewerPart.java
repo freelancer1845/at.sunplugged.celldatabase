@@ -1,4 +1,3 @@
-
 package at.sunplugged.celldatabase.rcp.modelviewer;
 
 import java.util.ArrayList;
@@ -119,92 +118,89 @@ public class ModelViewerPart {
     // TreeViewer treeViewer = TreeViewerSWTFactory.createTreeViewer(parent,
     // databaseService.getDatabase());
 
-    TreeViewer treeViewer = TreeViewerSWTFactory
-        .fillDefaults(parent, databaseService.getDatabase())
-          .customizeLabelDecorator(new ILabelDecorator() {
+    TreeViewer treeViewer = TreeViewerSWTFactory.fillDefaults(parent, databaseService.getDatabase())
+        .customizeLabelDecorator(new ILabelDecorator() {
 
-            @Override
-            public void removeListener(ILabelProviderListener listener) {
+          @Override
+          public void removeListener(ILabelProviderListener listener) {
 
+        }
+
+          @Override
+          public boolean isLabelProperty(Object element, String property) {
+            return false;
           }
 
-            @Override
-            public boolean isLabelProperty(Object element, String property) {
-              return false;
+          @Override
+          public void dispose() {}
+
+          @Override
+          public void addListener(ILabelProviderListener listener) {}
+
+          @Override
+          public String decorateText(String text, Object element) {
+            if (dirtyTreeElements.contains(element)) {
+              return "*" + text;
             }
+            return text;
+          }
 
-            @Override
-            public void dispose() {}
+          @Override
+          public Image decorateImage(Image image, Object element) {
+            return null;
+          }
+        }).customizeContentProvider(new ITreeContentProvider() {
 
-            @Override
-            public void addListener(ILabelProviderListener listener) {}
-
-            @Override
-            public String decorateText(String text, Object element) {
-              if (dirtyTreeElements.contains(element)) {
-                return "*" + text;
-              }
-              return text;
-            }
-
-            @Override
-            public Image decorateImage(Image image, Object element) {
-              return null;
-            }
-          })
-          .customizeContentProvider(new ITreeContentProvider() {
-
-            @Override
-            public boolean hasChildren(Object element) {
-              if (element instanceof Database) {
-                return ((Database) element).getCellGroups().isEmpty() == false;
-              } else if (element instanceof CellGroup) {
-                return ((CellGroup) element).getCellResults().isEmpty() == false;
-              } else if (element instanceof CellResult) {
-                if (((CellResult) element).getDarkMeasuremenetDataSet() != null) {
-                  return true;
-                } else if (((CellResult) element).getLightMeasurementDataSet() != null) {
-                  return true;
-                } else {
-                  return false;
-                }
-              } else if (element instanceof CellMeasurementDataSet) {
+          @Override
+          public boolean hasChildren(Object element) {
+            if (element instanceof Database) {
+              return ((Database) element).getCellGroups().isEmpty() == false;
+            } else if (element instanceof CellGroup) {
+              return ((CellGroup) element).getCellResults().isEmpty() == false;
+            } else if (element instanceof CellResult) {
+              if (((CellResult) element).getDarkMeasuremenetDataSet() != null) {
+                return true;
+              } else if (((CellResult) element).getLightMeasurementDataSet() != null) {
+                return true;
+              } else {
                 return false;
               }
+            } else if (element instanceof CellMeasurementDataSet) {
               return false;
             }
+            return false;
+          }
 
-            @Override
-            public Object getParent(Object element) {
-              return ((EObject) element).eContainer();
-            }
+          @Override
+          public Object getParent(Object element) {
+            return ((EObject) element).eContainer();
+          }
 
-            @Override
-            public Object[] getElements(Object inputElement) {
-              Database database = (Database) inputElement;
-              return database.getCellGroups().toArray();
-            }
+          @Override
+          public Object[] getElements(Object inputElement) {
+            Database database = (Database) inputElement;
+            return database.getCellGroups().toArray();
+          }
 
-            @Override
-            public Object[] getChildren(Object parentElement) {
-              if (parentElement instanceof CellGroup) {
-                return ((CellGroup) parentElement).getCellResults().toArray();
-              } else if (parentElement instanceof CellResult) {
-                CellResult result = (CellResult) parentElement;
-                if (result.getDarkMeasuremenetDataSet() != null
-                    && result.getLightMeasurementDataSet() != null) {
-                  return new Object[] {result.getLightMeasurementDataSet(),
-                      result.getDarkMeasuremenetDataSet()};
-                } else if (result.getDarkMeasuremenetDataSet() == null) {
-                  return new Object[] {result.getLightMeasurementDataSet()};
-                } else if (result.getLightMeasurementDataSet() == null) {
-                  return new Object[] {result.getDarkMeasuremenetDataSet()};
-                } 
+          @Override
+          public Object[] getChildren(Object parentElement) {
+            if (parentElement instanceof CellGroup) {
+              return ((CellGroup) parentElement).getCellResults().toArray();
+            } else if (parentElement instanceof CellResult) {
+              CellResult result = (CellResult) parentElement;
+              if (result.getDarkMeasuremenetDataSet() != null
+                  && result.getLightMeasurementDataSet() != null) {
+                return new Object[] {result.getLightMeasurementDataSet(),
+                    result.getDarkMeasuremenetDataSet()};
+              } else if (result.getDarkMeasuremenetDataSet() == null) {
+                return new Object[] {result.getLightMeasurementDataSet()};
+              } else if (result.getLightMeasurementDataSet() == null) {
+                return new Object[] {result.getDarkMeasuremenetDataSet()};
               }
-              return new Object[] {};
             }
-          })
-          .create();
+            return new Object[] {};
+          }
+        }).create();
 
     EContentAdapter adpater = new EContentAdapter() {
       @Override
@@ -240,13 +236,8 @@ public class ModelViewerPart {
         String label = null;
         if (selectedElement instanceof EObject) {
           EObject eObject = (EObject) selectedElement;
-          EAttribute attribute = eObject
-              .eClass()
-                .getEAttributes()
-                .stream()
-                .filter(attr -> attr.getName() == "name")
-                .findFirst()
-                .orElse(null);
+          EAttribute attribute = eObject.eClass().getEAttributes().stream()
+              .filter(attr -> attr.getName() == "name").findFirst().orElse(null);
           if (attribute != null) {
             label = (String) eObject.eGet(attribute);
           }
@@ -265,14 +256,10 @@ public class ModelViewerPart {
           partService.showPart(editorPart, PartState.ACTIVATE);
           return;
         }
-        editorPart = partService
-            .getParts()
-              .stream()
-              .filter(part -> part.getElementId().equals(
-                  "at.sunplugged.celldatabase.rcp.modeleditor.partdescriptor.modeleditor"))
-              .filter(part -> part.getTransientData().get("uri").equals(uri))
-              .findAny()
-              .orElse(null);
+        editorPart = partService.getParts().stream()
+            .filter(part -> part.getElementId()
+                .equals("at.sunplugged.celldatabase.rcp.modeleditor.partdescriptor.modeleditor"))
+            .filter(part -> part.getTransientData().get("uri").equals(uri)).findAny().orElse(null);
         if (editorPart != null) {
           partService.showPart(editorPart, PartState.ACTIVATE);
           return;

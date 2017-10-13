@@ -1,5 +1,6 @@
 package at.sunplugged.celldatabase.sprodaccess.ui.wizard;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.wizard.Wizard;
 import at.sunplugged.celldatabase.sprodaccess.api.SprodAccessService;
 import at.sunplugged.celldatabase.sprodaccess.ui.wizard.internal.PageOne;

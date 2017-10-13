@@ -26,19 +26,15 @@ public class GroupSummary {
 
   private double calculateAverage(EAttribute attribute, PostCalculator postCalculator) {
     if (DatamodelPackage.Literals.CELL_RESULT.getEStructuralFeatures().contains(attribute)) {
-      return group.getCellResults()
-          .stream()
+      return group.getCellResults().stream()
           .mapToDouble(result -> postCalculator.calc((double) result.eGet(attribute), result))
-          .average()
-          .getAsDouble();
+          .average().getAsDouble();
     } else if (DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET.getEStructuralFeatures()
         .contains(attribute)) {
-      return group.getCellResults()
-          .stream()
+      return group.getCellResults().stream()
           .mapToDouble(result -> postCalculator
               .calc((double) result.getLightMeasurementDataSet().eGet(attribute), result))
-          .average()
-          .getAsDouble();
+          .average().getAsDouble();
     } else {
       throw new IllegalArgumentException(
           "This attribute is not contained in either CellResults or CellMeasurementDataSet: "
@@ -49,8 +45,7 @@ public class GroupSummary {
   private double calculateStd(EAttribute attribute, PostCalculator postCalculator) {
     if (DatamodelPackage.Literals.CELL_RESULT.getEStructuralFeatures().contains(attribute)) {
       StandardDeviation std = new StandardDeviation();
-      double[] values = group.getCellResults()
-          .stream()
+      double[] values = group.getCellResults().stream()
           .mapToDouble(result -> postCalculator.calc((double) result.eGet(attribute), result))
           .toArray();
       double value = std.evaluate(values, getAverage(attribute, postCalculator));
@@ -59,8 +54,7 @@ public class GroupSummary {
         .contains(attribute)) {
 
       StandardDeviation std = new StandardDeviation();
-      double[] values = group.getCellResults()
-          .stream()
+      double[] values = group.getCellResults().stream()
           .mapToDouble(result -> postCalculator
               .calc((double) result.getLightMeasurementDataSet().eGet(attribute), result))
           .toArray();

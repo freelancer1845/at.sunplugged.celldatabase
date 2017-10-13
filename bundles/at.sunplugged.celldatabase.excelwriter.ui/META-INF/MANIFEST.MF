@@ -4,13 +4,22 @@ Bundle-Name: Ui
 Bundle-SymbolicName: at.sunplugged.celldatabase.excelwriter.ui
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.eclipse.jface,
- org.eclipse.emf.ecore,
- org.eclipse.emf.edit,
- org.eclipse.emfforms.swt.treemasterdetail,
- org.eclipse.swt
 Import-Package: at.sunplugged.celldatabase.excelwriter.api,
  datamodel,
  datamodel.provider,
- org.eclipse.emfforms.spi.swt.treemasterdetail;version="1.13.1"
+ org.eclipse.emf.common.command,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.resource,
+ org.eclipse.emf.ecore.util,
+ org.eclipse.emf.edit.command,
+ org.eclipse.emf.edit.domain,
+ org.eclipse.emf.edit.provider,
+ org.eclipse.emfforms.spi.swt.treemasterdetail;version="1.13.1",
+ org.eclipse.jface.action,
+ org.eclipse.jface.dialogs,
+ org.eclipse.jface.viewers,
+ org.eclipse.jface.wizard,
+ org.eclipse.swt,
+ org.eclipse.swt.layout,
+ org.eclipse.swt.widgets
 Export-Package: at.sunplugged.celldatabase.excelwriter.ui.wizards.summary

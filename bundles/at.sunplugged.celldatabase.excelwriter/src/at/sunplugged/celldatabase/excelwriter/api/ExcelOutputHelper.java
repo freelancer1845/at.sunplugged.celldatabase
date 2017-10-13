@@ -100,8 +100,8 @@ public class ExcelOutputHelper {
         cellGroups.stream().map(group -> EcoreUtil.copy(group)).collect(Collectors.toList());
     this.path = path;
 
-    this.groupSummarys = cellGroups.stream().collect(
-        Collectors.toMap(group -> group, group -> new GroupSummary(group)));
+    this.groupSummarys = cellGroups.stream()
+        .collect(Collectors.toMap(group -> group, group -> new GroupSummary(group)));
 
     this.fileName = null;
     this.cellResults = null;
@@ -381,9 +381,8 @@ public class ExcelOutputHelper {
 
     nameRow = sheet.createRow(rowId++);
     valueRow = sheet.createRow(rowId++);
-    for (EAttribute attr : DatamodelPackage.eINSTANCE
-        .getCellMeasurementDataSet()
-          .getEAttributes()) {
+    for (EAttribute attr : DatamodelPackage.eINSTANCE.getCellMeasurementDataSet()
+        .getEAttributes()) {
       cCell = nameRow.createCell(colId);
       cCell.setCellStyle(headerCellStyle);
       writeValueToCell(cCell, attr.getName());

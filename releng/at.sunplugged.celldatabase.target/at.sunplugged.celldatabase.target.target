@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target includeMode="feature" name="at.sunplugged.celldatabase" sequenceNumber="28">
+<?pde version="3.8"?><target name="at.sunplugged.celldatabase" sequenceNumber="30">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.emf.ecp.emfforms.sdk.feature.feature.group" version="1.13.1.20170711-0730"/>
-<repository location="http://download.eclipse.org/ecp/releases/releases_target_113/"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.emf.teneo.hibernate.sdk.feature.group" version="2.1.0.v201702222200"/>
-<repository location="http://download.eclipse.org/modeling/emf/teneo/updates/2.1.0/interim/"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.e4.ui.progress.feature.feature.group" version="0.1.0.v20150731-0425"/>
-<repository location="https://hudson.eclipse.org/platform/job/eclipse4-progress-view/lastSuccessfulBuild/artifact/releng/org.eclipse.e4.ui.progress.update/target/repository/"/>
+<unit id="org.eclipse.emf.compare.ide.ui.feature.group" version="3.3.2.201709090201"/>
+<unit id="org.eclipse.emf.sdk.feature.group" version="2.13.0.v20170609-0928"/>
+<repository location="http://download.eclipse.org/releases/oxygen/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="com.microsoft.sqlserver.jdbc.feature.group" version="4.0.2206.100"/>
@@ -22,9 +15,16 @@
 <repository location="http://www.elver.org/eclipse/2.1.0/update"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.emf.compare.ide.ui.feature.group" version="3.3.2.201709090201"/>
-<unit id="org.eclipse.emf.sdk.feature.group" version="2.13.0.v20170609-0928"/>
-<repository location="http://download.eclipse.org/releases/oxygen/"/>
+<unit id="org.eclipse.e4.ui.progress.feature.feature.group" version="0.1.0.v20150731-0425"/>
+<repository location="https://hudson.eclipse.org/platform/job/eclipse4-progress-view/lastSuccessfulBuild/artifact/releng/org.eclipse.e4.ui.progress.update/target/repository/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.emf.ecp.emfforms.sdk.feature.feature.group" version="1.13.1.20170711-0730"/>
+<repository location="http://download.eclipse.org/ecp/releases/releases_target_113/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.emf.teneo.hibernate.sdk.feature.group" version="2.1.0.v201702222200"/>
+<repository location="http://download.eclipse.org/modeling/emf/teneo/updates/2.1.0/interim/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="ch.qos.logback.classic" version="1.1.2.v20160208-0839"/>
@@ -57,276 +57,9 @@
 <repository location="http://download.eclipse.org/tools/orbit/R-builds/R20170516192513/repository/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.equinox.sdk.feature.group" version="3.13.1.v20170928-1405"/>
-<unit id="org.eclipse.platform.ide" version="4.7.1.M20171009-0410"/>
-<unit id="org.eclipse.rcp.feature.group" version="4.7.1.v20171009-0410"/>
-<repository location="http://download.eclipse.org/eclipse/updates/4.7"/>
+<unit id="org.eclipse.equinox.sdk.feature.group" version="3.12.0.v20170209-1843"/>
+<unit id="org.eclipse.platform.ide" version="4.6.3.M20170301-0400"/>
+<repository location="http://download.eclipse.org/eclipse/updates/4.6"/>
 </location>
 </locations>
-<includeBundles>
-<feature id="com.microsoft.sqlserver.jdbc"/>
-<feature id="javax.persistence"/>
-<feature id="org.eclipse.e4.rcp"/>
-<feature id="org.eclipse.e4.ui.progress.feature"/>
-<feature id="org.eclipse.ecf.core.feature"/>
-<feature id="org.eclipse.ecf.core.ssl.feature"/>
-<feature id="org.eclipse.ecf.filetransfer.feature"/>
-<feature id="org.eclipse.ecf.filetransfer.httpclient4.feature"/>
-<feature id="org.eclipse.ecf.filetransfer.httpclient4.ssl.feature"/>
-<feature id="org.eclipse.ecf.filetransfer.ssl.feature"/>
-<feature id="org.eclipse.emf"/>
-<feature id="org.eclipse.emf.codegen"/>
-<feature id="org.eclipse.emf.codegen.ecore"/>
-<feature id="org.eclipse.emf.codegen.ecore.source"/>
-<feature id="org.eclipse.emf.codegen.ecore.ui"/>
-<feature id="org.eclipse.emf.codegen.ecore.ui.source"/>
-<feature id="org.eclipse.emf.codegen.source"/>
-<feature id="org.eclipse.emf.codegen.ui"/>
-<feature id="org.eclipse.emf.codegen.ui.source"/>
-<feature id="org.eclipse.emf.common"/>
-<feature id="org.eclipse.emf.common.ui"/>
-<feature id="org.eclipse.emf.common.ui.source"/>
-<feature id="org.eclipse.emf.compare"/>
-<feature id="org.eclipse.emf.compare.ide.ui"/>
-<feature id="org.eclipse.emf.converter"/>
-<feature id="org.eclipse.emf.converter.source"/>
-<feature id="org.eclipse.emf.databinding"/>
-<feature id="org.eclipse.emf.databinding.edit"/>
-<feature id="org.eclipse.emf.databinding.edit.source"/>
-<feature id="org.eclipse.emf.databinding.source"/>
-<feature id="org.eclipse.emf.doc"/>
-<feature id="org.eclipse.emf.doc.source"/>
-<feature id="org.eclipse.emf.ecore"/>
-<feature id="org.eclipse.emf.ecore.edit"/>
-<feature id="org.eclipse.emf.ecore.edit.source"/>
-<feature id="org.eclipse.emf.ecore.editor"/>
-<feature id="org.eclipse.emf.ecore.editor.source"/>
-<feature id="org.eclipse.emf.ecp.cdo.feature"/>
-<feature id="org.eclipse.emf.ecp.cdo.feature.source"/>
-<feature id="org.eclipse.emf.ecp.demo.e3.feature"/>
-<feature id="org.eclipse.emf.ecp.demo.e3.feature.source"/>
-<feature id="org.eclipse.emf.ecp.e3.feature"/>
-<feature id="org.eclipse.emf.ecp.e3.feature.source"/>
-<feature id="org.eclipse.emf.ecp.emf2web.feature"/>
-<feature id="org.eclipse.emf.ecp.emf2web.feature.source"/>
-<feature id="org.eclipse.emf.ecp.emfforms.idetooling.feature"/>
-<feature id="org.eclipse.emf.ecp.emfforms.idetooling.feature.source"/>
-<feature id="org.eclipse.emf.ecp.emfforms.runtime.feature"/>
-<feature id="org.eclipse.emf.ecp.emfforms.runtime.feature.source"/>
-<feature id="org.eclipse.emf.ecp.emfforms.sdk.feature"/>
-<feature id="org.eclipse.emf.ecp.emfstore.feature"/>
-<feature id="org.eclipse.emf.ecp.emfstore.feature.source"/>
-<feature id="org.eclipse.emf.ecp.feature"/>
-<feature id="org.eclipse.emf.ecp.feature.source"/>
-<feature id="org.eclipse.emf.ecp.license.feature"/>
-<feature id="org.eclipse.emf.ecp.view.categorization.feature"/>
-<feature id="org.eclipse.emf.ecp.view.categorization.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.compoundcontrol.feature"/>
-<feature id="org.eclipse.emf.ecp.view.compoundcontrol.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.custom.feature"/>
-<feature id="org.eclipse.emf.ecp.view.custom.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.edapt.feature"/>
-<feature id="org.eclipse.emf.ecp.view.edapt.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.group.feature"/>
-<feature id="org.eclipse.emf.ecp.view.group.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.horizontal.feature"/>
-<feature id="org.eclipse.emf.ecp.view.horizontal.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.label.feature"/>
-<feature id="org.eclipse.emf.ecp.view.label.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.model.controls.feature"/>
-<feature id="org.eclipse.emf.ecp.view.model.controls.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.model.editor.feature"/>
-<feature id="org.eclipse.emf.ecp.view.model.editor.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.rule.feature"/>
-<feature id="org.eclipse.emf.ecp.view.rule.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.stack.feature"/>
-<feature id="org.eclipse.emf.ecp.view.stack.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.table.feature"/>
-<feature id="org.eclipse.emf.ecp.view.table.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.template.feature"/>
-<feature id="org.eclipse.emf.ecp.view.template.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.treemasterdetail.feature"/>
-<feature id="org.eclipse.emf.ecp.view.treemasterdetail.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.unset.feature"/>
-<feature id="org.eclipse.emf.ecp.view.unset.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.validation.feature"/>
-<feature id="org.eclipse.emf.ecp.view.validation.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.validation.initial.feature"/>
-<feature id="org.eclipse.emf.ecp.view.validation.initial.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.vertical.feature"/>
-<feature id="org.eclipse.emf.ecp.view.vertical.feature.source"/>
-<feature id="org.eclipse.emf.ecp.view.viewproxy.feature"/>
-<feature id="org.eclipse.emf.ecp.view.viewproxy.feature.source"/>
-<feature id="org.eclipse.emf.ecp.viewmodel.feature"/>
-<feature id="org.eclipse.emf.ecp.viewmodel.feature.source"/>
-<feature id="org.eclipse.emf.ecp.workspace.feature"/>
-<feature id="org.eclipse.emf.ecp.workspace.feature.source"/>
-<feature id="org.eclipse.emf.edapt.runtime.feature"/>
-<feature id="org.eclipse.emf.edapt.runtime.feature.source"/>
-<feature id="org.eclipse.emf.edit"/>
-<feature id="org.eclipse.emf.edit.source"/>
-<feature id="org.eclipse.emf.edit.ui"/>
-<feature id="org.eclipse.emf.edit.ui.source"/>
-<feature id="org.eclipse.emf.mapping"/>
-<feature id="org.eclipse.emf.mapping.ecore"/>
-<feature id="org.eclipse.emf.mapping.ecore.editor"/>
-<feature id="org.eclipse.emf.mapping.ecore.editor.source"/>
-<feature id="org.eclipse.emf.mapping.ecore.source"/>
-<feature id="org.eclipse.emf.mapping.source"/>
-<feature id="org.eclipse.emf.mapping.ui"/>
-<feature id="org.eclipse.emf.mapping.ui.source"/>
-<feature id="org.eclipse.emf.sdk"/>
-<feature id="org.eclipse.emf.source"/>
-<feature id="org.eclipse.emf.teneo.hibernate"/>
-<feature id="org.eclipse.emf.teneo.hibernate.sdk"/>
-<feature id="org.eclipse.emf.teneo.hibernate.source"/>
-<feature id="org.eclipse.emfforms.editor.feature"/>
-<feature id="org.eclipse.emfforms.editor.feature.source"/>
-<feature id="org.eclipse.equinox.compendium.sdk"/>
-<feature id="org.eclipse.equinox.core.feature"/>
-<feature id="org.eclipse.equinox.core.sdk"/>
-<feature id="org.eclipse.equinox.executable"/>
-<feature id="org.eclipse.equinox.sdk"/>
-<feature id="org.eclipse.equinox.server.core"/>
-<feature id="org.eclipse.equinox.server.jetty"/>
-<feature id="org.eclipse.equinox.server.p2"/>
-<feature id="org.eclipse.equinox.serverside.sdk"/>
-<feature id="org.eclipse.rcp"/>
-<feature id="org.hibernate"/>
-<feature id="org.hsqldb"/>
-<plugin id="ch.qos.logback.classic"/>
-<plugin id="ch.qos.logback.classic.source"/>
-<plugin id="ch.qos.logback.core"/>
-<plugin id="ch.qos.logback.core.source"/>
-<plugin id="ch.qos.logback.slf4j"/>
-<plugin id="ch.qos.logback.slf4j.source"/>
-<plugin id="com.google.gson"/>
-<plugin id="com.google.gson.source"/>
-<plugin id="com.google.guava"/>
-<plugin id="com.google.guava.source"/>
-<plugin id="lpg.runtime.java"/>
-<plugin id="lpg.runtime.java.source"/>
-<plugin id="org.apache.commons.exec"/>
-<plugin id="org.apache.commons.exec.source"/>
-<plugin id="org.apache.commons.math3"/>
-<plugin id="org.apache.commons.math3.source"/>
-<plugin id="org.apache.poi"/>
-<plugin id="org.apache.poi.ooxml"/>
-<plugin id="org.apache.poi.ooxml.schemas"/>
-<plugin id="org.apache.poi.ooxml.schemas.source"/>
-<plugin id="org.apache.poi.ooxml.source"/>
-<plugin id="org.apache.poi.source"/>
-<plugin id="org.apache.xmlbeans"/>
-<plugin id="org.apache.xmlbeans.source"/>
-<plugin id="org.dom4j"/>
-<plugin id="org.dom4j.source"/>
-<plugin id="org.eclipse.emf.cdo"/>
-<plugin id="org.eclipse.emf.cdo.common"/>
-<plugin id="org.eclipse.emf.cdo.common.source"/>
-<plugin id="org.eclipse.emf.cdo.edit"/>
-<plugin id="org.eclipse.emf.cdo.edit.source"/>
-<plugin id="org.eclipse.emf.cdo.net4j"/>
-<plugin id="org.eclipse.emf.cdo.net4j.source"/>
-<plugin id="org.eclipse.emf.cdo.server"/>
-<plugin id="org.eclipse.emf.cdo.server.db"/>
-<plugin id="org.eclipse.emf.cdo.server.db.source"/>
-<plugin id="org.eclipse.emf.cdo.server.net4j"/>
-<plugin id="org.eclipse.emf.cdo.server.net4j.source"/>
-<plugin id="org.eclipse.emf.cdo.server.source"/>
-<plugin id="org.eclipse.emf.cdo.source"/>
-<plugin id="org.eclipse.emf.cdo.workspace"/>
-<plugin id="org.eclipse.emf.cdo.workspace.source"/>
-<plugin id="org.eclipse.emf.compare.edit.source"/>
-<plugin id="org.eclipse.emf.compare.ide.source"/>
-<plugin id="org.eclipse.emf.compare.ide.ui.source"/>
-<plugin id="org.eclipse.emf.compare.rcp"/>
-<plugin id="org.eclipse.emf.compare.rcp.ui"/>
-<plugin id="org.eclipse.emf.compare.source"/>
-<plugin id="org.eclipse.emf.ecp.view.indexdmr.model"/>
-<plugin id="org.eclipse.emf.ecp.view.indexdmr.model.source"/>
-<plugin id="org.eclipse.emf.ecp.view.mappingdmr.model"/>
-<plugin id="org.eclipse.emf.ecp.view.mappingdmr.model.source"/>
-<plugin id="org.eclipse.emf.emfstore.client"/>
-<plugin id="org.eclipse.emf.emfstore.client.model.edit"/>
-<plugin id="org.eclipse.emf.emfstore.client.model.edit.source"/>
-<plugin id="org.eclipse.emf.emfstore.client.source"/>
-<plugin id="org.eclipse.emf.emfstore.client.ui"/>
-<plugin id="org.eclipse.emf.emfstore.client.ui.source"/>
-<plugin id="org.eclipse.emf.emfstore.common"/>
-<plugin id="org.eclipse.emf.emfstore.common.model"/>
-<plugin id="org.eclipse.emf.emfstore.common.model.edit"/>
-<plugin id="org.eclipse.emf.emfstore.common.model.edit.source"/>
-<plugin id="org.eclipse.emf.emfstore.common.model.source"/>
-<plugin id="org.eclipse.emf.emfstore.common.source"/>
-<plugin id="org.eclipse.emf.emfstore.migration"/>
-<plugin id="org.eclipse.emf.emfstore.migration.source"/>
-<plugin id="org.eclipse.emf.emfstore.server"/>
-<plugin id="org.eclipse.emf.emfstore.server.model"/>
-<plugin id="org.eclipse.emf.emfstore.server.model.edit"/>
-<plugin id="org.eclipse.emf.emfstore.server.model.edit.source"/>
-<plugin id="org.eclipse.emf.emfstore.server.model.source"/>
-<plugin id="org.eclipse.emf.emfstore.server.source"/>
-<plugin id="org.eclipse.emf.transaction"/>
-<plugin id="org.eclipse.emf.transaction.source"/>
-<plugin id="org.eclipse.emf.validation"/>
-<plugin id="org.eclipse.emf.validation.source"/>
-<plugin id="org.eclipse.emfforms.core.services.databinding.index"/>
-<plugin id="org.eclipse.emfforms.core.services.databinding.index.source"/>
-<plugin id="org.eclipse.emfforms.core.services.databinding.mapping"/>
-<plugin id="org.eclipse.emfforms.core.services.databinding.mapping.source"/>
-<plugin id="org.eclipse.emfforms.core.services.domainexpander.index"/>
-<plugin id="org.eclipse.emfforms.core.services.domainexpander.index.source"/>
-<plugin id="org.eclipse.emfforms.core.services.domainexpander.mapping"/>
-<plugin id="org.eclipse.emfforms.core.services.domainexpander.mapping.source"/>
-<plugin id="org.eclipse.emfforms.core.services.structuralchange.index"/>
-<plugin id="org.eclipse.emfforms.core.services.structuralchange.index.source"/>
-<plugin id="org.eclipse.emfforms.core.services.structuralchange.mapping"/>
-<plugin id="org.eclipse.emfforms.core.services.structuralchange.mapping.source"/>
-<plugin id="org.eclipse.emfforms.swt.control.multiattribute"/>
-<plugin id="org.eclipse.emfforms.swt.control.multiattribute.source"/>
-<plugin id="org.eclipse.net4j"/>
-<plugin id="org.eclipse.net4j.db"/>
-<plugin id="org.eclipse.net4j.db.h2"/>
-<plugin id="org.eclipse.net4j.db.h2.source"/>
-<plugin id="org.eclipse.net4j.db.jdbc"/>
-<plugin id="org.eclipse.net4j.db.jdbc.source"/>
-<plugin id="org.eclipse.net4j.db.source"/>
-<plugin id="org.eclipse.net4j.jvm"/>
-<plugin id="org.eclipse.net4j.jvm.source"/>
-<plugin id="org.eclipse.net4j.source"/>
-<plugin id="org.eclipse.net4j.tcp"/>
-<plugin id="org.eclipse.net4j.tcp.source"/>
-<plugin id="org.eclipse.net4j.ui"/>
-<plugin id="org.eclipse.net4j.ui.shared"/>
-<plugin id="org.eclipse.net4j.ui.shared.source"/>
-<plugin id="org.eclipse.net4j.ui.source"/>
-<plugin id="org.eclipse.net4j.util"/>
-<plugin id="org.eclipse.net4j.util.source"/>
-<plugin id="org.eclipse.net4j.util.ui"/>
-<plugin id="org.eclipse.net4j.util.ui.source"/>
-<plugin id="org.eclipse.ocl"/>
-<plugin id="org.eclipse.ocl.common"/>
-<plugin id="org.eclipse.ocl.common.source"/>
-<plugin id="org.eclipse.ocl.ecore"/>
-<plugin id="org.eclipse.ocl.ecore.source"/>
-<plugin id="org.eclipse.ocl.source"/>
-<plugin id="org.eclipse.xtend.lib"/>
-<plugin id="org.eclipse.xtend.lib.macro"/>
-<plugin id="org.eclipse.xtend.lib.macro.source"/>
-<plugin id="org.eclipse.xtend.lib.source"/>
-<plugin id="org.eclipse.xtext.xbase.lib"/>
-<plugin id="org.eclipse.xtext.xbase.lib.source"/>
-<plugin id="org.h2"/>
-<plugin id="org.h2.source"/>
-<plugin id="org.mockito"/>
-<plugin id="org.mockito.source"/>
-<plugin id="org.objenesis"/>
-<plugin id="org.objenesis.source"/>
-<plugin id="org.slf4j.apis.jcl"/>
-<plugin id="org.slf4j.apis.jcl.source"/>
-<plugin id="org.slf4j.apis.log4j"/>
-<plugin id="org.slf4j.apis.log4j.source"/>
-<plugin id="org.slf4j.bridge.jul"/>
-<plugin id="org.slf4j.bridge.jul.source"/>
-</includeBundles>
 </target>

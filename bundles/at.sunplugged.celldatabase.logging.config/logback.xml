@@ -32,14 +32,12 @@
 
 	</appender>
 
-	<logger name="at.sunplugged.celldatabase.logger" level="INFO" additivity="false"/>
-	<logger name="org.hibernate.SQL" level="DEBUG"/>
-	<logger name="org.hibernate.type" level="DEBUG"/>
-	<logger name="org.hibernate" level="DEBUG"/>
+	<logger name="at.sunplugged.celldatabase" level="DEBUG" additivity="false">
+		<appender-ref ref="STDOUT" />
+	</logger>
 
 	<root level="DEBUG">
 		<appender-ref ref="FILE" />
-		<appender-ref ref="STDOUT" />
 	</root>
 
 </configuration>

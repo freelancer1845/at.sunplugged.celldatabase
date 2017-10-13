@@ -79,8 +79,8 @@ public class PageOne extends WizardPage {
 
     txtSprodFile = new Text(container, SWT.BORDER | SWT.SINGLE);
     txtSprodFile.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-    String initialLocation = ConfigurationScope.INSTANCE.getNode(PrefNodes.LOCATIONS).get(
-        LocationsGeneral.SPROD_FILE, "");
+    String initialLocation = ConfigurationScope.INSTANCE.getNode(PrefNodes.LOCATIONS)
+        .get(LocationsGeneral.SPROD_FILE, "");
     txtSprodFile.setText(initialLocation);
 
     btnSprodFile = new Button(container, SWT.PUSH);
@@ -93,7 +93,6 @@ public class PageOne extends WizardPage {
     btnImport.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
     btnImport.setText("Import");
     btnImport.addSelectionListener(new BtnImportSelectionListener());
-
 
 
     TableViewerSWTBuilder builder = TableViewerFactory.fillDefaults(container, SWT.NONE,
@@ -136,8 +135,8 @@ public class PageOne extends WizardPage {
        */
       protected Composite createViewerComposite(final Composite composite) {
         final Composite viewerComposite = new Composite(composite, SWT.NONE);
-        GridDataFactory.fillDefaults().grab(true, true).align(SWT.FILL, SWT.FILL).applyTo(
-            viewerComposite);
+        GridDataFactory.fillDefaults().grab(true, true).align(SWT.FILL, SWT.FILL)
+            .applyTo(viewerComposite);
         GridLayoutFactory.fillDefaults().numColumns(1).applyTo(viewerComposite);
         return viewerComposite;
       }

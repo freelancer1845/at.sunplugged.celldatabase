@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmlns:ui="http://www.eclipse.org/ui/2010/UIModel/application/ui" xmi:id="_ifJ-kI7yEeelnoB5mxxecg">
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_ifJ-kI7yEeelnoB5mxxecg">
   <imports xsi:type="commands:Command" xmi:id="_TkOEwI78EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.command.creategroup"/>
   <imports xsi:type="commands:Command" xmi:id="_DuoIQI8AEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.command.deleteelement"/>
   <imports xsi:type="commands:Command" xmi:id="_TK4eEI8EEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.command.addrawcellresult"/>
@@ -34,9 +34,7 @@
       <menus xsi:type="menu:PopupMenu" xmi:id="_kgcx0I77EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.popupmenu.treepopupmenu" label="Tree Popup Menu">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_nRyRAI77EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.addcellgroup" label="Add CellGroup" command="_TkOEwI78EeelnoB5mxxecg"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_K6jmoI8EEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.addrawcellresult" label="Add Raw Cell Result" command="_TK4eEI8EEeelnoB5mxxecg"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_T0pKcKjnEeeXOcsHpelg_g" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.setname" label="Set Name" command="_Y-uCoKjnEeeXOcsHpelg_g">
-          <visibleWhen xsi:type="ui:ImperativeExpression" xmi:id="_iEO1oKjnEeeXOcsHpelg_g" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.handler.SetNameHandler"/>
-        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_T0pKcKjnEeeXOcsHpelg_g" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.setname" label="Set Name" command="_Y-uCoKjnEeeXOcsHpelg_g"/>
         <children xsi:type="menu:DirectMenuItem" xmi:id="_D-18QI8FEeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.directmenuitem.calculatecellresultfrompython" label="Calculate Cell Result From Python" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp.modelviewer/at.sunplugged.celldatabase.rcp.modelviewer.handler.CalculateCellResultFromPythonHandler"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_bbcq8JU3Eeeha-ZlG6JHqQ" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.plot" label="Plot..." command="_ThByEJU3Eeeha-ZlG6JHqQ"/>
         <children xsi:type="menu:MenuSeparator" xmi:id="_fW5hQI7_EeelnoB5mxxecg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.menuseparator.0"/>
@@ -45,9 +43,6 @@
         <children xsi:type="menu:HandledMenuItem" xmi:id="_r-YNEI8pEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.undo" label="Undo" command="_pnSEwI8nEee3m-gA9IKKWg"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_t5TBoI8pEee3m-gA9IKKWg" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.redo" label="Redo" command="_sTsnsI8nEee3m-gA9IKKWg"/>
         <children xsi:type="menu:MenuSeparator" xmi:id="_t3NusJOiEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.modelviewer.menuseparator.2"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_252_cK5zEeeozf3mVxZ5lw" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.0" command="_zNbxAK5zEeeozf3mVxZ5lw">
-          <visibleWhen xsi:type="ui:ImperativeExpression" xmi:id="_oDTlcK50Eeeozf3mVxZ5lw" contributionURI="bundleclass://at.sunplugged.celldatabase.common.ui/at.sunplugged.celldatabase.common.ui.imperativeexpressions.CellGroupSelectedImperativeExpression"/>
-        </children>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_1cUe4JOiEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.exporttoexcel" label="Export To Excel" command="_NvquAJOjEeejFq7KVcklQw"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_ubPtMJPAEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.modelviewer.handledmenuitem.save" label="Save" command="_rHW6kJPAEeejFq7KVcklQw"/>
       </menus>

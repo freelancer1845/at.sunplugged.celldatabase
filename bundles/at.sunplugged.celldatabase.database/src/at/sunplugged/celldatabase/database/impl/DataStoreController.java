@@ -138,7 +138,6 @@ public class DataStoreController {
     hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_NON_CONTAINMENT,
         "REFRESH,PERSIST,MERGE");
     hibernateProperties.setProperty(PersistenceOptions.INHERITANCE_MAPPING, "JOINED");
-    hibernateProperties.setProperty(Environment.SHOW_SQL, "true");
     // hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_NON_CONTAINMENT, "ALL");
     // hibernateProperties.setProperty(PersistenceOptions.CASCADE_POLICY_ON_CONTAINMENT, "ALL");
     // hibernateProperties.setProperty(PersistenceOptions.INHERITANCE_MAPPING, "JOINED");

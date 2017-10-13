@@ -95,8 +95,7 @@ public class PageOne extends WizardPage {
             treeViewer.setAutoExpandLevel(2);
             return treeViewer;
           }
-        })
-        .customizeContentProvider(new ITreeContentProvider() {
+        }).customizeContentProvider(new ITreeContentProvider() {
           @Override
           public boolean hasChildren(Object element) {
             if (element instanceof Database) {
@@ -116,10 +115,8 @@ public class PageOne extends WizardPage {
             } else if (element instanceof CellGroup) {
               return database;
             } else if (element instanceof CellResult) {
-              return database.getCellGroups()
-                  .stream()
-                  .filter(cellGroup -> cellGroup.getCellResults().contains(element))
-                  .findAny()
+              return database.getCellGroups().stream()
+                  .filter(cellGroup -> cellGroup.getCellResults().contains(element)).findAny()
                   .orElse(null);
             }
             return false;
@@ -140,9 +137,7 @@ public class PageOne extends WizardPage {
             }
             return null;
           };
-        })
-        .customizeMenu(createMenu())
-        .create();
+        }).customizeMenu(createMenu()).create();
 
     database.getCellGroups().forEach(group -> treeViewer.setSubtreeChecked(group, true));
     treeViewer.addCheckStateListener(new ICheckStateListener() {
