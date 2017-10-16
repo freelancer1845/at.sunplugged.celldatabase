@@ -8,6 +8,7 @@ Export-Package: at.sunplugged.celldatabase.excelwriter.api
 Import-Package: datamodel,
  org.apache.commons.math3.stat.descriptive.moment;version="3.5.0",
  org.apache.poi,
+ org.apache.poi.ss,
  org.apache.poi.ss.usermodel,
  org.apache.poi.xssf.usermodel,
  org.apache.poi.xssf.usermodel.helpers,

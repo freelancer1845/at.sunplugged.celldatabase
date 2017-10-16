@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="at.sunplugged.celldatabase.rcp" uid="RCP product" id="at.sunplugged.celldatabase.rcp.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
+<product name="CellDatabase" uid="at.sunplugged.celldatabase.rcp" id="at.sunplugged.celldatabase.rcp.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" useFeatures="false" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
 
    <launcherArgs>
-      <programArgs>-clearPersistedState
--console
-      </programArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
    </launcherArgs>
-
-   <windowImages/>
 
    <launcher name="CellDatabase">
       <win useIco="false">
@@ -50,33 +45,30 @@
       <plugin id="com.google.gson"/>
       <plugin id="com.google.guava"/>
       <plugin id="com.ibm.icu"/>
-      <plugin id="com.microsoft.sqlserver.jdbc"/>
       <plugin id="javax.annotation"/>
       <plugin id="javax.inject"/>
       <plugin id="javax.persistence"/>
-      <plugin id="javax.xml"/>
+      <plugin id="lpg.runtime.java"/>
       <plugin id="org.apache.batik.css"/>
       <plugin id="org.apache.batik.util"/>
-      <plugin id="org.apache.batik.util.gui"/>
       <plugin id="org.apache.commons.codec"/>
       <plugin id="org.apache.commons.exec"/>
       <plugin id="org.apache.commons.jxpath"/>
       <plugin id="org.apache.commons.math3"/>
+      <plugin id="org.apache.felix.gogo.command"/>
+      <plugin id="org.apache.felix.gogo.runtime"/>
+      <plugin id="org.apache.felix.scr"/>
       <plugin id="org.apache.poi"/>
       <plugin id="org.apache.poi.ooxml"/>
       <plugin id="org.apache.poi.ooxml.schemas"/>
       <plugin id="org.apache.xmlbeans"/>
       <plugin id="org.dom4j"/>
-      <plugin id="org.eclipse.compare"/>
-      <plugin id="org.eclipse.compare.core"/>
       <plugin id="org.eclipse.core.commands"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.databinding"/>
-      <plugin id="org.eclipse.core.databinding.beans"/>
       <plugin id="org.eclipse.core.databinding.observable"/>
       <plugin id="org.eclipse.core.databinding.property"/>
       <plugin id="org.eclipse.core.expressions"/>
-      <plugin id="org.eclipse.core.filebuffers"/>
       <plugin id="org.eclipse.core.filesystem"/>
       <plugin id="org.eclipse.core.filesystem.win32.x86_64" fragment="true"/>
       <plugin id="org.eclipse.core.jobs"/>
@@ -88,6 +80,7 @@
       <plugin id="org.eclipse.e4.core.di"/>
       <plugin id="org.eclipse.e4.core.di.annotations"/>
       <plugin id="org.eclipse.e4.core.di.extensions"/>
+      <plugin id="org.eclipse.e4.core.di.extensions.supplier"/>
       <plugin id="org.eclipse.e4.core.services"/>
       <plugin id="org.eclipse.e4.emf.xpath"/>
       <plugin id="org.eclipse.e4.ui.bindings"/>
@@ -108,10 +101,6 @@
       <plugin id="org.eclipse.emf.common.ui"/>
       <plugin id="org.eclipse.emf.compare"/>
       <plugin id="org.eclipse.emf.compare.edit"/>
-      <plugin id="org.eclipse.emf.compare.ide"/>
-      <plugin id="org.eclipse.emf.compare.ide.ui"/>
-      <plugin id="org.eclipse.emf.compare.rcp"/>
-      <plugin id="org.eclipse.emf.compare.rcp.ui"/>
       <plugin id="org.eclipse.emf.databinding"/>
       <plugin id="org.eclipse.emf.databinding.edit"/>
       <plugin id="org.eclipse.emf.ecore"/>
@@ -123,14 +112,88 @@
       <plugin id="org.eclipse.emf.ecp.core"/>
       <plugin id="org.eclipse.emf.ecp.edit"/>
       <plugin id="org.eclipse.emf.ecp.edit.swt"/>
+      <plugin id="org.eclipse.emf.ecp.ide.util"/>
+      <plugin id="org.eclipse.emf.ecp.ide.view.service"/>
+      <plugin id="org.eclipse.emf.ecp.ui"/>
       <plugin id="org.eclipse.emf.ecp.ui.view"/>
+      <plugin id="org.eclipse.emf.ecp.ui.view.editor.controls"/>
       <plugin id="org.eclipse.emf.ecp.ui.view.swt"/>
+      <plugin id="org.eclipse.emf.ecp.view.categorization.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.categorization.model.edit"/>
+      <plugin id="org.eclipse.emf.ecp.view.categorization.model.edit.source"/>
+      <plugin id="org.eclipse.emf.ecp.view.categorization.swt"/>
+      <plugin id="org.eclipse.emf.ecp.view.compoundcontrol.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.compoundcontrol.model.edit"/>
+      <plugin id="org.eclipse.emf.ecp.view.compoundcontrol.swt"/>
+      <plugin id="org.eclipse.emf.ecp.view.compoundcontrol.tooling"/>
       <plugin id="org.eclipse.emf.ecp.view.context"/>
+      <plugin id="org.eclipse.emf.ecp.view.context.locale"/>
+      <plugin id="org.eclipse.emf.ecp.view.context.source"/>
+      <plugin id="org.eclipse.emf.ecp.view.control.multireference"/>
+      <plugin id="org.eclipse.emf.ecp.view.core.swt"/>
+      <plugin id="org.eclipse.emf.ecp.view.custom.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.custom.model.edit"/>
+      <plugin id="org.eclipse.emf.ecp.view.custom.ui.swt"/>
+      <plugin id="org.eclipse.emf.ecp.view.edapt"/>
+      <plugin id="org.eclipse.emf.ecp.view.group.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.group.model.edit"/>
+      <plugin id="org.eclipse.emf.ecp.view.group.swt.collapsable"/>
+      <plugin id="org.eclipse.emf.ecp.view.group.swt.embedded"/>
+      <plugin id="org.eclipse.emf.ecp.view.group.ui.swt"/>
+      <plugin id="org.eclipse.emf.ecp.view.horizontal.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.horizontal.model.edit"/>
+      <plugin id="org.eclipse.emf.ecp.view.horizontal.ui.swt"/>
+      <plugin id="org.eclipse.emf.ecp.view.indexdmr.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.label.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.label.model.edit"/>
+      <plugin id="org.eclipse.emf.ecp.view.label.ui.swt"/>
+      <plugin id="org.eclipse.emf.ecp.view.mappingdmr.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.migrator"/>
       <plugin id="org.eclipse.emf.ecp.view.model"/>
       <plugin id="org.eclipse.emf.ecp.view.model.common"/>
+      <plugin id="org.eclipse.emf.ecp.view.model.edapt"/>
+      <plugin id="org.eclipse.emf.ecp.view.model.edit"/>
+      <plugin id="org.eclipse.emf.ecp.view.model.editor"/>
+      <plugin id="org.eclipse.emf.ecp.view.model.preview.common"/>
+      <plugin id="org.eclipse.emf.ecp.view.model.project.installer"/>
+      <plugin id="org.eclipse.emf.ecp.view.model.provider.generator"/>
+      <plugin id="org.eclipse.emf.ecp.view.model.provider.xmi"/>
+      <plugin id="org.eclipse.emf.ecp.view.rule"/>
+      <plugin id="org.eclipse.emf.ecp.view.rule.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.rule.model.edit"/>
+      <plugin id="org.eclipse.emf.ecp.view.stack.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.stack.model.edit"/>
+      <plugin id="org.eclipse.emf.ecp.view.stack.ui.swt"/>
+      <plugin id="org.eclipse.emf.ecp.view.stack.viewmodel"/>
+      <plugin id="org.eclipse.emf.ecp.view.swt.layout"/>
+      <plugin id="org.eclipse.emf.ecp.view.table.columnservice"/>
+      <plugin id="org.eclipse.emf.ecp.view.table.edapt"/>
+      <plugin id="org.eclipse.emf.ecp.view.table.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.table.model.edit"/>
+      <plugin id="org.eclipse.emf.ecp.view.table.ui.swt"/>
+      <plugin id="org.eclipse.emf.ecp.view.table.validation"/>
       <plugin id="org.eclipse.emf.ecp.view.template.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.template.model.edit"/>
+      <plugin id="org.eclipse.emf.ecp.view.template.service"/>
+      <plugin id="org.eclipse.emf.ecp.view.template.tooling"/>
       <plugin id="org.eclipse.emf.ecp.view.treemasterdetail.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.treemasterdetail.model.edit"/>
+      <plugin id="org.eclipse.emf.ecp.view.treemasterdetail.ui.swt"/>
+      <plugin id="org.eclipse.emf.ecp.view.treemasterdetail.validation"/>
+      <plugin id="org.eclipse.emf.ecp.view.unset"/>
       <plugin id="org.eclipse.emf.ecp.view.util.swt"/>
+      <plugin id="org.eclipse.emf.ecp.view.validation"/>
+      <plugin id="org.eclipse.emf.ecp.view.vertical.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.vertical.model.edit"/>
+      <plugin id="org.eclipse.emf.ecp.view.vertical.ui.swt"/>
+      <plugin id="org.eclipse.emf.ecp.view.viewproxy.model"/>
+      <plugin id="org.eclipse.emf.ecp.view.viewproxy.model.edit"/>
+      <plugin id="org.eclipse.emf.ecp.view.workspace.migrator"/>
+      <plugin id="org.eclipse.emf.ecp.workspace.core"/>
+      <plugin id="org.eclipse.emf.edapt.common"/>
+      <plugin id="org.eclipse.emf.edapt.declaration"/>
+      <plugin id="org.eclipse.emf.edapt.history"/>
+      <plugin id="org.eclipse.emf.edapt.migration"/>
       <plugin id="org.eclipse.emf.edit"/>
       <plugin id="org.eclipse.emf.edit.ui"/>
       <plugin id="org.eclipse.emf.teneo"/>
@@ -140,14 +203,34 @@
       <plugin id="org.eclipse.emf.transaction"/>
       <plugin id="org.eclipse.emf.validation"/>
       <plugin id="org.eclipse.emfforms.common"/>
+      <plugin id="org.eclipse.emfforms.common.validation"/>
       <plugin id="org.eclipse.emfforms.core.services"/>
+      <plugin id="org.eclipse.emfforms.core.services.databinding.featurepath"/>
+      <plugin id="org.eclipse.emfforms.core.services.databinding.index"/>
+      <plugin id="org.eclipse.emfforms.core.services.databinding.mapping"/>
+      <plugin id="org.eclipse.emfforms.core.services.domainexpander.default"/>
+      <plugin id="org.eclipse.emfforms.core.services.domainexpander.index"/>
+      <plugin id="org.eclipse.emfforms.core.services.domainexpander.mapping"/>
+      <plugin id="org.eclipse.emfforms.core.services.domainexpander.table"/>
       <plugin id="org.eclipse.emfforms.core.services.editsupport"/>
       <plugin id="org.eclipse.emfforms.core.services.emf"/>
       <plugin id="org.eclipse.emfforms.core.services.emfspecificservice"/>
+      <plugin id="org.eclipse.emfforms.core.services.legacy"/>
+      <plugin id="org.eclipse.emfforms.core.services.locale.default"/>
+      <plugin id="org.eclipse.emfforms.core.services.mappingprovider.default"/>
+      <plugin id="org.eclipse.emfforms.core.services.mappingprovider.table"/>
+      <plugin id="org.eclipse.emfforms.core.services.structuralchange"/>
+      <plugin id="org.eclipse.emfforms.core.services.structuralchange.default"/>
+      <plugin id="org.eclipse.emfforms.core.services.structuralchange.index"/>
+      <plugin id="org.eclipse.emfforms.core.services.structuralchange.mapping"/>
+      <plugin id="org.eclipse.emfforms.core.services.structuralchange.table"/>
+      <plugin id="org.eclipse.emfforms.editor"/>
       <plugin id="org.eclipse.emfforms.localization"/>
       <plugin id="org.eclipse.emfforms.swt.core"/>
+      <plugin id="org.eclipse.emfforms.swt.core.di"/>
       <plugin id="org.eclipse.emfforms.swt.table"/>
       <plugin id="org.eclipse.emfforms.swt.treemasterdetail"/>
+      <plugin id="org.eclipse.emfforms.view.model.localization"/>
       <plugin id="org.eclipse.equinox.app"/>
       <plugin id="org.eclipse.equinox.bidi"/>
       <plugin id="org.eclipse.equinox.common"/>
@@ -165,30 +248,27 @@
       <plugin id="org.eclipse.equinox.security.win32.x86_64" fragment="true"/>
       <plugin id="org.eclipse.equinox.supplement"/>
       <plugin id="org.eclipse.equinox.transforms.hook" fragment="true"/>
-      <plugin id="org.eclipse.equinox.util"/>
       <plugin id="org.eclipse.equinox.weaving.hook" fragment="true"/>
       <plugin id="org.eclipse.help"/>
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.databinding"/>
       <plugin id="org.eclipse.jface.text"/>
       <plugin id="org.eclipse.net4j.util"/>
+      <plugin id="org.eclipse.ocl"/>
+      <plugin id="org.eclipse.ocl.common"/>
+      <plugin id="org.eclipse.ocl.ecore"/>
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.compatibility.state" fragment="true"/>
       <plugin id="org.eclipse.osgi.services"/>
+      <plugin id="org.eclipse.osgi.util"/>
       <plugin id="org.eclipse.swt"/>
       <plugin id="org.eclipse.swt.win32.win32.x86_64" fragment="true"/>
-      <plugin id="org.eclipse.team.core"/>
-      <plugin id="org.eclipse.team.ui"/>
       <plugin id="org.eclipse.text"/>
       <plugin id="org.eclipse.ui"/>
-      <plugin id="org.eclipse.ui.editors"/>
-      <plugin id="org.eclipse.ui.forms"/>
       <plugin id="org.eclipse.ui.ide"/>
-      <plugin id="org.eclipse.ui.navigator"/>
       <plugin id="org.eclipse.ui.views"/>
       <plugin id="org.eclipse.ui.win32" fragment="true"/>
       <plugin id="org.eclipse.ui.workbench"/>
-      <plugin id="org.eclipse.ui.workbench.texteditor"/>
       <plugin id="org.hibernate"/>
       <plugin id="org.hsqldb"/>
       <plugin id="org.slf4j.api"/>
@@ -196,72 +276,7 @@
       <plugin id="org.slf4j.apis.log4j"/>
       <plugin id="org.tukaani.xz"/>
       <plugin id="org.w3c.css.sac"/>
-      <plugin id="org.w3c.dom.events"/>
-      <plugin id="org.w3c.dom.smil"/>
-      <plugin id="org.w3c.dom.svg"/>
    </plugins>
-
-   <features>
-      <feature id="at.sunplugged.celldatabase.feature" version="1.0.0.qualifier"/>
-      <feature id="at.sunplugged.celldatabase.feature.apache" version="1.0.0.qualifier"/>
-      <feature id="at.sunplugged.celldatabase.feature.google" version="1.0.0.qualifier"/>
-      <feature id="at.sunplugged.celldatabase.feature.logging" version="1.0.0.qualifier"/>
-      <feature id="at.sunplugged.celldatabase.feature.teneo" version="1.0.0.qualifier"/>
-      <feature id="at.sunplugged.celldatabase.feature.target" version="1.0.0.qualifier"/>
-      <feature id="org.eclipse.emf.ecore"/>
-      <feature id="org.eclipse.emf.common"/>
-      <feature id="com.microsoft.sqlserver.jdbc" version="4.0.2206.100"/>
-      <feature id="org.eclipse.emf.compare" version="3.3.2.201709090201"/>
-      <feature id="org.hsqldb" version="2.3.2"/>
-      <feature id="org.eclipse.emf.edit" version="2.12.0.v20170609-0928"/>
-      <feature id="org.eclipse.e4.ui.progress.feature" version="0.1.0.v20150731-0425"/>
-      <feature id="javax.persistence" version="2.1.0"/>
-      <feature id="org.eclipse.emf.compare.ide.ui" version="3.3.2.201709090201"/>
-      <feature id="org.eclipse.emf.ecp.view.treemasterdetail.feature" version="1.13.1.20170711-0730"/>
-      <feature id="org.eclipse.emf.ecp.feature" version="1.13.1.20170711-0730"/>
-      <feature id="org.eclipse.emf.ecp.viewmodel.feature" version="1.13.1.20170711-0730"/>
-      <feature id="org.eclipse.emf.edit.ui" version="2.13.0.v20170609-0928"/>
-      <feature id="org.eclipse.emf.ecp.view.table.feature" version="1.13.1.20170711-0730"/>
-      <feature id="org.eclipse.emfforms.editor.feature" version="1.13.1.20170711-0730"/>
-      <feature id="org.eclipse.emf.ecp.view.group.feature" version="1.13.1.20170711-0730"/>
-      <feature id="org.eclipse.emf.codegen.ecore.ui" version="2.13.0.v20170609-0928"/>
-      <feature id="org.eclipse.emf.codegen.ecore" version="2.13.0.v20170609-0928"/>
-      <feature id="org.eclipse.emf.codegen" version="2.12.0.v20170609-0928"/>
-      <feature id="org.eclipse.emf.ecp.emfforms.idetooling.feature" version="1.13.1.20170711-0730"/>
-      <feature id="org.eclipse.emf.ecp.workspace.feature" version="1.13.1.20170711-0730"/>
-      <feature id="org.eclipse.emf.ecp.emfforms.runtime.feature"/>
-      <feature id="org.eclipse.emf.ecp.view.vertical.feature"/>
-      <feature id="org.eclipse.emf.ecp.view.template.feature"/>
-      <feature id="org.eclipse.emf.ecp.view.label.feature"/>
-      <feature id="org.eclipse.emf.ecp.view.model.controls.feature"/>
-      <feature id="org.eclipse.emf.ecp.view.categorization.feature"/>
-      <feature id="org.eclipse.emf.ecp.view.model.editor.feature"/>
-      <feature id="org.eclipse.emf.ecp.view.custom.feature"/>
-      <feature id="org.eclipse.emf.ecp.view.stack.feature"/>
-      <feature id="org.eclipse.emf.ecp.view.compoundcontrol.feature"/>
-      <feature id="org.eclipse.emf.ecp.view.validation.feature"/>
-      <feature id="org.eclipse.emf.ecp.view.rule.feature"/>
-      <feature id="org.eclipse.emf.ecp.view.unset.feature"/>
-      <feature id="org.eclipse.emf.ecp.view.horizontal.feature"/>
-      <feature id="org.eclipse.emf.ecp.view.validation.initial.feature"/>
-      <feature id="org.eclipse.equinox.core.feature" version="1.4.1.v20170928-1321"/>
-      <feature id="org.eclipse.platform" version="4.7.1.v20171009-0410"/>
-      <feature id="org.eclipse.ecf.filetransfer.httpclient4.feature"/>
-      <feature id="org.eclipse.help"/>
-      <feature id="org.eclipse.equinox.p2.core.feature"/>
-      <feature id="org.eclipse.ecf.core.ssl.feature"/>
-      <feature id="org.eclipse.ecf.filetransfer.ssl.feature"/>
-      <feature id="org.eclipse.rcp"/>
-      <feature id="org.eclipse.equinox.p2.rcp.feature"/>
-      <feature id="org.eclipse.ecf.filetransfer.feature"/>
-      <feature id="org.eclipse.ecf.filetransfer.httpclient4.ssl.feature"/>
-      <feature id="org.eclipse.equinox.p2.user.ui"/>
-      <feature id="org.eclipse.equinox.p2.extras.feature"/>
-      <feature id="org.eclipse.ecf.core.feature"/>
-      <feature id="org.eclipse.e4.rcp"/>
-      <feature id="org.eclipse.emf.databinding" version="1.4.0.v20170609-0928"/>
-      <feature id="org.eclipse.emf.databinding.edit" version="1.4.0.v20170609-0928"/>
-   </features>
 
    <configurations>
       <plugin id="at.sunplugged.celldatabase.logging.config" autoStart="true" startLevel="0" />

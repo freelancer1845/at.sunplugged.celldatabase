@@ -424,7 +424,7 @@ public class ExcelOutputHelper {
   private void writeWorkbook(String filePath, XSSFWorkbook workbook) {
     try (FileOutputStream out = new FileOutputStream(new File(filePath))) {
 
-      workbook.write(out);
+      // workbook.write(out);
 
     } catch (FileNotFoundException e) {
       // TODO Auto-generated catch block

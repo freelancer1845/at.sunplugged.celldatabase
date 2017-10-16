@@ -6,15 +6,11 @@
          id="product"
          point="org.eclipse.core.runtime.products">
       <product
-            name="at.sunplugged.celldatabase.rcp"
-            application="org.eclipse.e4.ui.workbench.swt.E4Application">
-         <property
-               name="applicationCSS"
-               value="platform:/plugin/at.sunplugged.celldatabase.rcp/css/default.css">
-         </property>
+            application="org.eclipse.e4.ui.workbench.swt.E4Application"
+            name="CellDatabase">
          <property
                name="appName"
-               value="at.sunplugged.celldatabase.rcp">
+               value="CellDatabase">
          </property>
          <property
                name="lifeCycleURI"
