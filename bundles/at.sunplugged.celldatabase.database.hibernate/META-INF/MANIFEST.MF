@@ -271,6 +271,3 @@ Import-Package: javax.persistence;version="[2.1.0,3.0.0)",
  javax.persistence.criteria;version="[2.1.0,3.0.0)",
  javax.persistence.metamodel;version="[2.1.0,3.0.0)",
  javax.persistence.spi;version="[2.1.0,3.0.0)"
-Require-Bundle: org.slf4j.api;bundle-version="1.7.2",
- ch.qos.logback.classic;bundle-version="1.0.7",
- ch.qos.logback.core;bundle-version="1.0.7"

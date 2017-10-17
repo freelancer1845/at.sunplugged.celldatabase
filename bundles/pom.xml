@@ -24,13 +24,15 @@
 		<module>at.sunplugged.celldatabase.labviewimport.ui</module>
 		<module>at.sunplugged.celldatabase.excelwriter</module>
 		<module>at.sunplugged.celldatabase.excelwriter.ui</module>
-		<module>at.sunplugged.celldatabase.logging.config</module>
-		<module>at.sunplugged.celldatabase.database.hibernate</module>
+		
+		
 		<module>at.sunplugged.celldatabase.plotting</module>
 		<module>at.sunplugged.celldatabase.common</module>
 		<!-- 
+		<module>at.sunplugged.celldatabase.logging.config</module>
 		<module>org.eclipse.emf.compare.ide.ui.e4</module>
 		<module>org.eclipse.compare</module>
+		<module>at.sunplugged.celldatabase.database.hibernate</module>
 		 -->
 	</modules>
 </project>

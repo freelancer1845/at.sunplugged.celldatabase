@@ -22,10 +22,6 @@
     </mainMenu>
     <trimBars xmi:id="_L16ZQJOyEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.trimbar.0">
       <children xsi:type="menu:ToolBar" xmi:id="_MREEMJOyEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.toolbar.0">
-        <children xsi:type="menu:HandledToolItem" xmi:id="_NZj9UJOyEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.handledtoolitem.connect" label="Connect" command="_SQSbsJOyEeejFq7KVcklQw"/>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_GggBgJO3EeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.handledtoolitem.disconnect" label="Disconnect" command="_ILnfgJO3EeejFq7KVcklQw"/>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_efmI4JfeEeetk8NgRqyvog" elementId="at.sunplugged.celldatabase.rcp.handledtoolitem.refresh" label="Refresh" command="_IKLmEJfeEeetk8NgRqyvog"/>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_5TgzUJgKEeetk8NgRqyvog" elementId="at.sunplugged.celldatabase.rcp.handledtoolitem.commit" label="Commit" command="_3s73EJgKEeetk8NgRqyvog"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_F7vusKjsEeeXOcsHpelg_g" elementId="at.sunplugged.celldatabase.rcp.handledtoolitem.exportsummary" label="Export Summary" command="_jJge0KjrEeeXOcsHpelg_g"/>
       </children>
     </trimBars>
@@ -33,10 +29,6 @@
       <children xsi:type="menu:ToolControl" xmi:id="_13grgJViEeeha-ZlG6JHqQ" elementId="at.sunplugged.celldatabase.rcp.toolcontrol.1" contributionURI="bundleclass://org.eclipse.e4.ui.progress/org.eclipse.e4.ui.progress.internal.ProgressRegion"/>
     </trimBars>
   </children>
-  <handlers xmi:id="_VknTMJOyEeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.handler.0" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.ConnectToDatabaseHandler" command="_SQSbsJOyEeejFq7KVcklQw"/>
-  <handlers xmi:id="_JbHYgJO3EeejFq7KVcklQw" elementId="at.sunplugged.celldatabase.rcp.handler.1" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.DisconnectHandler" command="_ILnfgJO3EeejFq7KVcklQw"/>
-  <handlers xmi:id="_KIqE8JfeEeetk8NgRqyvog" elementId="at.sunplugged.celldatabase.rcp.handler.2" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.RefreshDatabaseHandler" command="_IKLmEJfeEeetk8NgRqyvog"/>
-  <handlers xmi:id="_9jCu0JgKEeetk8NgRqyvog" elementId="at.sunplugged.celldatabase.rcp.handler.3" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.CommitHandler" command="_3s73EJgKEeetk8NgRqyvog"/>
   <handlers xmi:id="_nDN7UKjrEeeXOcsHpelg_g" elementId="at.sunplugged.celldatabase.rcp.handler.4" contributionURI="bundleclass://at.sunplugged.celldatabase.rcp/at.sunplugged.celldatabase.rcp.handler.ExportSummaryToExcel" command="_jJge0KjrEeeXOcsHpelg_g"/>
   <rootContext xmi:id="_c3AF2cjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>

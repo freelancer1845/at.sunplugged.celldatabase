@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import at.sunplugged.celldatabase.database.api.ModelDatabaseService;
 import at.sunplugged.celldatabase.excelwriter.ui.wizards.summary.SummaryExportWizard;
+import datamodel.Database;
 
 public class ExportSummaryToExcel {
 	@Execute

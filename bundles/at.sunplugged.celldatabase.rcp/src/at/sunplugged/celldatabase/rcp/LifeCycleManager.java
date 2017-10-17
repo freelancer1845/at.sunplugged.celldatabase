@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabase.common.PythonSettings;
 import at.sunplugged.celldatabase.common.RegexPatterns;
 import at.sunplugged.celldatabase.common.topics.DatabaseTopics;
-import at.sunplugged.celldatabase.database.impl.DataStoreController;
 
 @SuppressWarnings("restriction")
 public class LifeCycleManager {
@@ -29,12 +28,12 @@ public class LifeCycleManager {
 
 		createDefaultProperties();
 
-		LOG.debug("Loading Database package... Initilizing HSQLDatastore...");
-		if (DataStoreController.setupHsqlDataStore() == true) {
-			LOG.debug("Successfully loaded HSQLDataStore...");
-		} else {
-			LOG.error("Failed loading HSQLDataStore!");
-		}
+//		LOG.debug("Loading Database package... Initilizing HSQLDatastore...");
+//		if (DataStoreController.setupHsqlDataStore() == true) {
+//			LOG.debug("Successfully loaded HSQLDataStore...");
+//		} else {
+//			LOG.error("Failed loading HSQLDataStore!");
+//		}
 
 		LOG.debug("POST CONTEXT CREATE DONE...");
 	}
